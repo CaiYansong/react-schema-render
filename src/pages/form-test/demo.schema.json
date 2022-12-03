@@ -1,7 +1,7 @@
 {
   "formConf": {
     "labelWidth": "100px",
-    "marginY": 16,
+    "marginY": 25,
     "marginX": 21,
     "labelPosition": "left"
   },
@@ -20,7 +20,7 @@
       "append": "app",
       "disabled": true,
       "readonly": true,
-      "span": 23
+      "span": 12
     },
     {
       "type": "input",

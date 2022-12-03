@@ -9,7 +9,7 @@ const TypeEnum = {
 
 export default function FormRender({
   name,
-  layout,
+  inline,
   initialValues,
   scenario,
   schema = {},
@@ -32,15 +32,38 @@ export default function FormRender({
     console.log('onValueChange', changedValues, allValues);
   }
 
+  let layout = undefined;
+  if (inline) {
+    layout = 'inline';
+  }
+
+  const { labelPosition, labelWidth, marginY, marginX } = formConf || {};
+
+  if (labelPosition === 'top') {
+    layout = 'vertical';
+  }
+
+  const labelCol = {};
+
+  // 带单位的为 style.width 的值
+  if (typeof labelWidth === 'string' && labelWidth != +labelWidth) {
+    if (!labelCol.style) {
+      labelCol.style = {};
+    }
+    labelCol.style.width = labelWidth;
+  } else if (typeof labelWidth === 'number' || labelWidth == +labelWidth) {
+    labelCol.span = labelWidth;
+  }
+
   return (
     <Form
       className="form-render"
       name={name}
       form={form}
-      layout={layout}
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
       initialValues={initialValues || data}
+      layout={layout}
+      labelCol={labelCol}
+      labelAlign={formConf.labelPosition}
       onValuesChange={onValueChange}
     >
       {fieldList?.map((it) => {
@@ -55,6 +78,11 @@ export default function FormRender({
             label={it.label}
             name={it.name}
             rules={rules}
+            wrapperCol={{ span: it.span }}
+            style={{
+              marginBottom: `${marginY || 24}px`,
+              marginRight: `${marginX || 16}px`,
+            }}
           >
             {Component ? (
               <Component
