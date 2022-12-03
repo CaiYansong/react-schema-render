@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Form } from 'antd';
 
+import rulesAdapter from './adapter/rules-adapter';
+
 import Input from './components/input';
 
 const TypeEnum = {
@@ -68,7 +70,7 @@ export default function FormRender({
     >
       {fieldList?.map((it) => {
         const { type, name } = it;
-        const rules = validRules[name];
+        const rules = rulesAdapter(validRules[name], validFuncs);
 
         const Component = TypeEnum[type];
 

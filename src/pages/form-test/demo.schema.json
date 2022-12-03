@@ -18,8 +18,6 @@
       "clearable": true,
       "prepend": "pre",
       "append": "app",
-      "disabled": true,
-      "readonly": true,
       "span": 12
     },
     {
@@ -48,7 +46,9 @@
     {
       "type": "input-ip",
       "label": "IP 框",
-      "name": "input-ip-90300ff"
+      "name": "input-ip-90300ff",
+      "readonly": true,
+      "disabled": true
     },
     {
       "type": "input-file",
@@ -200,7 +200,13 @@
       "validRules": {}
     }
   ],
-  "validFuncs": [],
+  "validFuncs": [
+    {
+      "func": "console.log(formInstance); if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('预设函数：请输入大于10的数')\n}",
+      "key": "numberMin",
+      "name": "数值大小"
+    }
+  ],
   "validRules": {
     "input-2bf0d8e": [
       {
@@ -222,11 +228,25 @@
       {
         "type": "func",
         "isPreset": false,
-        "func": "if (this.data.password === this.data.password_confirm) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('两次密码的输入不一致')\n}",
+        "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
         "trigger": [
           "change",
           "blur"
         ]
+      },
+      {
+        "type": "func",
+        "preset": "numberMin",
+        "trigger": [
+          "change",
+          "blur",
+          "focus"
+        ]
+      },
+      {
+        "type": "func",
+        "isPreset": false,
+        "func": "if (+value > 10) {\n  // 校验通过\n  return Promise.resolve()\n} else {\n  // 未通过\n  return Promise.reject('Promise: 请输入大于10的数')\n}\n"
       }
     ]
   }
