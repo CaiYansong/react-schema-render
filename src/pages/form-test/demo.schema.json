@@ -1,0 +1,233 @@
+{
+  "formConf": {
+    "labelWidth": "100px",
+    "marginY": 16,
+    "marginX": 21,
+    "labelPosition": "left"
+  },
+  "fieldList": [
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-2bf0d8e",
+      "wordLimit": true,
+      "maxLength": 20,
+      "required": true,
+      "desc": "desc",
+      "placeholder": "placehold",
+      "clearable": true,
+      "prepend": "pre",
+      "append": "app",
+      "disabled": true,
+      "readonly": true,
+      "span": 23
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-f9b7f9b",
+      "mode": "textarea",
+      "autosize": true,
+      "minRows": 3,
+      "maxRows": 4,
+      "wordLimit": true,
+      "maxLength": 51
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-59f411d",
+      "isPassword": true,
+      "wordLimit": true
+    },
+    {
+      "type": "input-number",
+      "label": "数字框",
+      "name": "input-number-db290ce"
+    },
+    {
+      "type": "input-ip",
+      "label": "IP 框",
+      "name": "input-ip-90300ff"
+    },
+    {
+      "type": "input-file",
+      "label": "文件选择",
+      "name": "input-file-fe1944e"
+    },
+    {
+      "type": "select",
+      "label": "下拉选项",
+      "name": "select-b836c9c",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "label": "API",
+      "name": "select-api",
+      "remoteConf": {
+        "type": "api",
+        "api": "/api/getOptions",
+        "labelKey": "name",
+        "valueKey": "id"
+      },
+      "isRemote": true
+    },
+    {
+      "type": "select",
+      "label": "函数",
+      "name": "select-func",
+      "remoteConf": {
+        "type": "func",
+        "func": "const res = await this.config.getOptions(this.scenario);\nreturn res;"
+      },
+      "isRemote": true
+    },
+    {
+      "type": "cascader",
+      "label": "级联选择",
+      "name": "cascader-ae1e13c"
+    },
+    {
+      "type": "china-region",
+      "label": "省市区",
+      "name": "china-region-2bef44f"
+    },
+    {
+      "type": "china-location",
+      "label": "地理坐标",
+      "name": "china-location-d673726"
+    },
+    {
+      "type": "radio",
+      "label": "单选框",
+      "name": "radio-c3fb0f5",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "label": "复选框",
+      "name": "checkbox-be5b6de",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "label": "开关",
+      "name": "switch-f0d3254"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-cce160e"
+    },
+    {
+      "type": "time-picker",
+      "label": "时间选择",
+      "name": "time-picker-9a14a1f"
+    },
+    {
+      "type": "slot",
+      "label": "插槽",
+      "name": "slot-4929886"
+    },
+    {
+      "type": "wrapper",
+      "label": "容器",
+      "name": "wrapper-d0ff36c",
+      "formKey": "d0ff36c",
+      "formConf": {},
+      "fieldList": [
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "input-7583145"
+        }
+      ],
+      "validFuncs": [],
+      "validRules": {}
+    },
+    {
+      "type": "subform",
+      "label": "子表单",
+      "name": "subform-377c7bc",
+      "formKey": "377c7bc",
+      "formConf": {},
+      "fieldList": [
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "input-19e9553"
+        }
+      ],
+      "validFuncs": [],
+      "validRules": {}
+    },
+    {
+      "type": "item-list",
+      "label": "列表",
+      "name": "item-list-cdf09d8",
+      "formKey": "cdf09d8",
+      "formConf": {},
+      "fieldList": [],
+      "validFuncs": [],
+      "validRules": {}
+    }
+  ],
+  "validFuncs": [],
+  "validRules": {
+    "input-2bf0d8e": [
+      {
+        "type": "required",
+        "trigger": [
+          "change",
+          "blur"
+        ]
+      },
+      {
+        "type": "regexp",
+        "regexp": "^\\d+$",
+        "trigger": [
+          "change",
+          "blur"
+        ],
+        "note": "请输入数字"
+      },
+      {
+        "type": "func",
+        "isPreset": false,
+        "func": "if (this.data.password === this.data.password_confirm) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('两次密码的输入不一致')\n}",
+        "trigger": [
+          "change",
+          "blur"
+        ]
+      }
+    ]
+  }
+}
