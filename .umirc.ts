@@ -1,4 +1,5 @@
 import { defineConfig } from 'umi';
+import path from 'path';
 
 export default defineConfig({
   nodeModulesTransform: {
@@ -11,5 +12,6 @@ export default defineConfig({
   fastRefresh: {},
   alias: {
     '@': 'src/',
+    '@packages': path.resolve(__dirname, 'packages'),
   },
 });
