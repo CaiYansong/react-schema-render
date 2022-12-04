@@ -8,6 +8,8 @@ export default defineConfig({
   routes: [
     { path: '/', component: '@/pages/index' },
     { path: '/form-test', component: '@/pages/form-test' },
+    { path: '/table-test', component: '@/pages/table-test' },
+    { path: '/map-test', component: '@/pages/map-test' },
   ],
   fastRefresh: {},
   alias: {

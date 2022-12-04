@@ -23,8 +23,10 @@
     "@ant-design/icons": "^4.5.0",
     "@ant-design/pro-layout": "^6.5.0",
     "antd": "^4.14.0",
+    "leaflet": "^1.7.1",
     "react": "17.x",
     "react-dom": "17.x",
+    "react-leaflet": "^2.6.1",
     "umi": "^3.5.35"
   },
   "devDependencies": {

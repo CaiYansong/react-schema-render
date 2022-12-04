@@ -81,6 +81,7 @@ export default function FormRender({
       onFinishFailed={onFinishFailed}
     >
       {fieldList?.map((it) => {
+        // TODO: activator visible
         const { type, name } = it;
         const rules = rulesAdapter(validRules[name], validFuncs);
 
