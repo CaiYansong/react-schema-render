@@ -160,7 +160,8 @@
       "type": "slot",
       "label": "插槽",
       "name": "slot-4929886",
-      "slotName": "slotName"
+      "slotName": "slotName",
+      "required": true
     },
     {
       "type": "wrapper",
@@ -252,6 +253,33 @@
         "type": "func",
         "isPreset": false,
         "func": "if (+value > 10) {\n  // 校验通过\n  return Promise.resolve()\n} else {\n  // 未通过\n  return Promise.reject('Promise: 请输入大于10的数')\n}\n"
+      }
+    ],
+    "slot-4929886": [
+      {
+        "type": "required",
+        "trigger": [
+          "change",
+          "blur"
+        ],
+        "note": "请输入插槽数据"
+      },
+      {
+        "type": "regexp",
+        "regexp": "^\\d+$",
+        "note": "请输入 \\d 字符",
+        "trigger": [
+          "change",
+          "blur"
+        ]
+      },
+      {
+        "type": "func",
+        "preset": "numberMin",
+        "trigger": [
+          "change",
+          "blur"
+        ]
       }
     ]
   }

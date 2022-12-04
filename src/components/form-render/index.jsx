@@ -63,8 +63,6 @@ export default function FormRender({
     labelCol.span = labelWidth;
   }
 
-  console.log('initialValues || data', initialValues || data);
-
   function onItemChange(...args) {
     console.log('onItemChange', ...args);
   }

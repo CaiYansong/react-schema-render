@@ -8,7 +8,6 @@ import demoSchema from './demo.schema.json';
 function TestSlot(props) {
   const [val, setVal] = useState(0);
   const valRef = useRef(0);
-  console.log('TestSlot props: ', props);
 
   return (
     <div>
