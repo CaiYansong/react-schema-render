@@ -4,9 +4,11 @@ import { Form } from 'antd';
 import rulesAdapter from './adapter/rules-adapter';
 
 import Input from './components/input';
+import Select from './components/select';
 
 const TypeEnum = {
   input: Input,
+  select: Select,
 };
 
 export default function FormRender({
@@ -19,6 +21,8 @@ export default function FormRender({
   config = {},
   fieldSubmit = () => {},
   onChange = () => {},
+  onFinish = () => {},
+  onFinishFailed = () => {},
 }) {
   const {
     formConf = {},
@@ -57,6 +61,12 @@ export default function FormRender({
     labelCol.span = labelWidth;
   }
 
+  console.log('initialValues || data', initialValues || data);
+
+  function onItemChange(...args) {
+    console.log('onItemChange', ...args);
+  }
+
   return (
     <Form
       className="form-render"
@@ -67,6 +77,8 @@ export default function FormRender({
       labelCol={labelCol}
       labelAlign={formConf.labelPosition}
       onValuesChange={onValueChange}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
     >
       {fieldList?.map((it) => {
         const { type, name } = it;
@@ -92,6 +104,7 @@ export default function FormRender({
                 scenario={scenario}
                 config={config}
                 data={data[name]}
+                onChange={onItemChange}
               />
             ) : (
               '—'

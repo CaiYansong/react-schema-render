@@ -92,7 +92,7 @@
       "name": "select-func",
       "remoteConf": {
         "type": "func",
-        "func": "const res = await this.config.getOptions(this.scenario);\nreturn res;"
+        "func": "const res = await config.getOptions(scenario);\nreturn res;"
       },
       "isRemote": true
     },

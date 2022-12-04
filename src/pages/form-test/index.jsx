@@ -5,21 +5,41 @@ import FormRender from '@/components/form-render';
 import demoSchema from './demo.schema.json';
 
 export default function FormTestPage() {
-  const data = useRef({});
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({"input-f9b7f9b":"1","input-59f411d":"2","select-b836c9c":"option1","select-func":"remote2"});
   function onChange(changedValues, allValues, form) {
-    data.current = allValues;
+    console.log('form test onChange: ', changedValues, allValues, form);
     setForm(allValues);
   }
+  const config = {
+    getOptions() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            {
+              label: 'Remote 1',
+              value: 'remote1',
+            },
+            {
+              label: 'Remote 2',
+              value: 'remote2',
+            },
+          ]);
+        }, 1000);
+      });
+    },
+  };
   return (
     <div>
       FormTestPage
       <br />
-      data: {JSON.stringify(data)}
-      <br />
       form: {JSON.stringify(form)}
       <br />
-      <FormRender schema={demoSchema} data={data} onChange={onChange} />
+      <FormRender
+        schema={demoSchema}
+        data={form}
+        onChange={onChange}
+        config={config}
+      />
     </div>
   );
 }
