@@ -1,14 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
 import { Form } from 'antd';
 
 import rulesAdapter from './adapter/rules-adapter';
 
 import Input from './components/input';
 import Select from './components/select';
+import Slot from './components/slot';
 
 const TypeEnum = {
   input: Input,
   select: Select,
+  slot: Slot,
 };
 
 export default function FormRender({
@@ -23,6 +24,7 @@ export default function FormRender({
   onChange = () => {},
   onFinish = () => {},
   onFinishFailed = () => {},
+  children,
 }) {
   const {
     formConf = {},
@@ -31,10 +33,10 @@ export default function FormRender({
     validRules = {},
   } = schema;
 
-  const [form] = Form.useForm();
+  const [formInstance] = Form.useForm();
 
   function onValueChange(changedValues, allValues) {
-    onChange && onChange(changedValues, allValues, form);
+    onChange && onChange(changedValues, allValues, formInstance);
     console.log('onValueChange', changedValues, allValues);
   }
 
@@ -71,7 +73,7 @@ export default function FormRender({
     <Form
       className="form-render"
       name={name}
-      form={form}
+      form={formInstance}
       initialValues={initialValues || data}
       layout={layout}
       labelCol={labelCol}
@@ -104,8 +106,12 @@ export default function FormRender({
                 scenario={scenario}
                 config={config}
                 data={data[name]}
+                formInstance={formInstance}
                 onChange={onItemChange}
-              />
+              >
+                {type === 'slot' &&
+                  children?.find((child) => child.key === it.slotName)}
+              </Component>
             ) : (
               '—'
             )}

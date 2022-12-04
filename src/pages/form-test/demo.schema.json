@@ -92,7 +92,7 @@
       "name": "select-func",
       "remoteConf": {
         "type": "func",
-        "func": "const res = await config.getOptions(scenario);\nreturn res;"
+        "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
       },
       "isRemote": true
     },
@@ -159,7 +159,8 @@
     {
       "type": "slot",
       "label": "插槽",
-      "name": "slot-4929886"
+      "name": "slot-4929886",
+      "slotName": "slotName"
     },
     {
       "type": "wrapper",
