@@ -12,10 +12,10 @@ function InputCom(props) {
     wordLimit,
     mode,
     data,
-    onChange,
-    onPressEnter,
     readonly,
     placeholder = '请输入',
+    onChange,
+    onPressEnter,
   } = props;
 
   const _props = {
@@ -26,10 +26,10 @@ function InputCom(props) {
     showCount: wordLimit,
     type: mode,
     value: data,
+    readOnly: readonly,
+    placeholder,
     onChange: onChange,
     onPressEnter: onPressEnter,
-    readOnly: readonly,
-    placeholder: placeholder,
   };
 
   if (mode === 'textarea') {

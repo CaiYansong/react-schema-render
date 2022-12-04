@@ -59,6 +59,10 @@
       "type": "select",
       "label": "下拉选项",
       "name": "select-b836c9c",
+      "typeValue": true,
+      "clearable": true,
+      "multiple": true,
+      "searchable": true,
       "options": [
         {
           "label": "选项一",
