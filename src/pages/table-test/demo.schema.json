@@ -9,6 +9,12 @@
     {
       "type": "input",
       "label": "文本框",
+      "name": "input-bdba86e",
+      "visible": false
+    },
+    {
+      "type": "input",
+      "label": "文本框",
       "name": "input-194ece3",
       "activated": false,
       "inTable": false,

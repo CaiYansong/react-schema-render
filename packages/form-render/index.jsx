@@ -81,7 +81,9 @@ export default function FormRender({
       onFinishFailed={onFinishFailed}
     >
       {fieldList?.map((it) => {
-        // TODO: activator visible
+        if (it.activated === false) {
+          return null;
+        }
         const { type, name } = it;
         const rules = rulesAdapter(validRules[name], validFuncs);
 
@@ -95,6 +97,7 @@ export default function FormRender({
             rules={rules}
             wrapperCol={{ span: it.span }}
             style={{
+              display: it.visible === false ? 'none' : undefined,
               marginBottom: `${marginY || 24}px`,
               marginRight: `${marginX || 16}px`,
             }}
