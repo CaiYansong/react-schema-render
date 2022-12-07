@@ -4,46 +4,45 @@ import rulesAdapter from './adapter/rules-adapter';
 
 import Input from './components/input';
 import Select from './components/select';
+import ItemList from './components/item-list';
 import Slot from './components/slot';
 
 const TypeEnum = {
   input: Input,
   'input-number': Input,
   select: Select,
+  'item-list': ItemList,
   slot: Slot,
 };
 
 // 内置了 Form.Item 的组件
 const insizeFormItemEnum = {
   select: true,
+  'item-list': true,
 };
 
-export default function FormRender({
-  name,
-  inline,
-  initialValues,
-  scenario,
-  schema = {},
-  data = {},
-  config = {},
-  fieldSubmit = () => {},
-  onChange = () => {},
-  onFinish = () => {},
-  onFinishFailed = () => {},
-  children,
-}) {
+import FormItems from './form-items';
+
+export default function FormRender(props) {
   const {
-    formConf = {},
-    fieldList = [],
-    validFuncs = [],
-    validRules = {},
-  } = schema;
+    name = Date.now(),
+    inline,
+    initialValues,
+    scenario,
+    schema = {},
+    data = {},
+    config = {},
+    fieldSubmit,
+    onChange,
+    onFinish,
+    onFinishFailed,
+  } = props || {};
 
   const [formInstance] = Form.useForm();
 
   function onValueChange(changedValues, allValues) {
     onChange && onChange(changedValues, allValues, formInstance);
-    console.log('onValueChange', changedValues, allValues);
+    console.log('onValueChange', allValues);
   }
 
   let layout = undefined;
@@ -51,7 +50,7 @@ export default function FormRender({
     layout = 'inline';
   }
 
-  const { labelPosition, labelWidth, marginY, marginX } = formConf || {};
+  const { labelPosition, labelWidth } = schema?.formConf || {};
 
   if (labelPosition === 'top') {
     layout = 'vertical';
@@ -69,10 +68,6 @@ export default function FormRender({
     labelCol.span = labelWidth;
   }
 
-  function onItemChange(...args) {
-    console.log('onItemChange', ...args);
-  }
-
   return (
     <Form
       className="form-render"
@@ -81,71 +76,19 @@ export default function FormRender({
       initialValues={initialValues || data}
       layout={layout}
       labelCol={labelCol}
-      labelAlign={formConf.labelPosition}
+      labelAlign={schema?.formConf?.labelPosition}
       onValuesChange={onValueChange}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      {fieldList?.map((it) => {
-        if (it.activated === false) {
-          return null;
-        }
-        const Component = TypeEnum[it.type];
-        if (!Component) {
-          return null;
-        }
-        const { type, name } = it;
-
-        const rules = rulesAdapter(validRules[name], validFuncs);
-
-        const formItemProps = {
-          key: it.name,
-          label: it.label,
-          name: it.name,
-          rules: rules,
-          wrapperCol: { span: it.span },
-          style: {
-            display: it.visible === false ? 'none' : undefined,
-            marginBottom: `${marginY || 24}px`,
-            marginRight: `${marginX || 16}px`,
-          },
-        };
-
-        const childProps = {
-          ...it,
-          scenario: scenario,
-          config: config,
-          data: data[name],
-          formInstance: formInstance,
-          onChange: onItemChange,
-        };
-
-        if (type === 'slot') {
-          return (
-            <Form.Item {...formItemProps}>
-              <Component {...childProps}>
-                {type === 'slot' &&
-                  children?.find((child) => child.key === it.slotName)}
-              </Component>
-            </Form.Item>
-          );
-        }
-
-        if (insizeFormItemEnum[name]) {
-          return (
-            <Component
-              {...childProps}
-              formItemProps={formItemProps}
-            ></Component>
-          );
-        }
-
-        return (
-          <Form.Item {...formItemProps}>
-            <Component {...childProps}></Component>
-          </Form.Item>
-        );
-      })}
+      <FormItems
+        scenario={scenario}
+        schema={schema}
+        config={config}
+        formInstance={formInstance}
+      >
+        {props.children}
+      </FormItems>
     </Form>
   );
 }
