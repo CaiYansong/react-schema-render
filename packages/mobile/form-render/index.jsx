@@ -8,6 +8,7 @@ import Slot from './components/slot';
 
 const TypeEnum = {
   input: Input,
+  'input-number': Input,
   select: Select,
   slot: Slot,
 };

@@ -17,7 +17,7 @@ function InputCom(props) {
     onPressEnter,
   } = props;
 
-  const _props = {
+  let _props = {
     clearable,
     disabled: disabled,
     id: name,
@@ -43,6 +43,17 @@ function InputCom(props) {
       onResize,
     };
     return <TextArea {...textareaProps} />;
+  }
+
+  if (props.type === 'input-number') {
+    const { max, min } = props;
+
+    _props = {
+      ..._props,
+      type: 'number',
+      max,
+      min,
+    };
   }
 
   return <Input {..._props} />;

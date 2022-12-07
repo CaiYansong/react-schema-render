@@ -55,7 +55,13 @@
     {
       "type": "input-number",
       "label": "数字框",
-      "name": "input-number-db290ce"
+      "name": "input-number-db290ce",
+      "min": 5,
+      "max": 20,
+      "step": 2,
+      "precision": 4,
+      "stepOnly": true,
+      "controlPosition": "right"
     },
     {
       "type": "input-ip",
@@ -67,7 +73,8 @@
     {
       "type": "input-file",
       "label": "文件选择",
-      "name": "input-file-fe1944e"
+      "name": "input-file-fe1944e",
+      "accept": "png"
     },
     {
       "type": "select",
@@ -113,7 +120,26 @@
     {
       "type": "cascader",
       "label": "级联选择",
-      "name": "cascader-ae1e13c"
+      "name": "cascader-ae1e13c",
+      "remoteConf": {
+        "type": "api",
+        "api": "/get",
+        "valueKey": "",
+        "labelKey": ""
+      },
+      "isRemote": true
+    },
+    {
+      "type": "cascader",
+      "label": "级联 func",
+      "name": "cascader-c828076",
+      "remoteConf": {
+        "type": "func",
+        "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
+      },
+      "isRemote": true,
+      "clearable": true,
+      "multiple": true
     },
     {
       "type": "china-region",
@@ -181,7 +207,7 @@
       "type": "wrapper",
       "label": "容器",
       "name": "wrapper-d0ff36c",
-      "formKey": "b6e59c3",
+      "formKey": "ac619a5",
       "formConf": {},
       "fieldList": [
         {
@@ -197,7 +223,7 @@
       "type": "subform",
       "label": "子表单",
       "name": "subform-377c7bc",
-      "formKey": "2f77b26",
+      "formKey": "d59c689",
       "formConf": {},
       "fieldList": [
         {
@@ -213,7 +239,7 @@
       "type": "item-list",
       "label": "列表",
       "name": "item-list-cdf09d8",
-      "formKey": "92dd5b1",
+      "formKey": "564c011",
       "formConf": {},
       "fieldList": [],
       "validFuncs": [],
