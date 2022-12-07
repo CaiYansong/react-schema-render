@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Picker } from 'antd-mobile';
+import { Form, Picker } from 'antd-mobile';
+
+const FormItem = Form.Item;
 
 function SelectCom(props) {
   const {
@@ -13,9 +15,9 @@ function SelectCom(props) {
     placeholder = '请选择',
     options,
     onChange,
+    formItemProps = {},
   } = props;
-
-  const [_options, setOptions] = useState(options || []);
+  const [_options, setOptions] = useState(options ? [options] : []);
 
   const _props = {
     id: name,
@@ -25,7 +27,6 @@ function SelectCom(props) {
     readOnly: readonly,
     showSearch: searchable,
     mode: multiple === true ? 'multiple' : undefined,
-    placeholder,
     onClear: onChange,
     onChange: onChange,
   };
@@ -56,7 +57,7 @@ function SelectCom(props) {
     fetchFunc = fetchFunc.bind(this);
     try {
       const options = (await fetchFunc(props.config, props.scenario)) || [];
-      setOptions(options);
+      setOptions([options]);
     } catch (err) {
       console.error('Error select remote func: ', err);
     }
@@ -80,7 +81,7 @@ function SelectCom(props) {
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 200) {
-          setOptions(res.data);
+          setOptions([res.data]);
         }
       })
       .catch((error) => {
@@ -88,8 +89,36 @@ function SelectCom(props) {
       });
   }, [props.isRemote, props.remoteConf?.api]);
 
+  const [visible, setVisible] = useState(false);
+
+  function onClose() {
+    setVisible(false);
+  }
+
+  function onConfirm(val) {
+    console.log('val', val);
+    onChange(val);
+  }
+
+  function onClick() {
+    console.log('onClick');
+    setVisible((val) => {
+      return !val;
+    });
+  }
+
   return (
-    <Picker {..._props} style={{ width: '100%' }} options={_options}></Picker>
+    <FormItem {...formItemProps} onClick={onClick}>
+      <Picker
+        columns={_options}
+        visible={visible}
+        onCancel={onClose}
+        onClose={onClose}
+        onConfirm={onConfirm}
+      >
+        {(value) => (value && value.length > 0 ? value[0]?.label : placeholder)}
+      </Picker>
+    </FormItem>
   );
 }
 

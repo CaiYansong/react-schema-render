@@ -8,8 +8,13 @@ import Slot from './components/slot';
 
 const TypeEnum = {
   input: Input,
-  // select: Select,
+  select: Select,
   slot: Slot,
+};
+
+// 内置了 Form.Item 的组件
+const insizeFormItemEnum = {
+  select: true,
 };
 
 export default function FormRender({
@@ -84,39 +89,59 @@ export default function FormRender({
         if (it.activated === false) {
           return null;
         }
+        const Component = TypeEnum[it.type];
+        if (!Component) {
+          return null;
+        }
         const { type, name } = it;
+
         const rules = rulesAdapter(validRules[name], validFuncs);
 
-        const Component = TypeEnum[type];
+        const formItemProps = {
+          key: it.name,
+          label: it.label,
+          name: it.name,
+          rules: rules,
+          wrapperCol: { span: it.span },
+          style: {
+            display: it.visible === false ? 'none' : undefined,
+            marginBottom: `${marginY || 24}px`,
+            marginRight: `${marginX || 16}px`,
+          },
+        };
 
-        return (
-          <Form.Item
-            key={it.name}
-            label={it.label}
-            name={it.name}
-            rules={rules}
-            wrapperCol={{ span: it.span }}
-            style={{
-              display: it.visible === false ? 'none' : undefined,
-              marginBottom: `${marginY || 24}px`,
-              marginRight: `${marginX || 16}px`,
-            }}
-          >
-            {Component ? (
-              <Component
-                {...it}
-                scenario={scenario}
-                config={config}
-                data={data[name]}
-                formInstance={formInstance}
-                onChange={onItemChange}
-              >
+        const childProps = {
+          ...it,
+          scenario: scenario,
+          config: config,
+          data: data[name],
+          formInstance: formInstance,
+          onChange: onItemChange,
+        };
+
+        if (type === 'slot') {
+          return (
+            <Form.Item {...formItemProps}>
+              <Component {...childProps}>
                 {type === 'slot' &&
                   children?.find((child) => child.key === it.slotName)}
               </Component>
-            ) : (
-              '—'
-            )}
+            </Form.Item>
+          );
+        }
+
+        if (insizeFormItemEnum[name]) {
+          return (
+            <Component
+              {...childProps}
+              formItemProps={formItemProps}
+            ></Component>
+          );
+        }
+
+        return (
+          <Form.Item {...formItemProps}>
+            <Component {...childProps}></Component>
           </Form.Item>
         );
       })}

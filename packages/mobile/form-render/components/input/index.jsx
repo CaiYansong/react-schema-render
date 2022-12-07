@@ -23,6 +23,7 @@ function InputCom(props) {
     id: name,
     maxLength: wordLimit ? maxLength || 50 : undefined,
     showCount: wordLimit,
+    type: mode,
     value: data,
     readOnly: readonly,
     placeholder,

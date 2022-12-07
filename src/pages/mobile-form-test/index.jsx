@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Button, Input } from 'antd-mobile'
+import { Button, Input } from 'antd-mobile';
 
 import FormRender from '@packages/mobile/form-render';
 
@@ -29,7 +29,7 @@ function TestSlot(props) {
       <Button
         onClick={() => {
           valRef.current = 1 + (valRef.current || 0);
-          // props.onChange(valRef.current);
+          props.onChange(valRef.current);
         }}
       >
         add
