@@ -6,28 +6,6 @@ import {} from 'antd';
 import pointIconUrl from '@/assets/img/approachPointIcon.png';
 
 const Config = {
-  mapboxMapUrl:
-    'https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.webp?sku=10139EHAhiEm6&access_token=pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p1dHRybDR5MGJuZjQzcGhrZ2doeGgwNyJ9.a-vxW4UaxOoUMWUTGnEArw',
-  // mapUrl: "https://t3.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=990af3d2adae976d53f84f21b0195333" // 天地图
-  // mapUrl: 'https://xlbw-ca.hzos.hzs.zj/v3/tile?z={z}&x={x}&y={y}', // 市局高德地图
-  mapUrl:
-    'https://gddt.hzos.hzs.zj/tileMap/services/3857/bzdz_3857/{z}/{y}/{x}.png', // 市局高德地图
-  // mapUrl: 'https://gddt.hzos.hzs.zj/tileMap/services/msef4c45d189/tile/{z}/{y}/{x}', // 市局高德地图
-  // mapUrl: 'https://gddt.hzos.hzs.zj/tileMap/services/MapServer/msef4c45d189/tile/{z}/{y}/{x}?startLevel=1',
-  shenseMapUrl: 'https://xlbw-ca.hzos.hzs.zj/shense/v3/tile?z={z}&x={x}&y={y}',
-  darkMapUrl:
-    'https://gddt.hzos.hzs.zj/tileMap/services/3857/ms5d8422d376/{z}/{y}/{x}.png', // 市局高德深蓝色地图
-  deepBlue15:
-    'https://gddt.hzos.hzs.zj/tileMap/services/3857/msef4c45d189/{z}/{x}/{y}.png',
-  deepBlue18:
-    'https://gddt.hzos.hzs.zj/tileMap/services/3857/msef4c45d189-18/{z}/{y}/{x}.png',
-  darkMapUrl_4326:
-    'https://gddt.hzos.hzs.zj/tileMap/services/MapServer/msef4c45d189/tile/{z}/{y}/{x}',
-  satelliteMapUrl:
-    'https://gddt.hzos.hzs.zj/tileMap/services/MapServer/osgb_Layers_y/tile/other/{z}/{y}/{x}',
-  gaodeMapUrl:
-    'https://gddt.hzos.hzs.zj/tileMap/services/3857/bzdz_3857/{z}/{y}/{x}.png', //配置地图
-  // 'http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=3131a9355f28fb662853cfa719d3e160&x={x}&y={y}&z={z}',
   zhiMapUrl:
     'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}', // 深蓝色
 };
