@@ -23,6 +23,10 @@ function ItemList(props) {
 
   const schema = { formConf, fieldList, validFuncs, validRules };
 
+  function onItemChange(changedValues, field) {
+    onChange && onChange(formInstance.getFieldValue(name), props, field);
+  }
+
   return (
     <Form.Array
       name={name}
@@ -43,12 +47,14 @@ function ItemList(props) {
       {(fields) =>
         fields.map(({ index }) => (
           <FormItems
+            name={name}
+            parentField={props}
             itemListIndex={index}
             scenario={scenario}
             schema={schema}
             config={config}
             formInstance={formInstance}
-            onChange={onChange}
+            onChange={onItemChange}
           ></FormItems>
         ))
       }

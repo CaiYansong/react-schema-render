@@ -5,6 +5,7 @@ const FormItem = Form.Item;
 
 function SelectCom(props) {
   const {
+    parentField,
     name,
     data,
     clearable,
@@ -14,8 +15,9 @@ function SelectCom(props) {
     searchable,
     placeholder = '请选择',
     options,
-    onChange,
+    formInstance,
     formItemProps = {},
+    onChange,
   } = props;
   const [_options, setOptions] = useState(options ? [options] : []);
 
@@ -83,9 +85,26 @@ function SelectCom(props) {
     setVisible(false);
   }
 
-  function onConfirm(val) {
-    console.log('val', val);
-    onChange(val);
+  function onConfirm(value) {
+    const parentName = parentField?.name;
+    // 处理 Picker 无法触发 form 值改变的问题
+    // item list 中的 Picker
+    let changedValues = { [name]: value };
+    if (formInstance && formInstance.setFieldValue) {
+      if (Array.isArray(name) && name.length > 1) {
+        const parentVals = formInstance.getFieldValue(parentName);
+        const [index, fieldName] = name;
+        if (parentVals[index] && parentVals[index][fieldName]) {
+          parentVals[index][fieldName] = value;
+        }
+        formInstance.setFieldValue(parentName, parentVals);
+        changedValues = { [parentName]: parentVals };
+      } else {
+        // 正常的 Picker
+        formInstance.setFieldValue(name, value);
+      }
+    }
+    onChange && onChange(changedValues, props);
   }
 
   function onClick() {

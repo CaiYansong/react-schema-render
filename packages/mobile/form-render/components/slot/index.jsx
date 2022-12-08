@@ -12,7 +12,7 @@ function Slot(props) {
           scenario,
           formInstance,
           onChange: (value) => {
-            onChange && onChange({ [name]: value });
+            onChange && onChange({ [name]: value }, props);
           },
         });
       })}

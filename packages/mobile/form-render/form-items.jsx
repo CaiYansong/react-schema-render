@@ -15,9 +15,10 @@ const insizeFormItemEnum = {
   'item-list': true,
 };
 
-export default function FormRender(props) {
+export default function FormItems(props) {
   const {
     name,
+    parentField,
     inline,
     scenario,
     schema = {},
@@ -48,7 +49,8 @@ export default function FormRender(props) {
 
   const { marginY, marginX } = formConf || {};
 
-  function onItemChange(changedValues) {
+  function onItemChange(changedValues, field) {
+    console.log('changedValues', changedValues, field);
     onChange &&
       onChange(changedValues, {
         ...formInstance.getFieldsValue(true),
@@ -71,9 +73,10 @@ export default function FormRender(props) {
         const rules = rulesAdapter(validRules[name], validFuncs);
 
         const formItemProps = {
-          key: it.name,
+          key: name,
           label: it.label,
-          name: it.name,
+          parentField: parentField || props,
+          name: name,
           rules: rules,
           wrapperCol: { span: it.span },
           inline,
@@ -88,7 +91,8 @@ export default function FormRender(props) {
         };
 
         const childProps = {
-          key: it.name,
+          key: name,
+          parentField: parentField || props,
           ...it,
           scenario: scenario,
           config: config,
@@ -99,8 +103,8 @@ export default function FormRender(props) {
 
         // 处理 item list name 属性
         if (typeof props.itemListIndex === 'number') {
-          formItemProps.name = [props.itemListIndex, it.name];
-          childProps.name = [props.itemListIndex, it.name];
+          formItemProps.name = [props.itemListIndex, name];
+          childProps.name = [props.itemListIndex, name];
         }
 
         if (type === 'slot') {
