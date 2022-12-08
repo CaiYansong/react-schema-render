@@ -48,8 +48,12 @@ export default function FormRender(props) {
 
   const { marginY, marginX } = formConf || {};
 
-  function onItemChange(...args) {
-    // console.log('onItemChange', ...args);
+  function onItemChange(changedValues) {
+    onChange &&
+      onChange(changedValues, {
+        ...formInstance.getFieldsValue(true),
+        ...changedValues,
+      });
   }
 
   return (
@@ -80,6 +84,7 @@ export default function FormRender(props) {
           },
           config,
           scenario,
+          formInstance,
         };
 
         const childProps = {

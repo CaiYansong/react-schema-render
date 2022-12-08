@@ -40,10 +40,10 @@ function TestSlot(props) {
 
 export default function MobileFormTest() {
   const [form, setForm] = useState({
-    // 'input-f9b7f9b': '1',
-    // 'input-59f411d': '2',
-    // 'select-b836c9c': ['option1'],
-    // 'select-func': 'remote2',
+    'input-f9b7f9b': '1',
+    'input-59f411d': '2',
+    'select-b836c9c': ['option1'],
+    'select-func': 'remote2',
     'item-list-cdf09d8': [
       { 'item-input-2bf0d8e': '111', 'item-select-func': ['remote2'] },
       { 'item-input-2bf0d8e': '222', 'item-select-func': ['remote1'] },

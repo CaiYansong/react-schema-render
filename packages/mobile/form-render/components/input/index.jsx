@@ -30,7 +30,9 @@ function InputCom(props) {
     value: data,
     readOnly: readonly,
     placeholder,
-    onChange: onChange,
+    onChange: (value) => {
+      onChange && onChange({ [name]: value });
+    },
     onClear: onClear,
     onEnterPress: onPressEnter,
   };
