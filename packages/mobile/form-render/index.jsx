@@ -2,6 +2,8 @@ import { Form } from 'antd-mobile';
 
 import FormItems from './form-items';
 
+import { handleFillBackData, handleSubmitData } from './adapter/data-adapter';
+
 export default function FormRender(props) {
   const {
     name = Date.now(),
@@ -20,8 +22,17 @@ export default function FormRender(props) {
   const [formInstance] = Form.useForm();
 
   function onValueChange(changedValues, allValues) {
-    onChange && onChange(changedValues, allValues, formInstance);
-    console.log('onValueChange', allValues);
+    console.log(
+      'onValueChange',
+      allValues,
+      handleSubmitData(schema.fieldList, allValues),
+    );
+    onChange &&
+      onChange(
+        changedValues,
+        handleSubmitData(schema.fieldList, allValues),
+        formInstance,
+      );
   }
 
   let layout = undefined;
@@ -52,7 +63,10 @@ export default function FormRender(props) {
       className="form-render"
       name={name}
       form={formInstance}
-      initialValues={initialValues || data}
+      initialValues={handleFillBackData(
+        schema.fieldList,
+        initialValues || data,
+      )}
       layout={layout}
       // labelCol={labelCol}
       // labelAlign={schema?.formConf?.labelPosition}
@@ -66,6 +80,7 @@ export default function FormRender(props) {
         schema={schema}
         config={config}
         formInstance={formInstance}
+        onChange={onValueChange}
       >
         {props.children}
       </FormItems>
