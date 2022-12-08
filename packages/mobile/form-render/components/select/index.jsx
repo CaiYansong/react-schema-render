@@ -79,44 +79,20 @@ function SelectCom(props) {
     setVisible(false);
   }
 
-  function onConfirm(value) {
-    const parentName = parentField?.name;
-    // 处理 Picker 无法触发 form 值改变的问题
-    // item list 中的 Picker
-    let changedValues = { [name]: value };
-    if (formInstance && formInstance.setFieldValue) {
-      if (Array.isArray(name) && name.length > 1) {
-        const parentVals = formInstance.getFieldValue(parentName);
-        const [index, fieldName] = name;
-        if (parentVals[index] && parentVals[index][fieldName]) {
-          parentVals[index][fieldName] = value;
-        }
-        formInstance.setFieldValue(parentName, parentVals);
-        changedValues = { [parentName]: parentVals };
-      } else {
-        // 正常的 Picker
-        formInstance.setFieldValue(name, value);
-      }
-    }
-    onChange && onChange(changedValues, props);
-  }
-
   function onClick() {
-    console.log("onClick");
     setVisible((val) => {
       return !val;
     });
   }
 
+  const _formItemProps = {
+    ...formItemProps,
+    trigger: "onConfirm",
+  };
+
   return (
-    <FormItem {...formItemProps} onClick={onClick}>
-      <Picker
-        columns={_options}
-        visible={visible}
-        onCancel={onClose}
-        onClose={onClose}
-        onConfirm={onConfirm}
-      >
+    <FormItem {..._formItemProps} onClick={onClick}>
+      <Picker columns={_options} visible={visible} onClose={onClose}>
         {(value) => (value && value.length > 0 ? value[0]?.label : placeholder)}
       </Picker>
     </FormItem>
