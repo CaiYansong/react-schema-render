@@ -1,10 +1,10 @@
-import { Form } from 'antd';
+import { Form } from "antd";
 
-import rulesAdapter from './adapter/rules-adapter';
+import rulesAdapter from "./adapter/rules-adapter";
 
-import Input from './components/input';
-import Select from './components/select';
-import Slot from './components/slot';
+import Input from "./components/input";
+import Select from "./components/select";
+import Slot from "./components/slot";
 
 const TypeEnum = {
   input: Input,
@@ -37,34 +37,34 @@ export default function FormRender({
 
   function onValueChange(changedValues, allValues) {
     onChange && onChange(changedValues, allValues, formInstance);
-    console.log('onValueChange', changedValues, allValues);
+    console.log("onValueChange", changedValues, allValues);
   }
 
   let layout = undefined;
   if (inline) {
-    layout = 'inline';
+    layout = "inline";
   }
 
   const { labelPosition, labelWidth, marginY, marginX } = formConf || {};
 
-  if (labelPosition === 'top') {
-    layout = 'vertical';
+  if (labelPosition === "top") {
+    layout = "vertical";
   }
 
   const labelCol = {};
 
   // 带单位的为 style.width 的值
-  if (typeof labelWidth === 'string' && labelWidth != +labelWidth) {
+  if (typeof labelWidth === "string" && labelWidth != +labelWidth) {
     if (!labelCol.style) {
       labelCol.style = {};
     }
     labelCol.style.width = labelWidth;
-  } else if (typeof labelWidth === 'number' || labelWidth == +labelWidth) {
+  } else if (typeof labelWidth === "number" || labelWidth == +labelWidth) {
     labelCol.span = labelWidth;
   }
 
   function onItemChange(...args) {
-    console.log('onItemChange', ...args);
+    console.log("onItemChange", ...args);
   }
 
   return (
@@ -97,7 +97,7 @@ export default function FormRender({
             rules={rules}
             wrapperCol={{ span: it.span }}
             style={{
-              display: it.visible === false ? 'none' : undefined,
+              display: it.visible === false ? "none" : undefined,
               marginBottom: `${marginY || 24}px`,
               marginRight: `${marginX || 16}px`,
             }}
@@ -111,11 +111,11 @@ export default function FormRender({
                 formInstance={formInstance}
                 onChange={onItemChange}
               >
-                {type === 'slot' &&
+                {type === "slot" &&
                   children?.find((child) => child.key === it.slotName)}
               </Component>
             ) : (
-              '—'
+              "—"
             )}
           </Form.Item>
         );

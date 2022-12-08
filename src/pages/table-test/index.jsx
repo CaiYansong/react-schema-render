@@ -1,6 +1,6 @@
-import ListRender from '@packages/list-render';
+import ListRender from "@packages/list-render";
 
-import demoSchema from './demo.schema.json';
+import demoSchema from "./demo.schema.json";
 
 function TableTest(props) {
   return (

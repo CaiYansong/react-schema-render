@@ -78,13 +78,13 @@ export function ruleAdapter(rule, validFuncs) {
     pattern: regexp,
   };
 
-  if (typeof trigger === 'string') {
+  if (typeof trigger === "string") {
     res.validateTrigger = trigger;
   }
 
-  if (type === 'required') {
+  if (type === "required") {
     res.required = true;
-  } else if (type === 'func') {
+  } else if (type === "func") {
     const { isPreset, func } = rule;
     let funcStr = func;
     if (isPreset !== false) {
@@ -96,10 +96,10 @@ export function ruleAdapter(rule, validFuncs) {
       ...res,
       validator: function (rule, value, callback) {
         return new Function(
-          'rule',
-          'value',
-          'callback',
-          'formInstance',
+          "rule",
+          "value",
+          "callback",
+          "formInstance",
           funcStr,
         ).call(this, rule, value, callback, formInstance);
       },
@@ -114,7 +114,7 @@ export function ruleAdapter(rule, validFuncs) {
  */
 export function getTrigger(trigger) {
   let res = undefined;
-  if (typeof trigger === 'string') {
+  if (typeof trigger === "string") {
     res = addPrefix(trigger);
   } else if (Array.isArray(trigger)) {
     res = trigger.map((it) => addPrefix(it));
@@ -128,8 +128,8 @@ export function getTrigger(trigger) {
  * @param {string} prefix 前缀
  * @returns
  */
-export function addPrefix(str, prefix = 'on') {
-  return `${prefix.trim()}${str.trim().replace(/^(.)/, '$1'.toUpperCase())}`;
+export function addPrefix(str, prefix = "on") {
+  return `${prefix.trim()}${str.trim().replace(/^(.)/, "$1".toUpperCase())}`;
 }
 
 export default rulesAdapter;

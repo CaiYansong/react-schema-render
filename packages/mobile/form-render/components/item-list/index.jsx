@@ -1,6 +1,6 @@
-import { Form } from 'antd-mobile';
+import { Form } from "antd-mobile";
 
-import FormItems from '../../form-items';
+import FormItems from "../../form-items";
 
 function ItemList(props) {
   const {
@@ -38,7 +38,7 @@ function ItemList(props) {
             {label}
             {index + 1}
           </span>
-          <a onClick={() => remove(index)} style={{ float: 'right' }}>
+          <a onClick={() => remove(index)} style={{ float: "right" }}>
             删除
           </a>
         </>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input, TextArea } from 'antd-mobile';
+import React from "react";
+import { Form, Input, TextArea } from "antd-mobile";
 
 const FormItem = Form.Item;
 
@@ -13,7 +13,7 @@ function InputCom(props) {
     mode,
     data,
     readonly,
-    placeholder = '请输入',
+    placeholder = "请输入",
     onChange,
     onClear,
     onPressEnter,
@@ -37,7 +37,7 @@ function InputCom(props) {
     onEnterPress: onPressEnter,
   };
 
-  if (mode === 'textarea') {
+  if (mode === "textarea") {
     const { autosize, minRows, maxRows, onResize } = props;
     const textareaProps = {
       ..._props,
@@ -54,12 +54,12 @@ function InputCom(props) {
     );
   }
 
-  if (props.type === 'input-number') {
+  if (props.type === "input-number") {
     const { max, min } = props;
 
     _props = {
       ..._props,
-      type: 'number',
+      type: "number",
       max,
       min,
     };

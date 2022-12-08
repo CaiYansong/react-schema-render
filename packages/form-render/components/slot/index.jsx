@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function Slot(props) {
   const { children, name, data, scenario, formInstance, onChange } =

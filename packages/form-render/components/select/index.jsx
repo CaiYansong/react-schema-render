@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Select } from 'antd';
+import { useState, useEffect } from "react";
+import { Select } from "antd";
 
 function SelectCom(props) {
   const {
@@ -10,7 +10,7 @@ function SelectCom(props) {
     readonly,
     multiple,
     searchable,
-    placeholder = '请选择',
+    placeholder = "请选择",
     options,
     onChange,
   } = props;
@@ -24,7 +24,7 @@ function SelectCom(props) {
     disabled,
     readOnly: readonly,
     showSearch: searchable,
-    mode: multiple === true ? 'multiple' : undefined,
+    mode: multiple === true ? "multiple" : undefined,
     placeholder,
     onClear: onChange,
     onChange: onChange,
@@ -35,7 +35,7 @@ function SelectCom(props) {
     if (
       props.isRemote &&
       props.remoteConf &&
-      props.remoteConf.type === 'func' &&
+      props.remoteConf.type === "func" &&
       props.remoteConf.func
     ) {
       // 只能这样拿到 AsyncFunction
@@ -47,8 +47,8 @@ function SelectCom(props) {
       const AsyncFunction = getAsyncFunction();
 
       let fetchFunc = new AsyncFunction(
-        'config',
-        'scenario',
+        "config",
+        "scenario",
         `${props.remoteConf.func}`,
       );
       fetchFunc = fetchFunc.bind(this);
@@ -63,11 +63,11 @@ function SelectCom(props) {
     if (
       props.isRemote &&
       props.remoteConf &&
-      props.remoteConf.type === 'api' &&
+      props.remoteConf.type === "api" &&
       props.remoteConf.api
     ) {
       fetch(props.remoteConf.api, {
-        method: 'get',
+        method: "get",
         headers: props.config?.headers || {},
       })
         .then((res) => res.json())
@@ -77,13 +77,13 @@ function SelectCom(props) {
           }
         })
         .catch((error) => {
-          console.error('Error select remote api: ', error);
+          console.error("Error select remote api: ", error);
         });
     }
   }, [props.isRemote, props.remoteConf?.api]);
 
   return (
-    <Select {..._props} style={{ width: '100%' }} options={_options}></Select>
+    <Select {..._props} style={{ width: "100%" }} options={_options}></Select>
   );
 }
 

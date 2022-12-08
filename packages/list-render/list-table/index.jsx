@@ -1,17 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Table, Space, Button } from 'antd';
+import { useState, useEffect } from "react";
+import { Table, Space, Button } from "antd";
 
 let _columns = [];
 
-function ListTable({
-  schema,
-  idKey,
-  list,
-  config,
-  onEdit,
-  onDelete,
-}) {
-  console.log('schema', schema);
+function ListTable({ schema, idKey, list, config, onEdit, onDelete }) {
+  console.log("schema", schema);
   const fieldList = schema?.fieldList || [];
   const { hasAction } = config || {};
   const [columns, setColumns] = useState([]);
@@ -27,8 +20,8 @@ function ListTable({
     });
     if (hasAction !== false) {
       _columns.push({
-        title: '操作',
-        key: '$actionBtns',
+        title: "操作",
+        key: "$actionBtns",
         render: (_, record, index) => (
           <Space className="list-table-actions">
             <Button

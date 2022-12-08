@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input } from 'antd';
+import React from "react";
+import { Input } from "antd";
 
 const { TextArea } = Input;
 
@@ -13,7 +13,7 @@ function InputCom(props) {
     mode,
     data,
     readonly,
-    placeholder = '请输入',
+    placeholder = "请输入",
     onChange,
     onPressEnter,
   } = props;
@@ -32,7 +32,7 @@ function InputCom(props) {
     onPressEnter: onPressEnter,
   };
 
-  if (mode === 'textarea') {
+  if (mode === "textarea") {
     const { autosize, minRows, maxRows, onResize } = props;
     const textareaProps = {
       ..._props,

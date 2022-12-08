@@ -1,12 +1,12 @@
-import { forwardRef, useImperativeHandle, useState } from 'react';
-import { Modal } from 'antd';
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { Modal } from "antd";
 
 function ListItemForm({}, parentRef) {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState('新增');
+  const [title, setTitle] = useState("新增");
   const [form, setForm] = useState({});
   useImperativeHandle(parentRef, () => ({
-    onShow(formVal, title = '新增') {
+    onShow(formVal, title = "新增") {
       setForm(formVal || {});
       setTitle(title);
       setOpen(true);
@@ -14,7 +14,7 @@ function ListItemForm({}, parentRef) {
   }));
 
   function onOk() {
-    console.log('onOk');
+    console.log("onOk");
     onCancel();
   }
 

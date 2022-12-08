@@ -1,4 +1,4 @@
-import ReactLeaflet from './react-leaflet';
+import ReactLeaflet from "./react-leaflet";
 
 function MapTest(params) {
   return (

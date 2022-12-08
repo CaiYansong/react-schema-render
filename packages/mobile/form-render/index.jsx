@@ -1,8 +1,8 @@
-import { Form } from 'antd-mobile';
+import { Form } from "antd-mobile";
 
-import FormItems from './form-items';
+import FormItems from "./form-items";
 
-import { handleFillBackData, handleSubmitData } from './adapter/data-adapter';
+import { handleFillBackData, handleSubmitData } from "./adapter/data-adapter";
 
 export default function FormRender(props) {
   const {
@@ -24,7 +24,7 @@ export default function FormRender(props) {
 
   function onValueChange(changedValues, allValues) {
     console.log(
-      'onValueChange',
+      "onValueChange",
       allValues,
       handleSubmitData(schema.fieldList, allValues),
     );
@@ -38,24 +38,24 @@ export default function FormRender(props) {
 
   let _layout = layout;
   if (inline) {
-    _layout = 'inline';
+    _layout = "inline";
   }
 
   const { labelPosition, labelWidth } = schema?.formConf || {};
 
-  if (labelPosition === 'top') {
-    _layout = 'vertical';
+  if (labelPosition === "top") {
+    _layout = "vertical";
   }
 
   const labelCol = {};
 
   // 带单位的为 style.width 的值
-  if (typeof labelWidth === 'string' && labelWidth != +labelWidth) {
+  if (typeof labelWidth === "string" && labelWidth != +labelWidth) {
     if (!labelCol.style) {
       labelCol.style = {};
     }
     labelCol.style.width = labelWidth;
-  } else if (typeof labelWidth === 'number' || labelWidth == +labelWidth) {
+  } else if (typeof labelWidth === "number" || labelWidth == +labelWidth) {
     labelCol.span = labelWidth;
   }
 

@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react';
-import { Input, Button } from 'antd';
+import { useState, useRef } from "react";
+import { Input, Button } from "antd";
 
-import FormRender from '@packages/form-render';
+import FormRender from "@packages/form-render";
 
-import demoSchema from './demo.schema.json';
+import demoSchema from "./demo.schema.json";
 
 function TestSlot(props) {
   const [val, setVal] = useState(0);
@@ -40,13 +40,13 @@ function TestSlot(props) {
 
 export default function FormTestPage() {
   const [form, setForm] = useState({
-    'input-f9b7f9b': '1',
-    'input-59f411d': '2',
-    'select-b836c9c': ['option1'],
-    'select-func': 'remote2',
+    "input-f9b7f9b": "1",
+    "input-59f411d": "2",
+    "select-b836c9c": ["option1"],
+    "select-func": "remote2",
   });
   function onChange(changedValues, allValues, form) {
-    console.log('form test onChange: ', changedValues, allValues, form);
+    console.log("form test onChange: ", changedValues, allValues, form);
     setForm(allValues);
   }
   const config = {
@@ -55,12 +55,12 @@ export default function FormTestPage() {
         setTimeout(() => {
           resolve([
             {
-              label: 'Remote 1',
-              value: 'remote1',
+              label: "Remote 1",
+              value: "remote1",
             },
             {
-              label: 'Remote 2',
-              value: 'remote2',
+              label: "Remote 2",
+              value: "remote2",
             },
           ]);
         }, 1000);

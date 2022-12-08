@@ -1,4 +1,4 @@
-import { handleFillBackSelect, handleSubmitSelect } from './select-adapter';
+import { handleFillBackSelect, handleSubmitSelect } from "./select-adapter";
 
 /**
  * 处理回填数据
@@ -11,10 +11,10 @@ export function handleFillBackData(fieldList, data) {
   }
   fieldList?.forEach((field) => {
     const { type, name } = field || {};
-    if (type === 'select') {
+    if (type === "select") {
       data[name] = handleFillBackSelect(data[name]);
     }
-    if (type === 'item-list' && Array.isArray(data[name])) {
+    if (type === "item-list" && Array.isArray(data[name])) {
       const dataArr = data[name];
       dataArr.forEach((it, idx) => {
         handleFillBackData(field.fieldList, dataArr[idx]);
@@ -35,10 +35,10 @@ export function handleSubmitData(fieldList, data) {
   }
   fieldList?.forEach((field) => {
     const { type, name } = field || {};
-    if (type === 'select') {
+    if (type === "select") {
       data[name] = handleSubmitSelect(data[name]);
     }
-    if (type === 'item-list') {
+    if (type === "item-list") {
       handleSubmitSelect(field.fieldList, data[name]);
     }
   });

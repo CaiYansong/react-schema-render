@@ -6,7 +6,7 @@ export default function delectAdapter(schema, data) {}
  */
 export function handleFillBackSelect(data) {
   let value = data;
-  const hasVal = value !== undefined && value !== null && value !== '';
+  const hasVal = value !== undefined && value !== null && value !== "";
   if (hasVal && !Array.isArray(value)) {
     value = [value];
   }
