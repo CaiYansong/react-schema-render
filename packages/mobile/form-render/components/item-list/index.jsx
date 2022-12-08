@@ -1,4 +1,5 @@
 import { Form } from "antd-mobile";
+import { AddCircleOutline } from "antd-mobile-icons";
 
 import FormItems from "../../form-items";
 
@@ -23,15 +24,15 @@ function ItemList(props) {
 
   const schema = { formConf, fieldList, validFuncs, validRules };
 
-  function onItemChange(changedValues, field) {
-    onChange && onChange(formInstance.getFieldValue(name), props, field);
-  }
-
   return (
     <Form.Array
       name={name}
       onAdd={(operation) => operation.add({})}
-      renderAdd={() => <span>添加</span>}
+      renderAdd={() => (
+        <span>
+          <AddCircleOutline /> 添加
+        </span>
+      )}
       renderHeader={({ index }, { remove }) => (
         <>
           <span>
@@ -54,7 +55,6 @@ function ItemList(props) {
             schema={schema}
             config={config}
             formInstance={formInstance}
-            onChange={onItemChange}
           ></FormItems>
         ))
       }

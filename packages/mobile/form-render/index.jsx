@@ -14,7 +14,6 @@ export default function FormRender(props) {
     schema = {},
     data = {},
     config = {},
-    fieldSubmit,
     onChange,
     onFinish,
     onFinishFailed,

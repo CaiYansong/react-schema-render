@@ -14,7 +14,6 @@ function InputCom(props) {
     data,
     readonly,
     placeholder = "请输入",
-    onChange,
     onClear,
     onPressEnter,
     formItemProps,
@@ -30,9 +29,6 @@ function InputCom(props) {
     value: data,
     readOnly: readonly,
     placeholder,
-    onChange: (value) => {
-      onChange && onChange({ [name]: value }, props);
-    },
     onClear: onClear,
     onEnterPress: onPressEnter,
   };

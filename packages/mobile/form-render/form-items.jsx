@@ -23,11 +23,8 @@ export default function FormItems(props) {
     scenario,
     schema = {},
     data = {},
-    form,
     config = {},
     formInstance,
-    fieldSubmit,
-    onChange,
   } = props || {};
 
   const {
@@ -48,15 +45,6 @@ export default function FormItems(props) {
   };
 
   const { marginY, marginX } = formConf || {};
-
-  function onItemChange(changedValues, field) {
-    console.log("changedValues", changedValues, field);
-    onChange &&
-      onChange(changedValues, {
-        ...formInstance.getFieldsValue(true),
-        ...changedValues,
-      });
-  }
 
   return (
     <>
@@ -98,7 +86,6 @@ export default function FormItems(props) {
           config: config,
           data: data[name],
           formInstance: formInstance,
-          onChange: onItemChange,
         };
 
         // 处理 item list name 属性
