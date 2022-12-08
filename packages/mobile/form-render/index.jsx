@@ -8,6 +8,7 @@ export default function FormRender(props) {
   const {
     name = Date.now(),
     inline,
+    layout,
     initialValues,
     scenario,
     schema = {},
@@ -35,15 +36,15 @@ export default function FormRender(props) {
       );
   }
 
-  let layout = undefined;
+  let _layout = layout;
   if (inline) {
-    layout = 'inline';
+    _layout = 'inline';
   }
 
   const { labelPosition, labelWidth } = schema?.formConf || {};
 
   if (labelPosition === 'top') {
-    layout = 'vertical';
+    _layout = 'vertical';
   }
 
   const labelCol = {};
@@ -67,7 +68,7 @@ export default function FormRender(props) {
         schema.fieldList,
         initialValues || data,
       )}
-      layout={layout}
+      layout={_layout}
       // labelCol={labelCol}
       // labelAlign={schema?.formConf?.labelPosition}
       onValuesChange={onValueChange}
