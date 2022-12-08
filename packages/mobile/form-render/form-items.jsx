@@ -8,6 +8,7 @@ import ItemList from './components/item-list';
 import Slot from './components/slot';
 
 // 内置了 Form.Item 的组件
+// TODO: 全部改为内置 Form.Item
 const insizeFormItemEnum = {
   input: true,
   select: true,
@@ -36,6 +37,7 @@ export default function FormRender(props) {
   } = schema;
 
   // 放在这里，解决循环引用导致组件初始加载 undefined 的问题
+  // TODO: 全部改为内置 Form.Item
   const TypeEnum = {
     input: Input,
     'input-number': Input,
