@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Form, Button } from 'antd-mobile';
 
-// TODO: 解决循环引用导致组件加载 undefined 的问题
-import FormItems from '../../form-items-copy';
+import FormItems from '../../form-items';
 
 function ItemList(props) {
   const {

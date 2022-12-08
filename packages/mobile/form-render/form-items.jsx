@@ -7,14 +7,6 @@ import Select from './components/select';
 import ItemList from './components/item-list';
 import Slot from './components/slot';
 
-const TypeEnum = {
-  input: Input,
-  'input-number': Input,
-  select: Select,
-  'item-list': ItemList,
-  slot: Slot,
-};
-
 // 内置了 Form.Item 的组件
 const insizeFormItemEnum = {
   select: true,
@@ -41,6 +33,15 @@ export default function FormRender(props) {
     validFuncs = [],
     validRules = {},
   } = schema;
+
+  // 放在这里，解决循环引用导致组件初始加载 undefined 的问题
+  const TypeEnum = {
+    input: Input,
+    'input-number': Input,
+    select: Select,
+    'item-list': ItemList,
+    slot: Slot,
+  };
 
   console.log('form', form);
 

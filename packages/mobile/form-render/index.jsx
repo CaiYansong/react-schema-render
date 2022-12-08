@@ -1,26 +1,5 @@
 import { Form } from 'antd';
 
-import rulesAdapter from './adapter/rules-adapter';
-
-import Input from './components/input';
-import Select from './components/select';
-import ItemList from './components/item-list';
-import Slot from './components/slot';
-
-const TypeEnum = {
-  input: Input,
-  'input-number': Input,
-  select: Select,
-  'item-list': ItemList,
-  slot: Slot,
-};
-
-// 内置了 Form.Item 的组件
-const insizeFormItemEnum = {
-  select: true,
-  'item-list': true,
-};
-
 import FormItems from './form-items';
 
 export default function FormRender(props) {
