@@ -75,8 +75,11 @@ export function ruleAdapter(rule, validFuncs) {
   const { type, trigger, note, regexp } = rule;
   let res = {
     message: note,
-    pattern: regexp,
   };
+
+  if (regexp) {
+    res.pattern = regexp;
+  }
 
   if (typeof trigger === "string") {
     res.validateTrigger = trigger;
