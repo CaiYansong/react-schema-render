@@ -19,18 +19,6 @@ function SelectCom(props) {
   } = props;
   const [_options, setOptions] = useState(options ? [options] : []);
 
-  const _props = {
-    id: name,
-    value: data,
-    allowClear: clearable,
-    disabled,
-    readOnly: readonly,
-    showSearch: searchable,
-    mode: multiple === true ? 'multiple' : undefined,
-    onClear: onChange,
-    onChange: onChange,
-  };
-
   // 处理数据源为 func 的逻辑
   useEffect(async () => {
     if (

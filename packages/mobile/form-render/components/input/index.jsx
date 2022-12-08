@@ -1,5 +1,7 @@
 import React from 'react';
-import { Input, TextArea } from 'antd-mobile';
+import { Form, Input, TextArea } from 'antd-mobile';
+
+const FormItem = Form.Item;
 
 function InputCom(props) {
   const {
@@ -15,6 +17,7 @@ function InputCom(props) {
     onChange,
     onClear,
     onPressEnter,
+    formItemProps,
   } = props;
 
   let _props = {
@@ -42,7 +45,11 @@ function InputCom(props) {
       },
       onResize,
     };
-    return <TextArea {...textareaProps} />;
+    return (
+      <FormItem {...formItemProps}>
+        <TextArea {...textareaProps} />
+      </FormItem>
+    );
   }
 
   if (props.type === 'input-number') {
@@ -56,7 +63,11 @@ function InputCom(props) {
     };
   }
 
-  return <Input {..._props} />;
+  return (
+    <FormItem {...formItemProps}>
+      <Input {..._props} />
+    </FormItem>
+  );
 }
 
 export default InputCom;

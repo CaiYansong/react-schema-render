@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form } from 'antd-mobile';
 
 import rulesAdapter from './adapter/rules-adapter';
 
@@ -9,6 +9,7 @@ import Slot from './components/slot';
 
 // 内置了 Form.Item 的组件
 const insizeFormItemEnum = {
+  input: true,
   select: true,
   'item-list': true,
 };
@@ -43,15 +44,11 @@ export default function FormRender(props) {
     slot: Slot,
   };
 
-  console.log('form', form);
-
   const { marginY, marginX } = formConf || {};
 
   function onItemChange(...args) {
     // console.log('onItemChange', ...args);
   }
-
-  console.log('name', name, formInstance);
 
   return (
     <>
@@ -92,6 +89,12 @@ export default function FormRender(props) {
           formInstance: formInstance,
           onChange: onItemChange,
         };
+
+        // 处理 item list name 属性
+        if (typeof props.itemListIndex === 'number') {
+          formItemProps.name = [props.itemListIndex, it.name];
+          childProps.name = [props.itemListIndex, it.name];
+        }
 
         if (type === 'slot') {
           return (

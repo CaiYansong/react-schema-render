@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form } from 'antd-mobile';
 
 import FormItems from './form-items';
 
@@ -54,13 +54,14 @@ export default function FormRender(props) {
       form={formInstance}
       initialValues={initialValues || data}
       layout={layout}
-      labelCol={labelCol}
-      labelAlign={schema?.formConf?.labelPosition}
+      // labelCol={labelCol}
+      // labelAlign={schema?.formConf?.labelPosition}
       onValuesChange={onValueChange}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
       <FormItems
+        data={data}
         scenario={scenario}
         schema={schema}
         config={config}

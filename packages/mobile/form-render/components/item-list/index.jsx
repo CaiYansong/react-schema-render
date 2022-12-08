@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Form, Button } from 'antd-mobile';
+import { Form } from 'antd-mobile';
 
 import FormItems from '../../form-items';
 
@@ -43,14 +42,14 @@ function ItemList(props) {
     >
       {(fields) =>
         fields.map(({ index }) => (
-          <>
-            <FormItems
-              scenario={scenario}
-              schema={schema}
-              config={config}
-              formInstance={formInstance}
-            ></FormItems>
-          </>
+          <FormItems
+            itemListIndex={index}
+            scenario={scenario}
+            schema={schema}
+            config={config}
+            formInstance={formInstance}
+            onChange={onChange}
+          ></FormItems>
         ))
       }
     </Form.Array>
