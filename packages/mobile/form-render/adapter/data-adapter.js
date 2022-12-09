@@ -15,9 +15,8 @@ export function handleFillBackData(fieldList, data) {
       data[name] = handleFillBackSelect(data[name]);
     }
     if (type === "item-list" && Array.isArray(data[name])) {
-      const dataArr = data[name];
-      dataArr.forEach((it, idx) => {
-        handleFillBackData(field.fieldList, dataArr[idx]);
+      data[name].forEach((it, idx) => {
+        handleFillBackData(field.fieldList, it);
       });
     }
   });
@@ -38,8 +37,10 @@ export function handleSubmitData(fieldList, data) {
     if (type === "select") {
       data[name] = handleSubmitSelect(data[name]);
     }
-    if (type === "item-list") {
-      handleSubmitSelect(field.fieldList, data[name]);
+    if (type === "item-list" && data[name]) {
+      data[name].forEach((it, idx) => {
+        handleSubmitData(field.fieldList, it);
+      });
     }
   });
   return data;

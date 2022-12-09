@@ -7,13 +7,6 @@ import Select from "./components/select";
 import ItemList from "./components/item-list";
 import Slot from "./components/slot";
 
-// 内置了 Form.Item 的组件
-// TODO: 全部改为内置 Form.Item
-const insizeFormItemEnum = {
-  input: true,
-  select: true,
-  "item-list": true,
-};
 
 export default function FormItems(props) {
   const {
@@ -35,7 +28,6 @@ export default function FormItems(props) {
   } = schema;
 
   // 放在这里，解决循环引用导致组件初始加载 undefined 的问题
-  // TODO: 全部改为内置 Form.Item
   const TypeEnum = {
     input: Input,
     "input-number": Input,
@@ -94,30 +86,11 @@ export default function FormItems(props) {
           childProps.name = [props.itemListIndex, name];
         }
 
-        if (type === "slot") {
-          return (
-            <Form.Item {...formItemProps}>
-              <Component {...childProps}>
-                {type === "slot" &&
-                  props.children?.find((child) => child.key === it.slotName)}
-              </Component>
-            </Form.Item>
-          );
-        }
-
-        if (insizeFormItemEnum[type]) {
-          return (
-            <Component
-              {...childProps}
-              formItemProps={formItemProps}
-            ></Component>
-          );
-        }
-
         return (
-          <Form.Item {...formItemProps}>
-            <Component {...childProps}></Component>
-          </Form.Item>
+          <Component {...childProps} formItemProps={formItemProps}>
+            {type === "slot" &&
+              props.children?.find((child) => child.key === it.slotName)}
+          </Component>
         );
       })}
     </>
