@@ -6,11 +6,14 @@ import moment from "moment";
 
 import "./index.less";
 
-function isBetweenLayout(it) {
-  if (it.mode === "textarea") {
-    return false;
+function getLayout(layout, it) {
+  if (layout === "start") {
+    return "item-start";
   }
-  return true;
+  if (it.mode === "textarea") {
+    return "item-vertical";
+  }
+  return "item-between";
 }
 
 const dateFormatEnum = {
@@ -32,7 +35,16 @@ function getVal(it, data = {}, opt = {}) {
 }
 
 function DetailRender(props) {
-  const { data = {}, model, schema, itemRender, getApi, query, config } = props;
+  const {
+    layout,
+    data = {},
+    model,
+    schema,
+    itemRender,
+    getApi,
+    query,
+    config,
+  } = props;
   const { fieldList } = schema || {};
 
   const [_data, setData] = useState(data);
@@ -72,12 +84,13 @@ function DetailRender(props) {
 
         return (
           <div
-            className={`item-box ${
-              isBetweenLayout(it) ? "item-between" : "item-vertical"
-            }`}
+            className={`item-box ${getLayout(layout, it)}`}
             key={it.name + idx}
           >
-            <div className="item-label">{it.label}</div>
+            <div className="item-label">
+              {it.label}
+              {layout === "start" ? "：" : ""}
+            </div>
             <div className="item-value">{getVal(it, _data)}</div>
           </div>
         );
