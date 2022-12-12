@@ -1,18 +1,21 @@
+import { useEffect, useImperativeHandle, forwardRef } from "react";
 import { Form } from "antd-mobile";
+import _ from "lodash";
 
 import FormItems from "./form-items";
 
 import { handleFillBackData, handleSubmitData } from "./adapter/data-adapter";
 
-export default function FormRender(props) {
+function FormRender(props, parentRef) {
   const {
     name = Date.now(),
     inline,
-    layout,
+    layout = "horizontal",
     initialValues,
     scenario,
     schema = {},
     data = {},
+    disabled,
     config = {},
     onChange,
     onFinish,
@@ -21,16 +24,21 @@ export default function FormRender(props) {
 
   const [formInstance] = Form.useForm();
 
+  useImperativeHandle(parentRef, () => ({
+    formInstance,
+    validateFields: formInstance.validateFields,
+  }));
+
+  useEffect(() => {
+    formInstance.setFieldsValue(data);
+  }, [data]);
+
   function onValueChange(changedValues, allValues) {
-    console.log(
-      "onValueChange",
-      allValues,
-      handleSubmitData(schema.fieldList, allValues),
-    );
+    // TODO: 确认初始数据是否需要全部回填，非表单项数据会被清除
     onChange &&
       onChange(
         changedValues,
-        handleSubmitData(schema.fieldList, allValues),
+        handleSubmitData(schema.fieldList, _.cloneDeep(allValues)),
         formInstance,
       );
   }
@@ -61,6 +69,7 @@ export default function FormRender(props) {
   return (
     <Form
       className="form-render"
+      disabled={disabled}
       name={name}
       form={formInstance}
       initialValues={handleFillBackData(
@@ -75,6 +84,7 @@ export default function FormRender(props) {
       onFinishFailed={onFinishFailed}
     >
       <FormItems
+        disabled={disabled}
         data={data}
         scenario={scenario}
         schema={schema}
@@ -87,3 +97,5 @@ export default function FormRender(props) {
     </Form>
   );
 }
+
+export default forwardRef(FormRender);

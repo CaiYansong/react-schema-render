@@ -5,8 +5,9 @@ import rulesAdapter from "./adapter/rules-adapter";
 import Input from "./components/input";
 import Select from "./components/select";
 import ItemList from "./components/item-list";
+import Uploader from "./components/uploader";
+import MapPicker from "./components/map-picker";
 import Slot from "./components/slot";
-
 
 export default function FormItems(props) {
   const {
@@ -18,6 +19,8 @@ export default function FormItems(props) {
     data = {},
     config = {},
     formInstance,
+    disabled,
+    onChange,
   } = props || {};
 
   const {
@@ -33,10 +36,20 @@ export default function FormItems(props) {
     "input-number": Input,
     select: Select,
     "item-list": ItemList,
+    "input-file": Uploader,
+    "china-location": MapPicker,
     slot: Slot,
   };
 
   const { marginY, marginX } = formConf || {};
+
+  function onItemChange(changedValues, allValues, field) {
+    let _allValues = allValues;
+    if (!field) {
+      _allValues = formInstance.getFieldsValue(true);
+    }
+    onChange && onChange(changedValues, _allValues, field);
+  }
 
   return (
     <>
@@ -68,16 +81,20 @@ export default function FormItems(props) {
           config,
           scenario,
           formInstance,
+          disabled,
         };
 
         const childProps = {
           key: name,
           parentField: parentField || props,
           ...it,
+          field: it,
           scenario: scenario,
           config: config,
           data: data[name],
           formInstance: formInstance,
+          onChange: onItemChange,
+          disabled,
         };
 
         // 处理 item list name 属性
@@ -88,8 +105,11 @@ export default function FormItems(props) {
 
         return (
           <Component {...childProps} formItemProps={formItemProps}>
-            {type === "slot" &&
-              props.children?.find((child) => child.key === it.slotName)}
+            {type === "slot" && Array.isArray(props.children)
+              ? props.children?.find((child) => child.key === it.slotName)
+              : props.children?.key === it.slotName
+              ? props.children
+              : null}
           </Component>
         );
       })}

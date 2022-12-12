@@ -1,7 +1,6 @@
 import { Marker, TileLayer, Map, useLeaflet } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useRef, useState } from 'react';
-import {} from 'antd';
 
 import pointIconUrl from '@/assets/img/approachPointIcon.png';
 

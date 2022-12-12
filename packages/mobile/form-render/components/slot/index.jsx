@@ -19,10 +19,17 @@ function Slot(props) {
         return React.cloneElement(childItem, {
           name,
           data,
+          value: data,
           scenario,
           formInstance,
           onChange: (value) => {
-            onChange && onChange({ [name]: value }, props);
+            formInstance?.setFieldValue(name, value);
+            onChange &&
+              onChange(
+                { [name]: value },
+                formInstance.getFieldsValue(true),
+                props,
+              );
           },
         });
       })}

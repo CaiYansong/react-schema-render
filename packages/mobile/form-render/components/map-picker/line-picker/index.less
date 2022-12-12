@@ -1,0 +1,41 @@
+.line-picker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .line-picker-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    .get-current-location-btn {
+      padding: 0 8px;
+      cursor: pointer;
+    }
+  }
+  .line-picker-map {
+    flex: 1;
+  }
+  .line-start-end-show {
+    .active-point {
+      background-color: #eee;
+    }
+  }
+  .line-picker-footer {
+    display: flex;
+    .footer-btn {
+      flex: 1;
+    }
+  }
+  .loading-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 999;
+  }
+}
