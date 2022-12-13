@@ -1,3 +1,5 @@
+import DataModel from "@packages/data-model";
+
 /**
  * 获取 fieldList 中的远程选项数据
  * @param {Array} fieldList
@@ -66,15 +68,12 @@ export function getRemoteData(field, config, scenario) {
         resolve(options);
       });
     } else if (remoteConf.type === "api" && remoteConf.api) {
-      fetch(remoteConf.api, {
-        method: "get",
-        headers: config?.headers || {},
-      })
-        .then((res) => res.json())
+      const dm = new DataModel({
+        getApi: remoteConf.api,
+      });
+      dm.get()
         .then((res) => {
-          if (res.code === 200) {
-            resolve(res.data);
-          }
+          resolve(res);
         })
         .catch((error) => {
           console.error("Error select remote api: ", error);

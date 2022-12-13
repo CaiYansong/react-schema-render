@@ -1,5 +1,6 @@
 # Mobile Form Render
 
+- 注意：select 类型 校验时机需要选择 change
 
 ## 差异
 - input
@@ -23,3 +24,8 @@
   </Form.Item>
 </Form>
 ```
+
+## 问题
+- 表单选择框已经选择，但是提交时校验出现 ['${label}不是一个有效的${type}'] 错误。
+  - 校验 validateTrigger 需要有 change
+

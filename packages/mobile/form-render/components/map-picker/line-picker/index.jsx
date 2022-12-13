@@ -3,8 +3,8 @@ import { Marker, TileLayer, Map, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, SpinLoading } from "antd-mobile";
 
-import { mapConfig } from "../map-config";
-import pointIconUrl from "../approachPointIcon.png";
+import { mapConfig } from "../common/map-config";
+import pointIconUrl from "../common/approachPointIcon.png";
 
 import "./index.less";
 

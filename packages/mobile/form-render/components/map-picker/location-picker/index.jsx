@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Marker, TileLayer, Map, useLeaflet } from "react-leaflet";
+import { Marker, TileLayer, Map } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, SpinLoading } from "antd-mobile";
 
-import { wgs84togcj02 } from "../gpsConvert";
+import { wgs84togcj02 } from "../common/gpsConvert";
 
-import { mapConfig } from "../map-config";
-import pointIconUrl from "../approachPointIcon.png";
+import getCurrentPosition from "../common/getCurrentPosition";
+import { mapConfig } from "../common/map-config";
+import pointIconUrl from "../common/approachPointIcon.png";
 
 import "./index.less";
 
@@ -34,10 +35,10 @@ function ReactLeafletMap(props) {
     setPoint(e?.latlng);
   }
 
-  function getCurrentPosition() {
+  function getPosition() {
     setLoading(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
+    getCurrentPosition()
+      .then((position) => {
         const { coords } = position;
         const [lat, lng] = wgs84togcj02(
           coords.longitude,
@@ -47,16 +48,11 @@ function ReactLeafletMap(props) {
         setPoint({ lat, lng });
         map.setView(L.latLng(lat, lng), mapConfig.zoom);
         setLoading(false);
-      },
-      (error) => {
-        console.error("getCurrentPosition", error);
+      })
+      .catch((err) => {
+        console.error("getPosition", error);
         setLoading(false);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 5000,
-      },
-    );
+      });
   }
 
   useEffect(() => {
@@ -68,8 +64,8 @@ function ReactLeafletMap(props) {
       map.setView(L.latLng(lat, lng), mapConfig.zoom);
       setPoint({ lat, lng });
     } else {
-      // 获取初始位置
-      getCurrentPosition();
+      // 获取初始位置（当前位置）
+      getPosition();
     }
   }, []);
 
@@ -83,7 +79,7 @@ function ReactLeafletMap(props) {
         <span>经度：{point?.lng}</span>
         &nbsp;
         <span>纬度：{point?.lat}</span>
-        <span className="get-current-location-btn" onClick={getCurrentPosition}>
+        <span className="get-current-location-btn" onClick={getPosition}>
           获取当前坐标
         </span>
       </div>

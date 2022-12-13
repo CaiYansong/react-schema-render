@@ -10,6 +10,8 @@ function ListRender(props) {
     itemTitleKey = "name",
     stickyTop = "8vw",
     itemRender,
+    hasSearch = true,
+    query,
   } = props;
 
   const [hasMore, setHasMore] = useState(true);
@@ -18,10 +20,14 @@ function ListRender(props) {
 
   function onLoadMore(isRetry) {
     if (!model.query) {
-      model.query = {};
+      model.query = {
+        pageSize: 10,
+      };
+    }
+    if (!model.query.pageSize) {
+      model.query.pageSize = 10;
     }
     model.query.pageNumber = (model.query.pageNumber || 0) + 1;
-    console.log(model.query.pageNumber);
     getList();
   }
 
@@ -34,7 +40,7 @@ function ListRender(props) {
 
   function getList() {
     // TODO: 接口错误逻辑处理
-    return model.getList().then((res) => {
+    return model.getList(query).then((res) => {
       if (!res || res.list.length <= 0) {
         setHasMore(false);
         return;
@@ -49,23 +55,25 @@ function ListRender(props) {
 
   return (
     <div className="list-render">
-      <div className="list-search" style={{ top: stickyTop }}>
-        <div className="header-left">
-          <SearchBar
-            placeholder="请输入搜索内容"
-            onSearch={onSearch}
-            onClear={() => {
-              onSearch("");
-            }}
-            onChange={setSearch}
-          />
+      {hasSearch ? (
+        <div className="list-search" style={{ top: stickyTop }}>
+          <div className="header-left">
+            <SearchBar
+              placeholder="请输入搜索内容"
+              onSearch={onSearch}
+              onClear={() => {
+                onSearch("");
+              }}
+              onChange={setSearch}
+            />
+          </div>
+          <div className="header-right">
+            <Button size="small" color="primary" onClick={onSearch}>
+              搜索
+            </Button>
+          </div>
         </div>
-        <div className="header-right">
-          <Button size="small" color="primary" onClick={onSearch}>
-            搜索
-          </Button>
-        </div>
-      </div>
+      ) : null}
       {list?.map((item, index) => {
         if (itemRender) {
           return itemRender(item, index);

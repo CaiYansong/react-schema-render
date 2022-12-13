@@ -67,7 +67,6 @@ function DetailRender(props) {
     dm &&
       dm.get &&
       dm.get().then((res) => {
-        console.log(res);
         setData(res);
       });
   }, []);
