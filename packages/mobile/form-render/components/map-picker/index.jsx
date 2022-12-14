@@ -11,7 +11,7 @@ function LocationPickerCom(props) {
     formInstance,
     onChange,
     data = {},
-    disable,
+    disabled,
     readOnly,
     mode,
   } = props;
@@ -51,14 +51,15 @@ function LocationPickerCom(props) {
           &nbsp;
         </span>
       )}
-      <Button
-        disable={disable || readOnly}
-        onClick={() => {
-          setVisible(true);
-        }}
-      >
-        地图选点
-      </Button>
+      {disabled || readOnly ? null : (
+        <Button
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          地图选点
+        </Button>
+      )}
       <Popup
         visible={visible}
         onMaskClick={onCancel}

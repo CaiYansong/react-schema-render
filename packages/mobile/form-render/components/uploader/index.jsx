@@ -1,4 +1,4 @@
-import { Form, } from "antd-mobile";
+import { Form } from "antd-mobile";
 
 import Uploader from "./uploader";
 

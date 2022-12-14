@@ -1,38 +1,34 @@
-import { useState, useRef } from "react";
-import { Image, Button, Dialog, ActionSheet } from "antd-mobile";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Image, Button, Dialog, ActionSheet, Mask } from "antd-mobile";
 
-import { getImage, getVideo } from "./corodva-camera";
+import Video from "./video";
+
+import { getImage, getVideo } from "./common/cordova-camera";
+import { getFileURL, checkImageUrl, checkVideoUrl } from "./common/utils";
 
 import "./uploader.less";
 
-/**
- *  建立一个可以存取该 file 的 url
- * @param {Object} file 文件
- * @returns {string} url
- * blob:http://localhost:8000/c9950644-5118-4231-9be7-8183bde1fdc7
- */
-function getFileURL(file) {
-  let url = null;
-
-  // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
-  if (window.createObjectURL != undefined) {
-    // basic
-    url = window.createObjectURL(file);
-  } else if (window.URL != undefined) {
-    // mozilla(firefox)
-    url = window.URL.createObjectURL(file);
-  } else if (window.webkitURL != undefined) {
-    // webkit or chrome
-    url = window.webkitURL.createObjectURL(file);
-  }
-
-  return url;
-}
+const TYPE_VIDEO = "video";
+const TYPE_IMG = "img";
 
 function Uploader(props) {
-  const { name, multiple, mode, onChange, accept } = props;
-  const [fileList, setFileList] = useState([]);
+  const {
+    name,
+    multiple,
+    // 模式字符串: all | select | image | video 或 数组 select | image | video 组合：如：['select', 'image']
+    mode = "select",
+    onChange,
+    accept,
+    disabled,
+    readOnly,
+    data,
+  } = props;
+  const [fileList, setFileList] = useState(data || []);
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
+
+  useEffect(() => {
+    setFileList(data || []);
+  }, [data]);
 
   function onFileChange(e) {
     e.persist();
@@ -53,13 +49,22 @@ function Uploader(props) {
 
   const uploaderRef = useRef();
 
-  const actions = [
-    { text: "选择文件", key: "select" },
-    { text: "拍照", key: "captureImage" },
-    { text: "录像", key: "captureVideo" },
-  ];
+  const actions = useMemo(() => {
+    const allEnum = {
+      select: { text: "选择文件", key: "select" },
+      image: { text: "拍照", key: "captureImage" },
+      video: { text: "录像", key: "captureVideo" },
+    };
+    if (Array.isArray(mode)) {
+      return mode.filter((it) => !!allEnum[it]).map((it) => allEnum[it]);
+    }
+    if (mode === "all") {
+      return Object.keys(allEnum).map((key) => allEnum[key]);
+    }
+    return allEnum[mode] ? [allEnum[mode]] : [allEnum.select];
+  }, [mode]);
 
-  function onPciker({ key }) {
+  function onPicker({ key }) {
     switch (key) {
       case "select":
         uploaderRef.current.click();
@@ -98,14 +103,16 @@ function Uploader(props) {
     return (
       <div className="file-item">
         {props.children}
-        <div
-          className="file-item-del"
-          onClick={() => {
-            onItemDel(index);
-          }}
-        >
-          X
-        </div>
+        {disabled || readOnly ? null : (
+          <div
+            className="file-item-del"
+            onClick={() => {
+              onItemDel(index);
+            }}
+          >
+            X
+          </div>
+        )}
       </div>
     );
   }
@@ -124,48 +131,76 @@ function Uploader(props) {
         accept={accept}
       ></input>
       {fileList.map((it, idx) => {
-        if (typeof it === "string" && it.startsWith("data:image/")) {
-          return (
-            <ItemRender key={name + idx} index={idx}>
-              <Image className="file-item-view" src={it} alt={name} />
-            </ItemRender>
-          );
-        }
         const { type, name } = it;
-        if (type?.startsWith("image/")) {
+        let src = "";
+        let fileType = "";
+        let downLoadUrl = undefined;
+
+        // 判断文件类型，获取对应展示的数据
+        if (typeof it === "string") {
+          src = it;
+          // 图片
+          if (
+            it.startsWith("data:image/") ||
+            (/[ ,]?image\//.test(accept) && checkImageUrl(it))
+          ) {
+            fileType = TYPE_IMG;
+          }
+          // 视频
+          if (/[ ,]?video\//.test(accept) && checkVideoUrl(it)) {
+            fileType = TYPE_VIDEO;
+          }
+        } else {
+          // 图片
+          if (type?.startsWith("image/")) {
+            src = getFileURL(it);
+            fileType = TYPE_IMG;
+          }
+
+          // 视频
+          if (type?.startsWith("video/")) {
+            src = getFileURL(it);
+            fileType = TYPE_VIDEO;
+            // TODO: 确认下载逻辑
+            downLoadUrl = src;
+          }
+        }
+
+        if (fileType === TYPE_IMG) {
           return (
-            <ItemRender index={idx} key={name + idx}>
-              <Image
-                className="file-item-view"
-                src={getFileURL(it)}
-                alt={name}
-              />
+            <ItemRender index={idx} key={name + "_" + idx}>
+              <Image className="file-item-view" src={src} alt={name} />
             </ItemRender>
           );
         }
-        if (type?.startsWith("video/")) {
+        if (fileType === TYPE_VIDEO) {
           return (
-            <ItemRender index={idx} key={name + idx}>
-              <video className="file-item-view" src={getFileURL(it)} controls />
+            <ItemRender index={idx} key={name + "_" + idx}>
+              <Video src={src} href={downLoadUrl} />
             </ItemRender>
           );
         }
+
         return it.name;
       })}
-      <Button
-        onClick={() => {
-          setActionSheetVisible(true);
-        }}
-      >
-        +
-      </Button>
-      <ActionSheet
-        cancelText="取消"
-        visible={actionSheetVisible}
-        actions={actions}
-        onAction={onPciker}
-        onClose={() => setActionSheetVisible(false)}
-      />
+      {disabled || readOnly ? null : (
+        <>
+          <Button
+            onClick={() => {
+              setActionSheetVisible(true);
+            }}
+          >
+            +
+          </Button>
+          <ActionSheet
+            cancelText="取消"
+            visible={actionSheetVisible}
+            actions={actions}
+            onAction={onPicker}
+            onClose={() => setActionSheetVisible(false)}
+          />
+        </>
+      )}
     </div>
   );
 }

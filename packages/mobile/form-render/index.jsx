@@ -16,6 +16,7 @@ function FormRender(props, parentRef) {
     schema = {},
     data = {},
     disabled,
+    readOnly,
     config = {},
     onChange,
     onFinish,
@@ -70,6 +71,7 @@ function FormRender(props, parentRef) {
     <Form
       className="form-render"
       disabled={disabled}
+      readOnly={readOnly}
       name={name}
       form={formInstance}
       initialValues={handleFillBackData(
@@ -85,6 +87,7 @@ function FormRender(props, parentRef) {
     >
       <FormItems
         disabled={disabled}
+        readOnly={readOnly}
         data={data}
         scenario={scenario}
         schema={schema}

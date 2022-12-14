@@ -12,7 +12,7 @@ function SelectCom(props) {
     data,
     clearable,
     disabled,
-    readonly,
+    readOnly,
     multiple,
     searchable,
     placeholder = "请选择",
@@ -40,6 +40,9 @@ function SelectCom(props) {
   }
 
   function onClick() {
+    if (readOnly || disabled) {
+      return;
+    }
     setVisible((val) => {
       return !val;
     });
@@ -52,9 +55,13 @@ function SelectCom(props) {
 
   return (
     <FormItem {..._formItemProps} onClick={onClick}>
-      <Picker columns={_options} visible={visible} onClose={onClose}>
-        {(value) => (value && value.length > 0 ? value[0]?.label : placeholder)}
-      </Picker>
+      {readOnly || disabled ? null : (
+        <Picker columns={_options} visible={visible} onClose={onClose}>
+          {(value) =>
+            value && value.length > 0 ? value[0]?.label : placeholder
+          }
+        </Picker>
+      )}
     </FormItem>
   );
 }

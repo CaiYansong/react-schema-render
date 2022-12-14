@@ -20,6 +20,7 @@ export default function FormItems(props) {
     config = {},
     formInstance,
     disabled,
+    readOnly,
     onChange,
   } = props || {};
 
@@ -82,6 +83,7 @@ export default function FormItems(props) {
           scenario,
           formInstance,
           disabled,
+          readOnly: readOnly ?? it.readonly,
         };
 
         const childProps = {
@@ -95,6 +97,7 @@ export default function FormItems(props) {
           formInstance: formInstance,
           onChange: onItemChange,
           disabled,
+          readOnly: readOnly ?? it.readonly,
         };
 
         // 处理 item list name 属性

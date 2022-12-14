@@ -10,6 +10,7 @@ function ItemList(props) {
     name,
     label,
     disabled,
+    readOnly,
     scenario,
     data,
     inline,
@@ -35,7 +36,7 @@ function ItemList(props) {
         name={name}
         onAdd={(operation) => operation.add({})}
         renderAdd={() => {
-          if (disabled) {
+          if (readOnly || disabled) {
             return null;
           }
           return (
@@ -45,18 +46,17 @@ function ItemList(props) {
           );
         }}
         renderHeader={({ index }, { remove }) => {
-          if (disabled) {
-            return null;
-          }
           return (
             <>
               <span>
                 {label}
                 {index + 1}
               </span>
-              <a onClick={() => remove(index)} style={{ float: "right" }}>
-                删除
-              </a>
+              {readOnly || disabled ? null : (
+                <a onClick={() => remove(index)} style={{ float: "right" }}>
+                  删除
+                </a>
+              )}
             </>
           );
         }}
@@ -64,6 +64,8 @@ function ItemList(props) {
         {(fields) =>
           fields.map(({ index }) => (
             <FormItems
+              disabled={disabled}
+              readOnly={readOnly}
               name={name}
               parentField={props}
               itemListIndex={index}
