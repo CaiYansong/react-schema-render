@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchBar, Button, InfiniteScroll, Card } from "antd-mobile";
 
 import "./index.less";
@@ -14,9 +14,23 @@ function ListRender(props) {
     query,
   } = props;
 
+  const isFirst = useRef();
   const [hasMore, setHasMore] = useState(true);
   const [search, setSearch] = useState();
   const [list, setList] = useState([]);
+
+  useEffect(() => {
+    if (!model.query) {
+      model.query = {};
+    }
+    if (!model.query.pageSize) {
+      model.query.pageSize = 10;
+    }
+    // 销毁后清除状态
+    return () => {
+      model.query.pageNumber = 1;
+    };
+  }, []);
 
   function onLoadMore(isRetry) {
     if (!model.query) {
@@ -27,7 +41,12 @@ function ListRender(props) {
     if (!model.query.pageSize) {
       model.query.pageSize = 10;
     }
-    model.query.pageNumber = (model.query.pageNumber || 0) + 1;
+    if (isFirst.current === undefined) {
+      isFirst.current = false;
+      model.query.pageNumber = 1;
+    } else {
+      model.query.pageNumber = (model.query.pageNumber || 1) + 1;
+    }
     getList();
   }
 
