@@ -26,7 +26,7 @@ function ListRender(props) {
     if (!model.query.pageSize) {
       model.query.pageSize = 10;
     }
-    // 销毁后清除状态
+    // 销毁后清除状态，解决 一个页面多 tab 多列表 dataModel 不销毁导致的缓存问题
     return () => {
       model.query.pageNumber = 1;
     };
@@ -42,9 +42,11 @@ function ListRender(props) {
       model.query.pageSize = 10;
     }
     if (isFirst.current === undefined) {
+      // 首次加载 pageNumber = 1
       isFirst.current = false;
       model.query.pageNumber = 1;
     } else {
+      // loadMore pageNumber += 1
       model.query.pageNumber = (model.query.pageNumber || 1) + 1;
     }
     getList();
