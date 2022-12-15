@@ -1,0 +1,29 @@
+.list-card-item {
+  margin: 0 1.6vw 1.6vh;
+  padding: 0;
+  border: 1px solid #eee;
+  border-radius: var(--adm-button-border-radius, 0.53333vw);
+  // 解决折叠面板内嵌 List 导致字体颜色不正确的问题
+  // TODO: 确认是否需要
+  color: var(--adm-color-text);
+  .adm-card-header {
+    padding: 1.6vw;
+  }
+  .list-card-item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item-detail-icon {
+    padding-right: 1.6vw;
+  }
+  .list-card-item-container {
+    flex: 1;
+  }
+  .list-card-item-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.6vw 1.6vw 0;
+    border-top: 1px solid #eee;
+  }
+}
