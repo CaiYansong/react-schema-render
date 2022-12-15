@@ -101,7 +101,7 @@ class DataModel {
       resultList = await this.getListFunc(query);
     } else {
       const getPro = new Promise((resolve, reject) => {
-        const apiUrl = this.getApiUrl(this.getListApi, ctx);
+        const apiUrl = this.getApiUrl(this.getListApi, q, ctx);
         this.axios
           .get(apiUrl, {
             ...this.axiosConf,
