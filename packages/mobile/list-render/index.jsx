@@ -184,7 +184,18 @@ function ListRender(props) {
         if (mode === "list") {
           return (
             <div className="list-render-list-item">
-              {item.id}-{item[itemTitleKey]}
+              {children ? (
+                React.Children.map(children, (childItem) => {
+                  return React.cloneElement(childItem, {
+                    key: `${item.id}-${index}`,
+                    item,
+                    data: item,
+                    fieldList,
+                  });
+                })
+              ) : (
+                <div key={`${item.id}-${index}`}>{item.id}</div>
+              )}
             </div>
           );
         }
