@@ -16,7 +16,7 @@ function ListRender(props) {
     stickyTop = "8vw",
     hasSearch = true,
     query,
-    mode = "card",
+    mode = "list",
     // 子项是否有详情按钮
     hasDetailIcon,
     // 子项是否有底部操作栏
@@ -180,6 +180,13 @@ function ListRender(props) {
         }
         if (itemRender) {
           return itemRender(item, index);
+        }
+        if (mode === "list") {
+          return (
+            <div className="list-render-list-item">
+              {item.id}-{item[itemTitleKey]}
+            </div>
+          );
         }
         return children ? (
           React.Children.map(children, (childItem) => {
