@@ -82,7 +82,7 @@ export function ruleAdapter(rule, validFuncs) {
   }
 
   if (typeof trigger === "string") {
-    res.validateTrigger = trigger;
+    res.validateTrigger = getTrigger(trigger);
   }
 
   if (type === "required") {
@@ -122,6 +122,7 @@ export function getTrigger(trigger) {
   } else if (Array.isArray(trigger)) {
     res = trigger.map((it) => addPrefix(it));
   }
+  return res;
 }
 
 /**
