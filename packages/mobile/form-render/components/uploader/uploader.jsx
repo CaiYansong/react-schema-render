@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Image, Button, Dialog, ActionSheet, Mask } from "antd-mobile";
+import { Image, Button, Dialog, ActionSheet } from "antd-mobile";
+import { CloseCircleFill } from "antd-mobile-icons";
 
 import Video from "./video";
 
@@ -110,7 +111,7 @@ function Uploader(props) {
               onItemDel(index);
             }}
           >
-            X
+            <CloseCircleFill  fontSize={14}/>
           </div>
         )}
       </div>
@@ -186,6 +187,7 @@ function Uploader(props) {
       {disabled || readOnly ? null : (
         <>
           <Button
+            className="uploader-add-btn"
             onClick={() => {
               setActionSheetVisible(true);
             }}

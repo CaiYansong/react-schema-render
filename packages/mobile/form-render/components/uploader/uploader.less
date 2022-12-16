@@ -1,4 +1,5 @@
 .uploader {
+  .uploader-add-btn,
   .file-item {
     position: relative;
     display: inline-flex;
@@ -8,22 +9,26 @@
     height: 20vw;
     margin-right: 2vw;
     vertical-align: top;
+    border-radius: 4px;
     .file-item-view {
       max-width: 100%;
       max-height: 100%;
     }
     .file-item-del {
       position: absolute;
-      right: 0;
-      top: 0;
+      right: -1vw;
+      top: -1vw;
       width: 3vw;
       height: 3vw;
       line-height: 3vw;
       text-align: center;
-      font-size: 1.5vw;
+      border-radius: 50%;
       user-select: none;
       background-color: #fff;
     }
+  }
+  .uploader-add-btn {
+    font-size: 6vw;
   }
   .aria-hidden {
     display: none;

@@ -21,6 +21,7 @@ function FormRender(props, parentRef) {
     onChange,
     onFinish,
     onFinishFailed,
+    fieldsConf = {},
   } = props || {};
 
   const [formInstance] = Form.useForm();
@@ -93,6 +94,7 @@ function FormRender(props, parentRef) {
         schema={schema}
         config={config}
         formInstance={formInstance}
+        fieldsConf={fieldsConf}
         onChange={onValueChange}
       >
         {props.children}

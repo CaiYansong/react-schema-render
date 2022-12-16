@@ -21,6 +21,7 @@ function ItemList(props) {
     validRules = {},
     config,
     formInstance,
+    fieldsConf,
     onChange,
     onFinish,
     onFinishFailed,
@@ -72,6 +73,7 @@ function ItemList(props) {
               scenario={scenario}
               schema={schema}
               config={config}
+              fieldsConf={fieldsConf}
               formInstance={formInstance}
             ></FormItems>
           ))
