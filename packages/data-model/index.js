@@ -17,12 +17,13 @@ class DataModel {
       updateMap,
       deleteApi,
       multipleDeleteApi,
+      axios: as,
       axiosConf,
     } = params;
 
     this.ctx = ctx || {};
     this.query = query || {};
-    this.axios = params.axios || axios;
+    this.axios = as || axios;
     this.axiosConf = axiosConf || {};
 
     this.createApi = createApi;
@@ -38,7 +39,7 @@ class DataModel {
     this.multipleDeleteApi = multipleDeleteApi;
   }
 
-  getApiUrl(api, record, ctx) {
+  getApiUrl(api, record, ctx = this.ctx) {
     if (!api) {
       throw new Error("Error getApiUrl api 不能为空", api, record, ctx);
     }
@@ -95,45 +96,23 @@ class DataModel {
             params: query,
           })
           .then((response) => {
-            if (response && typeof response === "object") {
-              this.handleGetList(response, resolve, reject);
-            }
+            this.handleRes(
+              response,
+              (res) => {
+                // data: { list: [], pagination: { current: 0, total: 1 } }
+                if (this.getListMap) {
+                  res.list = res.list.map((record) => this.getListMap(record));
+                }
+                resolve(res);
+              },
+              reject,
+            );
           })
           .catch((err) => this.errorHandler(err, reject));
       });
       resultList = await getPro;
     }
     return resultList;
-  }
-
-  handleGetList(response, resolve, reject) {
-    let { data } = response.data || {};
-    if (data === undefined && response.data) {
-      data = response.data;
-    }
-    if (data) {
-      // in case data === null
-      let pagination = {};
-      let list = [];
-      if (data.list) {
-        pagination = data.pagination || { total: data.total };
-        list = data.list;
-      }
-      if (data.rows) {
-        pagination = data.pagination || { total: data.total };
-        list = data.rows;
-      }
-      if (Array.isArray(data)) {
-        pagination.total = data.length;
-        list = data;
-      }
-      if (this.getListMap) {
-        list = list.map((record) => this.getListMap(record));
-      }
-      resolve({ list: list || [], pagination });
-    } else {
-      resolve({ list: [], pagination: { total: 0 } });
-    }
   }
 
   create(params, ctx) {
@@ -193,7 +172,7 @@ class DataModel {
   }
 
   handleRes(response, resolve, reject) {
-    if (!(response && typeof response === "object")) {
+    if (typeof response !== "object") {
       reject(new Error("response not object"));
       return;
     }
