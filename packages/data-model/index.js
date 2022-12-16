@@ -52,29 +52,16 @@ class DataModel {
     return apiUrl;
   }
 
-  create(params, ctx) {
-    return new Promise((resolve, reject) => {
-      const apiUrl = this.getApiUrl(this.createApi, params, ctx);
-      const opt = { ...this.axiosConf };
-      if (params instanceof FormData) {
-        opt.headers = { "Content-Type": "multipart/form-data" };
-      }
-      this.axios
-        .post(apiUrl, params, opt)
-        .then((response) => {
-          this.handleRes(response, resolve, reject);
-        })
-        .catch((err) => this.errorHandler(err, reject));
-    });
-  }
+  get(q = {}, ctx = {}) {
+    let query = _.merge({}, this.query, q);
+    query = _.pickBy(query, (val) => !_.isNil(val) && val !== "");
 
-  get(ctx) {
     return new Promise((resolve, reject) => {
-      const apiUrl = this.getApiUrl(this.getApi, this.query, ctx);
+      const apiUrl = this.getApiUrl(this.getApi, query, ctx);
       this.axios
         .get(apiUrl, {
           ...this.axiosConf,
-          params: { ...this.query, ...ctx },
+          params: query,
         })
         .then((response) => {
           this.handleRes(
@@ -149,6 +136,22 @@ class DataModel {
     }
   }
 
+  create(params, ctx) {
+    return new Promise((resolve, reject) => {
+      const apiUrl = this.getApiUrl(this.createApi, params, ctx);
+      const opt = { ...this.axiosConf };
+      if (params instanceof FormData) {
+        opt.headers = { "Content-Type": "multipart/form-data" };
+      }
+      this.axios
+        .post(apiUrl, params, opt)
+        .then((response) => {
+          this.handleRes(response, resolve, reject);
+        })
+        .catch((err) => this.errorHandler(err, reject));
+    });
+  }
+
   update(params, ctx) {
     return new Promise((resolve, reject) => {
       const apiUrl = this.getApiUrl(this.updateApi, params, ctx);
@@ -180,11 +183,8 @@ class DataModel {
   multipleDelete(params, ctx) {
     return new Promise((resolve, reject) => {
       const apiUrl = this.getApiUrl(this.multipleDeleteApi, params, ctx);
-      axios({
-        method: "DELETE",
-        url: apiUrl,
-        data: params,
-      })
+      this.axios
+        .delete(apiUrl, { ...this.axiosConf, ...params })
         .then((response) => {
           this.handleRes(response, resolve, reject);
         })
