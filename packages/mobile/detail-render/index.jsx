@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import DataModel from "@packages/data-model";
+import _ from "lodash";
+
+import DataModel from "@/services/data-model";
 import handleRemoteData from "@packages/form-render/common/remote-data";
 
 import moment from "moment";
@@ -22,7 +24,7 @@ const dateFormatEnum = {
 };
 
 function getVal(it, data = {}, opt = {}) {
-  let val = data[it.name];
+  let val = _.get(data, it.name);
   const { type, mode } = it || {};
   if (type === "date-picker") {
     let format = dateFormatEnum[mode] || dateFormatEnum.date;
