@@ -19,7 +19,7 @@ function getLayout(layout, it) {
 }
 
 const dateFormatEnum = {
-  datetime: "YYYY-MM-DD HH-mm-ss",
+  datetime: "YYYY-MM-DD HH:mm:ss",
   date: "YYYY-MM-DD",
 };
 
