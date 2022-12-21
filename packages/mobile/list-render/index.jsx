@@ -33,6 +33,7 @@ function ListRender(props) {
   } = props;
 
   const isFirst = useRef();
+  const [loading, setLoading] = useState(false);
   const [_hasMore, setHasMore] = useState(hasMore);
   const [search, setSearch] = useState();
   const [list, setList] = useState(listData || []);
@@ -73,6 +74,9 @@ function ListRender(props) {
   }, [listData]);
 
   function onLoadMore(isRetry) {
+    if (loading) {
+      return;
+    }
     if (!model) {
       return;
     }
@@ -108,9 +112,11 @@ function ListRender(props) {
 
   function getList() {
     // TODO: 接口错误逻辑处理
+    setLoading(true);
     return model
       .getList(query)
       .then((res) => {
+        setLoading(false);
         if (!res || res.list.length <= 0) {
           setHasMore(false);
           return res;
@@ -123,6 +129,7 @@ function ListRender(props) {
         return res;
       })
       .catch((err) => {
+        setLoading(false);
         console.log("Error List Render getList: ", err);
       });
   }
