@@ -22,6 +22,7 @@ function Slot(props) {
           value: data,
           scenario,
           formInstance,
+          ...props,
           onChange: (value) => {
             formInstance?.setFieldValue(name, value);
             onChange &&

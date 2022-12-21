@@ -13,6 +13,7 @@ function LocationPickerCom(props) {
     data = {},
     disabled,
     readOnly,
+    fieldConf,
     mode,
   } = props;
 
@@ -31,9 +32,14 @@ function LocationPickerCom(props) {
     setVisible(false);
   }
 
+  let _mode = mode;
+  if (fieldConf && fieldConf.mode && !_mode) {
+    _mode = fieldConf.mode;
+  }
+
   return (
     <Form.Item {...formItemProps}>
-      {mode === "line" ? (
+      {_mode === "line" ? (
         // TODO: 展示逻辑优化
         <div>
           <div>
@@ -65,7 +71,7 @@ function LocationPickerCom(props) {
         onMaskClick={onCancel}
         bodyStyle={{ height: "80vh" }}
       >
-        {mode === "line" ? (
+        {_mode === "line" ? (
           <LinePicker
             data={props.data}
             onConfirm={onLocationChange}

@@ -81,9 +81,13 @@ export function ruleAdapter(rule, validFuncs) {
     res.pattern = regexp;
   }
 
-  if (typeof trigger === "string") {
-    res.validateTrigger = getTrigger(trigger);
-  }
+  // TODO: 确定校验触发时机写法
+  // if (typeof trigger === "string") {
+  //   res.validateTrigger = getTrigger(trigger);
+  // }
+  // if (Array.isArray(trigger)) {
+  //   res.trigger = trigger.map((it) => getTrigger(it));
+  // }
 
   if (type === "required") {
     res.required = true;
@@ -108,6 +112,7 @@ export function ruleAdapter(rule, validFuncs) {
       },
     });
   }
+
   return res;
 }
 
@@ -133,7 +138,12 @@ export function getTrigger(trigger) {
  * @returns
  */
 export function addPrefix(str, prefix = "on") {
-  return `${prefix.trim()}${str.trim().replace(/^(.)/, "$1".toUpperCase())}`;
+  if (str.startsWith("on")) {
+    return str;
+  }
+  return `${prefix.trim()}${str.trim().replace(/^(.)/, (m) => {
+    return m.toUpperCase();
+  })}`;
 }
 
 export default rulesAdapter;

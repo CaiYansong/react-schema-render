@@ -99,7 +99,8 @@ export default function FormItems(props) {
           onChange: onItemChange,
           disabled,
           readOnly: readOnly ?? it.readonly,
-          fieldsConf,
+          fieldsConf: fieldsConf,
+          fieldConf: fieldsConf[name],
         };
 
         // 处理 item list name 属性
