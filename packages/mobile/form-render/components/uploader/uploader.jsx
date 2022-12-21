@@ -111,7 +111,7 @@ function Uploader(props) {
               onItemDel(index);
             }}
           >
-            <CloseCircleFill  fontSize={14}/>
+            <CloseCircleFill fontSize={14} />
           </div>
         )}
       </div>
@@ -130,6 +130,7 @@ function Uploader(props) {
         name={name}
         multiple={multiple}
         accept={accept}
+        capture={props.capture}
       ></input>
       {fileList.map((it, idx) => {
         const { type, name } = it;
@@ -184,7 +185,7 @@ function Uploader(props) {
 
         return it.name;
       })}
-      {disabled || readOnly ? null : (
+      {disabled || readOnly || (!multiple && fileList.length > 0) ? null : (
         <>
           <Button
             className="uploader-add-btn"
