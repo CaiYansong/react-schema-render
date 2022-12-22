@@ -42,7 +42,7 @@ function getVal(it, data = {}, opt = {}) {
 function DetailRender(props) {
   const {
     layout,
-    data = {},
+    data,
     model,
     schema,
     itemRender,
@@ -78,7 +78,9 @@ function DetailRender(props) {
   }, []);
 
   useEffect(() => {
-    setData(data);
+    if (data) {
+      setData(data);
+    }
   }, [data]);
 
   return (
