@@ -50,7 +50,7 @@ function ReactLeafletMap(props) {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("getPosition", error);
+        console.error("getPosition", err);
         setLoading(false);
       });
   }
