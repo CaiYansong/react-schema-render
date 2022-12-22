@@ -26,7 +26,7 @@ const dateFormatEnum = {
 function getVal(it, data = {}, opt = {}) {
   let val = _.get(data, it.name);
   const { type, mode } = it || {};
-  if (type === "date-picker") {
+  if (val && type === "date-picker") {
     let format = dateFormatEnum[mode] || dateFormatEnum.date;
     return moment(val).format(format);
   }
@@ -49,6 +49,7 @@ function DetailRender(props) {
     getApi,
     query,
     config,
+    slots,
   } = props;
   const { formConf = {}, fieldList } = schema || {};
 
@@ -99,7 +100,13 @@ function DetailRender(props) {
               {it.label}
               {layout === "start" ? "：" : ""}
             </div>
-            <div className="item-value">{getVal(it, _data)}</div>
+            <div className="item-value">
+              {slots && slots[it.name]
+                ? typeof slots[it.name] === "function"
+                  ? slots[it.name](it, getVal(it, _data), _data)
+                  : slots[it.name]
+                : getVal(it, _data)}
+            </div>
           </div>
         );
       })}
