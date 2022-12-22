@@ -33,6 +33,9 @@ function getVal(it, data = {}, opt = {}) {
   if (type === "select") {
     return it.options?.find((option) => option.value === val)?.label || val;
   }
+  if (Array.isArray(val)) {
+    return val.join("、");
+  }
   return val;
 }
 
