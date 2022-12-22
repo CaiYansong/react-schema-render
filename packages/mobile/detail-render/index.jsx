@@ -50,7 +50,7 @@ function DetailRender(props) {
     query,
     config,
   } = props;
-  const { fieldList } = schema || {};
+  const { formConf = {}, fieldList } = schema || {};
 
   const [_data, setData] = useState(data);
 
@@ -91,7 +91,7 @@ function DetailRender(props) {
             className={`item-box ${getLayout(layout, it)}`}
             key={it.name + idx}
           >
-            <div className="item-label">
+            <div className="item-label" style={{ width: formConf.labelWidth }}>
               {it.label}
               {layout === "start" ? "：" : ""}
             </div>
