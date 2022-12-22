@@ -76,6 +76,10 @@ function DetailRender(props) {
       });
   }, []);
 
+  useEffect(() => {
+    setData(data);
+  }, [data]);
+
   return (
     <div className="detail-render">
       {fieldList.map((it, idx) => {
