@@ -1,0 +1,348 @@
+{
+  "formConf": {
+    "labelWidth": "100px",
+    "marginY": 25,
+    "marginX": 21,
+    "labelPosition": "left"
+  },
+  "fieldList": [
+    {
+      "type": "input",
+      "label": "名称",
+      "name": "name",
+      "visible": false
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-194ece3",
+      "activated": false,
+      "inTable": false,
+      "visible": false
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-2bf0d8e",
+      "wordLimit": true,
+      "maxLength": 20,
+      "required": true,
+      "desc": "desc",
+      "placeholder": "placehold",
+      "clearable": true,
+      "prepend": "pre",
+      "append": "app",
+      "span": 12
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-f9b7f9b",
+      "mode": "textarea",
+      "autosize": true,
+      "minRows": 3,
+      "maxRows": 4,
+      "wordLimit": true,
+      "maxLength": 51
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-59f411d",
+      "isPassword": true,
+      "wordLimit": true
+    },
+    {
+      "type": "input-number",
+      "label": "数字框",
+      "name": "input-number-db290ce",
+      "min": 5,
+      "max": 20,
+      "step": 2,
+      "precision": 4,
+      "stepOnly": true,
+      "controlPosition": "right"
+    },
+    {
+      "type": "input-ip",
+      "label": "IP 框",
+      "name": "input-ip-90300ff",
+      "readonly": true,
+      "disabled": true
+    },
+    {
+      "type": "input-file",
+      "label": "文件选择",
+      "name": "input-file-fe1944e",
+      "accept": "png"
+    },
+    {
+      "type": "select",
+      "label": "下拉选项",
+      "name": "select-b836c9c",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ],
+      "clearable": true,
+      "multiple": true,
+      "searchable": true,
+      "typeValue": true
+    },
+    {
+      "type": "select",
+      "label": "API",
+      "name": "select-api",
+      "remoteConf": {
+        "type": "api",
+        "api": "/api/v1/options",
+        "labelKey": "label",
+        "valueKey": "value"
+      },
+      "isRemote": true
+    },
+    {
+      "type": "select",
+      "label": "函数",
+      "name": "select-func",
+      "remoteConf": {
+        "type": "func",
+        "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
+      },
+      "isRemote": true
+    },
+    {
+      "type": "cascader",
+      "label": "级联选择",
+      "name": "cascader-ae1e13c",
+      "remoteConf": {
+        "type": "api",
+        "api": "/api/v1/cascader",
+        "valueKey": "",
+        "labelKey": ""
+      },
+      "isRemote": true
+    },
+    {
+      "type": "cascader",
+      "label": "级联 func",
+      "name": "cascader-c828076",
+      "remoteConf": {
+        "type": "func",
+        "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
+      },
+      "isRemote": true,
+      "clearable": true,
+      "multiple": true
+    },
+    {
+      "type": "china-region",
+      "label": "省市区",
+      "name": "china-region-2bef44f"
+    },
+    {
+      "type": "china-location",
+      "label": "地理坐标",
+      "name": "china-location-d673726"
+    },
+    {
+      "type": "radio",
+      "label": "单选框",
+      "name": "radio-c3fb0f5",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "label": "复选框",
+      "name": "checkbox-be5b6de",
+      "options": [
+        {
+          "label": "选项一",
+          "value": "option1"
+        },
+        {
+          "label": "选项二",
+          "value": "option2"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "label": "开关",
+      "name": "switch-f0d3254"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-cce160e"
+    },
+    {
+      "type": "time-picker",
+      "label": "时间选择",
+      "name": "time-picker-9a14a1f"
+    },
+    {
+      "type": "slot",
+      "label": "插槽",
+      "name": "slot-4929886",
+      "slotName": "slotName",
+      "required": true
+    },
+    {
+      "type": "wrapper",
+      "label": "容器",
+      "name": "wrapper-d0ff36c",
+      "formKey": "ac619a5",
+      "formConf": {},
+      "fieldList": [
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "input-7583145"
+        }
+      ],
+      "validFuncs": [],
+      "validRules": {}
+    },
+    {
+      "type": "subform",
+      "label": "子表单",
+      "name": "subform-377c7bc",
+      "formKey": "d59c689",
+      "formConf": {},
+      "fieldList": [
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "input-19e9553"
+        }
+      ],
+      "validFuncs": [],
+      "validRules": {}
+    },
+    {
+      "type": "item-list",
+      "label": "列表",
+      "name": "item-list-cdf09d8",
+      "formKey": "564c011",
+      "formConf": {},
+      "fieldList": [
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "item-input-2bf0d8e",
+          "wordLimit": true,
+          "maxLength": 20,
+          "required": true,
+          "desc": "desc",
+          "placeholder": "placehold",
+          "clearable": true,
+          "prepend": "pre",
+          "append": "app",
+          "span": 12
+        },
+        {
+          "type": "select",
+          "label": "函数",
+          "name": "item-select-func",
+          "remoteConf": {
+            "type": "func",
+            "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
+          },
+          "isRemote": true
+        }
+      ],
+      "validFuncs": [],
+      "validRules": {
+        "item-input-2bf0d8e": [
+          {
+            "type": "required",
+            "trigger": ["change", "blur"]
+          },
+          {
+            "type": "regexp",
+            "regexp": "^\\d+$",
+            "trigger": ["change", "blur"],
+            "note": "请输入数字"
+          },
+          {
+            "type": "func",
+            "isPreset": false,
+            "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
+            "trigger": ["change", "blur"]
+          },
+          {
+            "type": "func",
+            "preset": "numberMin",
+            "trigger": ["change", "blur", "focus"]
+          }
+        ]
+      }
+    }
+  ],
+  "validFuncs": [
+    {
+      "func": "console.log(formInstance); if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('预设函数：请输入大于10的数')\n}",
+      "key": "numberMin",
+      "name": "数值大小"
+    }
+  ],
+  "validRules": {
+    "slot-4929886": [
+      {
+        "type": "required",
+        "trigger": ["change", "blur"],
+        "note": "请输入插槽数据"
+      },
+      {
+        "type": "regexp",
+        "regexp": "^\\d+$",
+        "note": "请输入 \\d 字符",
+        "trigger": ["change", "blur"]
+      },
+      {
+        "type": "func",
+        "preset": "numberMin",
+        "trigger": ["change", "blur"]
+      }
+    ],
+    "input-2bf0d8e": [
+      {
+        "type": "required",
+        "trigger": ["change", "blur"]
+      },
+      {
+        "type": "regexp",
+        "regexp": "^\\d+$",
+        "trigger": ["change", "blur"],
+        "note": "请输入数字"
+      },
+      {
+        "type": "func",
+        "isPreset": false,
+        "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
+        "trigger": ["change", "blur"]
+      },
+      {
+        "type": "func",
+        "preset": "numberMin",
+        "trigger": ["change", "blur", "focus"]
+      }
+    ]
+  }
+}

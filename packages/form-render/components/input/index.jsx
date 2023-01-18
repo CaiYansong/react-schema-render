@@ -14,9 +14,18 @@ function InputCom(props) {
     data,
     readonly,
     placeholder = "请输入",
-    onChange,
     onPressEnter,
+    fieldSubmit,
   } = props;
+
+  function onChange(e) {
+    const { value } = e.target;
+    props.onChange && props.onChange(value);
+    // clear 事件
+    if (!value && e.type === "click") {
+      props.fieldSubmit && props.fieldSubmit(e);
+    }
+  }
 
   const _props = {
     allowClear: clearable,
@@ -29,7 +38,10 @@ function InputCom(props) {
     readOnly: readonly,
     placeholder,
     onChange: onChange,
-    onPressEnter: onPressEnter,
+    onPressEnter: (e) => {
+      fieldSubmit && fieldSubmit(e);
+      onPressEnter && onPressEnter(e);
+    },
   };
 
   if (mode === "textarea") {

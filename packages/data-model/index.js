@@ -180,11 +180,12 @@ class DataModel {
       data: { code, message, data, msg },
     } = response;
     if (code === 200) {
-      if (data && _.isObject(data) && data.message === undefined) {
+      let _data = data ?? {};
+      if (_.isObject(_data) && _data.message === undefined) {
         // 前缀 _ 避免与 data 里已有的 message 冲突
-        data._message = message || msg;
+        _data._message = message || msg;
       }
-      resolve(data);
+      resolve(_data);
     } else {
       const error = new Error(message || msg);
       error.code = code;
@@ -212,5 +213,7 @@ class DataModel {
     return reject(err);
   }
 }
+
+export { axios };
 
 export default DataModel;

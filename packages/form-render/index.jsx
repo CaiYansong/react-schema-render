@@ -1,31 +1,45 @@
+import { useImperativeHandle, forwardRef, useEffect } from "react";
 import { Form } from "antd";
 
 import rulesAdapter from "./adapter/rules-adapter";
 
 import Input from "./components/input";
 import Select from "./components/select";
+import DatePicker from "./components/date-picker";
+import Uploader from "./components/uploader";
+import ItemList from "./components/item-list";
 import Slot from "./components/slot";
+
+import "./index.less";
 
 const TypeEnum = {
   input: Input,
   select: Select,
+  "date-picker": DatePicker,
+  "input-file": Uploader,
+  "item-list": ItemList,
   slot: Slot,
 };
 
-export default function FormRender({
-  name,
-  inline,
-  initialValues,
-  scenario,
-  schema = {},
-  data = {},
-  config = {},
-  fieldSubmit = () => {},
-  onChange = () => {},
-  onFinish = () => {},
-  onFinishFailed = () => {},
-  children,
-}) {
+function FormRender(
+  {
+    name,
+    inline,
+    initialValues,
+    scenario,
+    schema = {},
+    data = {},
+    config = {},
+    slots,
+    fieldSubmit = () => {},
+    submitRender,
+    onChange = () => {},
+    onFinish = () => {},
+    onFinishFailed = () => {},
+    children,
+  },
+  parentRef,
+) {
   const {
     formConf = {},
     fieldList = [],
@@ -35,9 +49,28 @@ export default function FormRender({
 
   const [formInstance] = Form.useForm();
 
+  useImperativeHandle(parentRef, () => ({
+    formInstance,
+  }));
+
+  // 数据回填
+  useEffect(() => {
+    if (
+      data &&
+      JSON.stringify(data) !== JSON.stringify(formInstance.getFieldsValue(true))
+    ) {
+      const fields = [];
+      Object.keys(data).forEach((key) => {
+        fields.push({ name: key, value: data[key] });
+      });
+      formInstance.setFields(fields);
+    } else if (!data || Object.keys(data).length === 0) {
+      formInstance.resetFields([]);
+    }
+  }, [data]);
+
   function onValueChange(changedValues, allValues) {
     onChange && onChange(changedValues, allValues, formInstance);
-    console.log("onValueChange", changedValues, allValues);
   }
 
   let layout = undefined;
@@ -64,7 +97,7 @@ export default function FormRender({
   }
 
   function onItemChange(...args) {
-    console.log("onItemChange", ...args);
+    // console.log("onItemChange", ...args);
   }
 
   return (
@@ -105,14 +138,16 @@ export default function FormRender({
             {Component ? (
               <Component
                 {...it}
+                field={it}
                 scenario={scenario}
                 config={config}
                 data={data[name]}
                 formInstance={formInstance}
                 onChange={onItemChange}
+                fieldSubmit={fieldSubmit}
               >
                 {type === "slot" &&
-                  children?.find((child) => child.key === it.slotName)}
+                  slots?.find((slot) => slot.key === it.slotName)}
               </Component>
             ) : (
               "—"
@@ -120,6 +155,15 @@ export default function FormRender({
           </Form.Item>
         );
       })}
+      {submitRender ? (
+        typeof submitRender === "function" ? (
+          <Form.Item>{submitRender()}</Form.Item>
+        ) : (
+          submitRender
+        )
+      ) : null}
     </Form>
   );
 }
+
+export default forwardRef(FormRender);
