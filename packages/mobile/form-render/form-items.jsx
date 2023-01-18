@@ -21,7 +21,7 @@ export default function FormItems(props) {
     formInstance,
     disabled,
     readOnly,
-    fieldsConf,
+    fieldsConf = [],
     onChange,
   } = props || {};
 

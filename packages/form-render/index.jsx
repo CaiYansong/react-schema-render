@@ -89,16 +89,17 @@ function FormRender(props, parentRef) {
     >
       <FormItems
         {...{
+          data,
           disabled: props.disabled,
           readOnly: props.readOnly,
-          data,
+          scenario: props.scenario,
           schema,
           slots: props.slots,
-          scenario: props.scenario,
           formInstance,
           config: props.config,
-          fieldsConf: props.fieldsConf,
+          fieldsConf: props.fieldsConf || {},
           onChange: onItemChange,
+          fieldSubmit,
         }}
       />
 
