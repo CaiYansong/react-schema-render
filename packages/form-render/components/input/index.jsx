@@ -6,18 +6,22 @@ const { TextArea } = Input;
 function InputCom(props) {
   const {
     formItemProps = {},
-    clearable,
-    disabled,
-    name,
-    maxLength,
-    wordLimit,
-    mode,
+    field = {},
     data,
-    readonly,
-    placeholder = "请输入",
     onPressEnter,
     fieldSubmit,
   } = props;
+
+  const {
+    name,
+    placeholder = "请输入",
+    clearable,
+    disabled,
+    readonly,
+    maxLength,
+    wordLimit,
+    mode,
+  } = field;
 
   function onChange(e) {
     const { value } = e.target;

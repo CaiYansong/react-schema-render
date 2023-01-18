@@ -70,7 +70,6 @@ function FormItems(props) {
         return (
           Component && (
             <Component
-              {...it}
               formItemProps={formItemProps}
               field={it}
               scenario={scenario}

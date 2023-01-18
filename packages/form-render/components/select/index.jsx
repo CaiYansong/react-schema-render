@@ -6,20 +6,23 @@ import { getRemoteData } from "@packages/form-render/common/remote-data";
 function SelectCom(props) {
   const {
     formItemProps = {},
-    name,
+    field = {},
     data,
-    clearable,
-    disabled,
-    readonly,
-    multiple,
-    searchable,
-    placeholder = "请选择",
-    options,
-    field,
     scenario,
     config,
     onChange,
   } = props;
+
+  const {
+    name,
+    disabled,
+    readonly,
+    clearable,
+    multiple,
+    searchable,
+    placeholder = "请选择",
+    options,
+  } = field;
 
   const [_options, setOptions] = useState(options || []);
 

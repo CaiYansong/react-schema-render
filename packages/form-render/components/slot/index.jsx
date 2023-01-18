@@ -4,13 +4,16 @@ import { Form } from "antd";
 function Slot(props) {
   const {
     formItemProps = {},
+    field = {},
     children,
-    name,
     data,
     scenario,
     formInstance,
     onChange,
   } = props || {};
+
+  const { name } = field;
+
   return (
     <Form.Item {...formItemProps}>
       {React.Children.map(children, function (childItem) {
