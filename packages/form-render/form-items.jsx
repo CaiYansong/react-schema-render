@@ -25,6 +25,8 @@ function FormItems(props) {
     schema = {},
     slots,
     config = {},
+    isItemList,
+    itemListProps,
     formInstance,
     onChange,
     fieldSubmit,
@@ -50,15 +52,20 @@ function FormItems(props) {
         if (it.activated === false) {
           return null;
         }
+
         const { type, name } = it;
         const rules = rulesAdapter(validRules[name], validFuncs);
 
         const Component = TypeEnum[type];
 
+        if (isItemList && itemListProps) {
+          it.itemListName = [itemListProps.name, name];
+        }
+
         const formItemProps = {
-          key: it.name,
+          key: name,
           label: it.label,
-          name: it.name,
+          name: it.itemListName || name,
           rules: rules,
           wrapperCol: { span: it.span },
           style: {
@@ -67,18 +74,20 @@ function FormItems(props) {
           },
         };
 
+        const itemProps = {
+          formItemProps: formItemProps,
+          field: it,
+          scenario: scenario,
+          config: config,
+          data: data[name],
+          formInstance: formInstance,
+          onChange: onChange,
+          fieldSubmit: fieldSubmit,
+        };
+
         return (
           Component && (
-            <Component
-              formItemProps={formItemProps}
-              field={it}
-              scenario={scenario}
-              config={config}
-              data={data[name]}
-              formInstance={formInstance}
-              onChange={onChange}
-              fieldSubmit={fieldSubmit}
-            >
+            <Component {...itemProps}>
               {type === "slot" &&
                 slots?.find((slot) => slot.key === it.slotName)}
             </Component>

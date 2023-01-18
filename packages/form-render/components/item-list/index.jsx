@@ -1,4 +1,4 @@
-import { Form, Input, Button } from "antd";
+import { Form, Button } from "antd";
 
 import FormItems from "../../form-items";
 
@@ -36,46 +36,22 @@ function ItemList(props) {
     <Form.List name={field.name}>
       {(fields, { add, remove }) => (
         <>
-          <FormItem>
-            用户填写信息
-            <Button
-              type="primary"
-              style={{ marginLeft: "20px" }}
-              ghost
-              disabled={!canEdit}
-              shape="circle"
-              onClick={() => add()}
-            >
-              +
-            </Button>
-          </FormItem>
-          <FormItem>
-            <div style={{ color: "#999" }}>
-              请在下方输入框中配置用户需要填写的信息标题，如手机号码
-            </div>
-          </FormItem>
-          {fields.map(({ key, name, ...restField }) => (
-            <div className="infoItem" key={key}>
-              <div className="removeBtn">
-                <Button
-                  danger
-                  ghost
-                  shape="circle"
-                  disabled={!canEdit}
-                  onClick={() => remove(name)}
-                >
-                  -
-                </Button>
+          <Button onClick={() => add()} type="primary">
+            新增
+          </Button>
+          {fields.map(({ key, name, ...restField }, index) => {
+            const itemsProps = {
+              ..._itemsProps,
+              itemListProps: { key, name, ...restField, index },
+              data: data[field.name] && data[field.name][index],
+            };
+            return (
+              <div>
+                <FormItems isItemList {...itemsProps} />
+                <Button onClick={() => remove(index)}>删除</Button>
               </div>
-              <FormItem label={"中文标题"} name={[name, "info"]} required>
-                <Input disabled={!canEdit} placeholder={"请输入中文标题"} />
-              </FormItem>
-
-              <FormItem label={"英文标题"} name={[name, "infoEn"]} required>
-                <Input disabled={!canEdit} placeholder={"请输入英文标题"} />
-              </FormItem>
-            </div>
-          ))}
+            );
+          })}
         </>
       )}
     </Form.List>

@@ -29,18 +29,20 @@ function FormRender(props, parentRef) {
 
   // 数据回填
   useEffect(() => {
-    if (
-      data &&
-      JSON.stringify(data) !== JSON.stringify(formInstance.getFieldsValue(true))
-    ) {
-      const fields = [];
-      Object.keys(data).forEach((key) => {
-        fields.push({ name: key, value: data[key] });
-      });
-      formInstance.setFields(fields);
-    } else if (!data || Object.keys(data).length === 0) {
-      formInstance.resetFields([]);
-    }
+    // TODO: 回填逻辑
+    // if (
+    //   data &&
+    //   JSON.stringify(data) !== JSON.stringify(formInstance.getFieldsValue(true))
+    // ) {
+    //   console.log('数据回填', JSON.stringify(data), JSON.stringify(formInstance.getFieldsValue(true)));
+    //   const fields = [];
+    //   Object.keys(data).forEach((key) => {
+    //     fields.push({ name: key, value: data[key] });
+    //   });
+    //   formInstance.setFields(fields);
+    // } else if (!data || Object.keys(data).length === 0) {
+    //   formInstance.resetFields([]);
+    // }
   }, [data]);
 
   function onValueChange(changedValues, allValues) {
