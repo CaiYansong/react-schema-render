@@ -2,10 +2,6 @@ import { Form, Input, Button } from "antd";
 
 import FormItems from "../../form-items";
 
-function gettext(text) {
-  return text;
-}
-
 const FormItem = Form.Item;
 
 const canEdit = true;
@@ -71,26 +67,12 @@ function ItemList(props) {
                   -
                 </Button>
               </div>
-              <FormItem
-                label={gettext("中文标题")}
-                name={[name, "info"]}
-                required
-              >
-                <Input
-                  disabled={!canEdit}
-                  placeholder={gettext("请输入中文标题")}
-                />
+              <FormItem label={"中文标题"} name={[name, "info"]} required>
+                <Input disabled={!canEdit} placeholder={"请输入中文标题"} />
               </FormItem>
 
-              <FormItem
-                label={gettext("英文标题")}
-                name={[name, "infoEn"]}
-                required
-              >
-                <Input
-                  disabled={!canEdit}
-                  placeholder={gettext("请输入英文标题")}
-                />
+              <FormItem label={"英文标题"} name={[name, "infoEn"]} required>
+                <Input disabled={!canEdit} placeholder={"请输入英文标题"} />
               </FormItem>
             </div>
           ))}
