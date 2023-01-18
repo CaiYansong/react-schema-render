@@ -1,51 +1,25 @@
 import { useImperativeHandle, forwardRef, useEffect } from "react";
 import { Form } from "antd";
 
-import rulesAdapter from "./adapter/rules-adapter";
-
-import Input from "./components/input";
-import Select from "./components/select";
-import DatePicker from "./components/date-picker";
-import Uploader from "./components/uploader";
-import ItemList from "./components/item-list";
-import Slot from "./components/slot";
+import FormItems from "./form-items";
 
 import "./index.less";
 
-const TypeEnum = {
-  input: Input,
-  select: Select,
-  "date-picker": DatePicker,
-  "input-file": Uploader,
-  "item-list": ItemList,
-  slot: Slot,
-};
-
-function FormRender(
-  {
+function FormRender(props, parentRef) {
+  const {
     name,
     inline,
     initialValues,
-    scenario,
     schema = {},
     data = {},
-    config = {},
-    slots,
     fieldSubmit = () => {},
     submitRender,
     onChange = () => {},
     onFinish = () => {},
     onFinishFailed = () => {},
-    children,
-  },
-  parentRef,
-) {
-  const {
-    formConf = {},
-    fieldList = [],
-    validFuncs = [],
-    validRules = {},
-  } = schema;
+  } = props;
+
+  const { formConf = {} } = schema;
 
   const [formInstance] = Form.useForm();
 
@@ -78,7 +52,7 @@ function FormRender(
     layout = "inline";
   }
 
-  const { labelPosition, labelWidth, marginY, marginX } = formConf || {};
+  const { labelPosition, labelWidth } = formConf || {};
 
   if (labelPosition === "top") {
     layout = "vertical";
@@ -113,48 +87,21 @@ function FormRender(
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      {fieldList?.map((it) => {
-        if (it.activated === false) {
-          return null;
-        }
-        const { type, name } = it;
-        const rules = rulesAdapter(validRules[name], validFuncs);
+      <FormItems
+        {...{
+          disabled: props.disabled,
+          readOnly: props.readOnly,
+          data,
+          schema,
+          slots: props.slots,
+          scenario: props.scenario,
+          formInstance,
+          config: props.config,
+          fieldsConf: props.fieldsConf,
+          onChange: onItemChange,
+        }}
+      />
 
-        const Component = TypeEnum[type];
-
-        return (
-          <Form.Item
-            key={it.name}
-            label={it.label}
-            name={it.name}
-            rules={rules}
-            wrapperCol={{ span: it.span }}
-            style={{
-              display: it.visible === false ? "none" : undefined,
-              marginBottom: `${marginY || 24}px`,
-              marginRight: `${marginX || 16}px`,
-            }}
-          >
-            {Component ? (
-              <Component
-                {...it}
-                field={it}
-                scenario={scenario}
-                config={config}
-                data={data[name]}
-                formInstance={formInstance}
-                onChange={onItemChange}
-                fieldSubmit={fieldSubmit}
-              >
-                {type === "slot" &&
-                  slots?.find((slot) => slot.key === it.slotName)}
-              </Component>
-            ) : (
-              "—"
-            )}
-          </Form.Item>
-        );
-      })}
       {submitRender ? (
         typeof submitRender === "function" ? (
           <Form.Item>{submitRender()}</Form.Item>
