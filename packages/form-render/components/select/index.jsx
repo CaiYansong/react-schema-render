@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Select } from "antd";
+import { Form, Select } from "antd";
 
 import { getRemoteData } from "@packages/form-render/common/remote-data";
 
 function SelectCom(props) {
   const {
+    formItemProps = {},
     name,
     data,
     clearable,
@@ -46,7 +47,9 @@ function SelectCom(props) {
   }, [props.isRemote]);
 
   return (
-    <Select {..._props} style={{ width: "100%" }} options={_options}></Select>
+    <Form.Item {...formItemProps}>
+      <Select {..._props} style={{ width: "100%" }} options={_options}></Select>
+    </Form.Item>
   );
 }
 

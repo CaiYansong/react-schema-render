@@ -55,36 +55,35 @@ function FormItems(props) {
 
         const Component = TypeEnum[type];
 
+        const formItemProps = {
+          key: it.name,
+          label: it.label,
+          name: it.name,
+          rules: rules,
+          wrapperCol: { span: it.span },
+          style: {
+            display: it.visible === false ? "none" : undefined,
+            ...marginStyle,
+          },
+        };
+
         return (
-          <Form.Item
-            key={it.name}
-            label={it.label}
-            name={it.name}
-            rules={rules}
-            wrapperCol={{ span: it.span }}
-            style={{
-              display: it.visible === false ? "none" : undefined,
-              ...marginStyle,
-            }}
-          >
-            {Component ? (
-              <Component
-                {...it}
-                field={it}
-                scenario={scenario}
-                config={config}
-                data={data[name]}
-                formInstance={formInstance}
-                onChange={onChange}
-                fieldSubmit={fieldSubmit}
-              >
-                {type === "slot" &&
-                  slots?.find((slot) => slot.key === it.slotName)}
-              </Component>
-            ) : (
-              "—"
-            )}
-          </Form.Item>
+          Component && (
+            <Component
+              {...it}
+              formItemProps={formItemProps}
+              field={it}
+              scenario={scenario}
+              config={config}
+              data={data[name]}
+              formInstance={formInstance}
+              onChange={onChange}
+              fieldSubmit={fieldSubmit}
+            >
+              {type === "slot" &&
+                slots?.find((slot) => slot.key === it.slotName)}
+            </Component>
+          )
         );
       })}
     </>

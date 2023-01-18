@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { axios } from "@packages/data-model";
 
-import { Upload, Button } from "antd";
+import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 import { imgToBase64 } from "../../common/img";
 
 function Uploader(props) {
-  const { field = {} } = props;
+  const { formItemProps = {}, field = {} } = props;
   const [fileList, setFileList] = useState([]);
   const onChange = (info) => {
     let _d = [...info.fileList];
@@ -85,11 +85,11 @@ function Uploader(props) {
   };
 
   return (
-    <div>
+    <Form.Item {...formItemProps}>
       <Upload {..._props} fileList={fileList}>
         <Button icon={<UploadOutlined />}>Upload</Button>
       </Upload>
-    </div>
+    </Form.Item>
   );
 }
 

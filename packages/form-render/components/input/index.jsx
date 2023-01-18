@@ -1,10 +1,11 @@
 import React from "react";
-import { Input } from "antd";
+import { Form, Input } from "antd";
 
 const { TextArea } = Input;
 
 function InputCom(props) {
   const {
+    formItemProps = {},
     clearable,
     disabled,
     name,
@@ -54,7 +55,11 @@ function InputCom(props) {
       },
       onResize,
     };
-    return <TextArea {...textareaProps} />;
+    return (
+      <Form.Item {...formItemProps}>
+        <TextArea {...textareaProps} />
+      </Form.Item>
+    );
   }
 
   const { prepend, append } = props;
@@ -64,7 +69,11 @@ function InputCom(props) {
     addonBefore: append,
   };
 
-  return <Input {...inputProps} />;
+  return (
+    <Form.Item {...formItemProps}>
+      <Input {...inputProps} />
+    </Form.Item>
+  );
 }
 
 export default InputCom;

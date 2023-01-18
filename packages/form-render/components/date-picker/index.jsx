@@ -1,4 +1,4 @@
-import { DatePicker as DP } from "antd";
+import { Form, DatePicker as DP } from "antd";
 
 const { RangePicker } = DP;
 
@@ -17,7 +17,7 @@ const pickerEnum = {
 };
 
 function DatePicker(props) {
-  const { field = {} } = props;
+  const { formItemProps = {}, field = {} } = props;
   function onChange(date, dateString) {
     props.onChange && props.onChange(date, dateString);
   }
@@ -30,11 +30,19 @@ function DatePicker(props) {
   };
 
   if (rangeModeList.includes(field.mode)) {
-    return <RangePicker {..._dpProps} />;
+    return (
+      <Form.Item {...formItemProps}>
+        <RangePicker {..._dpProps} />
+      </Form.Item>
+    );
   }
 
   function onOk() {}
-  return <DP {..._dpProps} />;
+  return (
+    <Form.Item {...formItemProps}>
+      <DP {..._dpProps} />
+    </Form.Item>
+  );
 }
 
 export default DatePicker;
