@@ -3,6 +3,7 @@ import { Form } from "antd";
 import rulesAdapter from "./adapter/rules-adapter";
 
 import Input from "./components/input";
+import InputNumber from "./components/input-number";
 import Select from "./components/select";
 import DatePicker from "./components/date-picker";
 import Uploader from "./components/uploader";
@@ -11,6 +12,7 @@ import Slot from "./components/slot";
 
 const TypeEnum = {
   input: Input,
+  "input-number": InputNumber,
   select: Select,
   "date-picker": DatePicker,
   "input-file": Uploader,
