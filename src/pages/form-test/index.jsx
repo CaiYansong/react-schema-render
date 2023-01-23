@@ -5,39 +5,6 @@ import FormRender from "@packages/form-render";
 
 import demoSchema from "./demo.schema.json";
 
-function TestSlot(props) {
-  const [val, setVal] = useState(0);
-  const valRef = useRef(0);
-
-  return (
-    <div>
-      <Input value={props.data} onChange={props.onChange} />
-      TestSlot val - {val}
-      <Button
-        onClick={() => {
-          setVal((val) => {
-            let res = ++val;
-            props.onChange(res);
-            return res;
-          });
-        }}
-      >
-        add
-      </Button>
-      <br />
-      valRef - {valRef.current}
-      <Button
-        onClick={() => {
-          valRef.current = 1 + (valRef.current || 0);
-          // props.onChange(valRef.current);
-        }}
-      >
-        add
-      </Button>
-    </div>
-  );
-}
-
 export default function FormTestPage() {
   const [form, setForm] = useState({
     "input-f9b7f9b": "1",
@@ -68,7 +35,7 @@ export default function FormTestPage() {
     },
   };
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       FormTestPage
       <br />
       form: {JSON.stringify(form)}
@@ -83,6 +50,39 @@ export default function FormTestPage() {
         <TestSlot key="slotName" />
         <div key="slotName2">form test slot2</div>
       </FormRender>
+    </div>
+  );
+}
+
+function TestSlot(props) {
+  const [val, setVal] = useState(0);
+  const valRef = useRef(0);
+
+  return (
+    <div>
+      <Input value={props.data} onChange={props.onChange} />
+      TestSlot val - {val}
+      <Button
+        onClick={() => {
+          setVal((val) => {
+            let res = ++val;
+            props.onChange(res);
+            return res;
+          });
+        }}
+      >
+        add
+      </Button>
+      <br />
+      valRef - {valRef.current}
+      <Button
+        onClick={() => {
+          valRef.current = 1 + (valRef.current || 0);
+          // props.onChange(valRef.current);
+        }}
+      >
+        add
+      </Button>
     </div>
   );
 }

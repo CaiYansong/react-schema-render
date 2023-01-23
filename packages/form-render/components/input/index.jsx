@@ -1,22 +1,36 @@
 import React from "react";
-import { Input } from "antd";
+import { Form, Input } from "antd";
 
 const { TextArea } = Input;
 
 function InputCom(props) {
   const {
+    formItemProps = {},
+    field = {},
+    data,
+    onPressEnter,
+    fieldSubmit,
+  } = props;
+
+  const {
+    name,
+    placeholder = "请输入",
     clearable,
     disabled,
-    name,
+    readonly,
     maxLength,
     wordLimit,
     mode,
-    data,
-    readonly,
-    placeholder = "请输入",
-    onChange,
-    onPressEnter,
-  } = props;
+  } = field;
+
+  function onChange(e) {
+    const { value } = e.target;
+    props.onChange && props.onChange(value);
+    // clear 事件
+    if (!value && e.type === "click") {
+      props.fieldSubmit && props.fieldSubmit(e);
+    }
+  }
 
   const _props = {
     allowClear: clearable,
@@ -29,7 +43,10 @@ function InputCom(props) {
     readOnly: readonly,
     placeholder,
     onChange: onChange,
-    onPressEnter: onPressEnter,
+    onPressEnter: (e) => {
+      fieldSubmit && fieldSubmit(e);
+      onPressEnter && onPressEnter(e);
+    },
   };
 
   if (mode === "textarea") {
@@ -42,7 +59,11 @@ function InputCom(props) {
       },
       onResize,
     };
-    return <TextArea {...textareaProps} />;
+    return (
+      <Form.Item {...formItemProps}>
+        <TextArea {...textareaProps} />
+      </Form.Item>
+    );
   }
 
   const { prepend, append } = props;
@@ -52,7 +73,11 @@ function InputCom(props) {
     addonBefore: append,
   };
 
-  return <Input {...inputProps} />;
+  return (
+    <Form.Item {...formItemProps}>
+      <Input {...inputProps} />
+    </Form.Item>
+  );
 }
 
 export default InputCom;
