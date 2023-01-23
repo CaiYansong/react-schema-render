@@ -114,7 +114,7 @@ function FormRender(props, parentRef) {
 
       {submitRender ? (
         typeof submitRender === "function" ? (
-          <Form.Item>{submitRender()}</Form.Item>
+          <Form.Item key="submit">{submitRender()}</Form.Item>
         ) : (
           submitRender
         )

@@ -87,7 +87,7 @@ function FormItems(props) {
 
         return (
           Component && (
-            <Component {...itemProps}>
+            <Component key={it.name} {...itemProps}>
               {type === "slot" &&
                 slots?.find((slot) => slot.key === it.slotName)}
             </Component>
