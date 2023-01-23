@@ -9,10 +9,23 @@ function Slot(props) {
     data,
     scenario,
     formInstance,
+    slots = {},
     onChange,
   } = props || {};
 
   const { name } = field;
+
+  const Com = slots[field.name];
+  if (Com) {
+    const _props = {
+      name,
+      data,
+      scenario,
+      formInstance,
+      onChange,
+    };
+    return <Com {..._props} />;
+  }
 
   return (
     <Form.Item {...formItemProps}>
