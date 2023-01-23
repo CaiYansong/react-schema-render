@@ -1,4 +1,5 @@
 import _ from "lodash";
+import dayjs from "dayjs";
 
 /**
  * 清理空数据
@@ -30,7 +31,7 @@ export function cleanData(data) {
     const val = value[key];
     if (val === null || val === undefined) {
       delete value[key];
-    } else if (typeof val === "object") {
+    } else if (typeof val === "object" && !(val instanceof dayjs)) {
       const res = cleanData(val);
       if (res) {
         value[key] = res;
