@@ -17,4 +17,7 @@ export default defineConfig({
     '@': 'src/',
     '@packages': path.resolve(__dirname, 'packages'),
   },
+  devServer: {
+    port: 8100
+  }
 });
