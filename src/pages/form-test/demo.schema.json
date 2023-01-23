@@ -192,6 +192,24 @@
       "name": "date-picker-cce160e"
     },
     {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-cce160e-range",
+      "mode": "daterange"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e",
+      "mode": "datetime"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e-range",
+      "mode": "datetimerange"
+    },
+    {
       "type": "time-picker",
       "label": "时间选择",
       "name": "time-picker-9a14a1f"
@@ -227,6 +245,11 @@
       "formConf": {},
       "fieldList": [
         {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
+        {
           "type": "input",
           "label": "文本框",
           "name": "input-19e9553"
@@ -242,6 +265,29 @@
       "formKey": "564c011",
       "formConf": {},
       "fieldList": [
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e-range",
+          "mode": "daterange"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e",
+          "mode": "datetime"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e-range",
+          "mode": "datetimerange"
+        },
         {
           "type": "input",
           "label": "文本框",

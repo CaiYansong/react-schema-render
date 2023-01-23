@@ -1,7 +1,8 @@
 import { useImperativeHandle, forwardRef, useEffect } from "react";
 import { Form } from "antd";
+import _ from "lodash";
 
-import { cleanData } from "./common/utils";
+import { cleanData, handelBackData } from "./common/utils";
 import FormItems from "./form-items";
 
 import "./index.less";
@@ -43,12 +44,14 @@ function FormRender(props, parentRef) {
 
   // 数据回填
   useEffect(() => {
+    let _data = handelBackData(data, schema.fieldList);
+
     // TODO: 回填逻辑优化
     if (
-      JSON.stringify(cleanData(data)) !==
-      JSON.stringify(cleanData(formInstance.getFieldsValue(true)))
+      JSON.stringify(cleanData(_.cloneDeep(_data))) !==
+      JSON.stringify(cleanData(_.cloneDeep(formInstance.getFieldsValue(true))))
     ) {
-      setData(data);
+      setData(_data);
     }
   }, [data]);
 
@@ -88,7 +91,7 @@ function FormRender(props, parentRef) {
       className="form-render"
       name={name}
       form={formInstance}
-      initialValues={initialValues || data}
+      // initialValues={handelBackData(initialValues || data, schema.fieldList)}
       layout={layout}
       labelCol={labelCol}
       labelAlign={formConf.labelPosition}

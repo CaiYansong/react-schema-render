@@ -1,4 +1,5 @@
 import { Form, DatePicker as DP } from "antd";
+import dayjs from "dayjs";
 
 const { RangePicker } = DP;
 
@@ -30,11 +31,22 @@ function DatePicker(props) {
   };
 
   if (rangeModeList.includes(field.mode)) {
+    // if (Array.isArray(props.data)) {
+    //   const val = [];
+    //   props.data.forEach((it, i) => {
+    //     val[i] = dayjs(it);
+    //   });
+    //   _dpProps.value = val;
+    // }
     return (
       <Form.Item {...formItemProps}>
         <RangePicker {..._dpProps} />
       </Form.Item>
     );
+  }
+
+  if (props.data) {
+    _dpProps.value = dayjs(props.data);
   }
 
   function onOk() {}

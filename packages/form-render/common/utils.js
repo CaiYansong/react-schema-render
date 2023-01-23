@@ -8,6 +8,9 @@ import dayjs from "dayjs";
  */
 export function cleanData(data) {
   let value = _.cloneDeep(data);
+  if (value instanceof dayjs) {
+    return dayjs(value).valueOf();
+  }
   if (value === null || value === undefined || typeof value !== "object") {
     return value;
   }
@@ -42,4 +45,39 @@ export function cleanData(data) {
   });
 
   return Object.keys(value).length > 0 ? value : undefined;
+}
+
+export const rangeModeList = [
+  "datetimerange",
+  "daterange",
+  "weekrange",
+  "monthrange",
+  "yearrange",
+];
+
+export function handelBackData(data = {}, fieldList) {
+  if (!data) {
+    return data;
+  }
+  const res = _.cloneDeep(data);
+  fieldList?.forEach((f) => {
+    const { name, type } = f;
+    const val = data[name];
+    if (type === "date-picker" && val) {
+      if (Array.isArray(val)) {
+        val.forEach((it, i) => {
+          res[name][i] = dayjs(it);
+        });
+      } else {
+        res[name] = dayjs(data[name]);
+      }
+    } else if (type === "subform") {
+      res[name] = handelBackData(res[name], f.fieldList);
+    } else if (type === "item-list") {
+      res[name]?.forEach((it, i) => {
+        res[name][i] = handelBackData(it, f.fieldList);
+      });
+    }
+  });
+  return res;
 }
