@@ -37,9 +37,9 @@ function FormRender(props, parentRef) {
       Object.keys(data).forEach((key) => {
         fields.push({ name: key, value: data[key] });
       });
-      formInstance.resetFields(fields);
+      formInstance.setFields(fields);
     } else if (!data || Object.keys(data).length === 0) {
-      formInstance.resetFields([]);
+      formInstance.resetFields();
     }
   }
 
@@ -52,7 +52,7 @@ function FormRender(props, parentRef) {
       JSON.stringify(cleanData(_.cloneDeep(_data))) !==
       JSON.stringify(cleanData(_.cloneDeep(formInstance.getFieldsValue(true))))
     ) {
-      setData(_data);
+      setData(cleanData(_.cloneDeep(_data)));
     }
   }, [data]);
 

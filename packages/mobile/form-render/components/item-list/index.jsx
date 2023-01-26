@@ -33,7 +33,7 @@ function ItemList(props) {
     // TODO: 确认是否添加禁止删除第一项
     <div className="item-list">
       <Form.Array
-        initialValue={[{}]}
+        // initialValue={[{}]}
         name={name}
         onAdd={(operation) => operation.add({})}
         renderAdd={() => {
