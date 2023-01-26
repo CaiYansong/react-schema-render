@@ -8,8 +8,8 @@
   "fieldList": [
     {
       "type": "input",
-      "label": "文本框",
-      "name": "input-bdba86e",
+      "label": "名称",
+      "name": "name",
       "visible": false
     },
     {
@@ -123,7 +123,7 @@
       "name": "cascader-ae1e13c",
       "remoteConf": {
         "type": "api",
-        "api": "/get",
+        "api": "/api/v1/cascader",
         "valueKey": "",
         "labelKey": ""
       },
@@ -192,6 +192,24 @@
       "name": "date-picker-cce160e"
     },
     {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-cce160e-range",
+      "mode": "daterange"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e",
+      "mode": "datetime"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e-range",
+      "mode": "datetimerange"
+    },
+    {
       "type": "time-picker",
       "label": "时间选择",
       "name": "time-picker-9a14a1f"
@@ -227,6 +245,11 @@
       "formConf": {},
       "fieldList": [
         {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
+        {
           "type": "input",
           "label": "文本框",
           "name": "input-19e9553"
@@ -242,6 +265,29 @@
       "formKey": "564c011",
       "formConf": {},
       "fieldList": [
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e-range",
+          "mode": "daterange"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e",
+          "mode": "datetime"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e-range",
+          "mode": "datetimerange"
+        },
         {
           "type": "input",
           "label": "文本框",
@@ -267,7 +313,13 @@
           "isRemote": true
         }
       ],
-      "validFuncs": [],
+      "validFuncs": [
+        {
+          "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('预设函数：请输入大于10的数')\n}",
+          "key": "numberMin",
+          "name": "数值大小"
+        }
+      ],
       "validRules": {
         "item-input-2bf0d8e": [
           {
@@ -289,7 +341,7 @@
           {
             "type": "func",
             "preset": "numberMin",
-            "trigger": ["change", "blur", "focus"]
+            "trigger": ["change", "blur"]
           }
         ]
       }

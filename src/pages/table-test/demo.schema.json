@@ -8,8 +8,8 @@
   "fieldList": [
     {
       "type": "input",
-      "label": "文本框",
-      "name": "input-bdba86e",
+      "label": "名称",
+      "name": "name",
       "visible": false
     },
     {
@@ -55,7 +55,13 @@
     {
       "type": "input-number",
       "label": "数字框",
-      "name": "input-number-db290ce"
+      "name": "input-number-db290ce",
+      "min": 5,
+      "max": 20,
+      "step": 2,
+      "precision": 4,
+      "stepOnly": true,
+      "controlPosition": "right"
     },
     {
       "type": "input-ip",
@@ -67,7 +73,8 @@
     {
       "type": "input-file",
       "label": "文件选择",
-      "name": "input-file-fe1944e"
+      "name": "input-file-fe1944e",
+      "accept": "png"
     },
     {
       "type": "select",
@@ -113,7 +120,26 @@
     {
       "type": "cascader",
       "label": "级联选择",
-      "name": "cascader-ae1e13c"
+      "name": "cascader-ae1e13c",
+      "remoteConf": {
+        "type": "api",
+        "api": "/api/v1/cascader",
+        "valueKey": "",
+        "labelKey": ""
+      },
+      "isRemote": true
+    },
+    {
+      "type": "cascader",
+      "label": "级联 func",
+      "name": "cascader-c828076",
+      "remoteConf": {
+        "type": "func",
+        "func": "const res = await config?.getOptions && config?.getOptions(scenario); console.log(scenario);\nreturn res;"
+      },
+      "isRemote": true,
+      "clearable": true,
+      "multiple": true
     },
     {
       "type": "china-region",
@@ -166,6 +192,24 @@
       "name": "date-picker-cce160e"
     },
     {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-cce160e-range",
+      "mode": "daterange"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e",
+      "mode": "datetime"
+    },
+    {
+      "type": "date-picker",
+      "label": "日期选择",
+      "name": "date-picker-time-cce160e-range",
+      "mode": "datetimerange"
+    },
+    {
       "type": "time-picker",
       "label": "时间选择",
       "name": "time-picker-9a14a1f"
@@ -181,7 +225,7 @@
       "type": "wrapper",
       "label": "容器",
       "name": "wrapper-d0ff36c",
-      "formKey": "b6e59c3",
+      "formKey": "ac619a5",
       "formConf": {},
       "fieldList": [
         {
@@ -197,9 +241,14 @@
       "type": "subform",
       "label": "子表单",
       "name": "subform-377c7bc",
-      "formKey": "2f77b26",
+      "formKey": "d59c689",
       "formConf": {},
       "fieldList": [
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
         {
           "type": "input",
           "label": "文本框",
@@ -213,11 +262,89 @@
       "type": "item-list",
       "label": "列表",
       "name": "item-list-cdf09d8",
-      "formKey": "92dd5b1",
+      "formKey": "564c011",
       "formConf": {},
-      "fieldList": [],
-      "validFuncs": [],
-      "validRules": {}
+      "fieldList": [
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-cce160e-range",
+          "mode": "daterange"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e",
+          "mode": "datetime"
+        },
+        {
+          "type": "date-picker",
+          "label": "日期选择",
+          "name": "date-picker-time-cce160e-range",
+          "mode": "datetimerange"
+        },
+        {
+          "type": "input",
+          "label": "文本框",
+          "name": "item-input-2bf0d8e",
+          "wordLimit": true,
+          "maxLength": 20,
+          "required": true,
+          "desc": "desc",
+          "placeholder": "placehold",
+          "clearable": true,
+          "prepend": "pre",
+          "append": "app",
+          "span": 12
+        },
+        {
+          "type": "select",
+          "label": "函数",
+          "name": "item-select-func",
+          "remoteConf": {
+            "type": "func",
+            "func": "const res = await config?.getOptions && config?.getOptions(scenario); console.log(scenario);\nreturn res;"
+          },
+          "isRemote": true
+        }
+      ],
+      "validFuncs": [
+        {
+          "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('预设函数：请输入大于10的数')\n}",
+          "key": "numberMin",
+          "name": "数值大小"
+        }
+      ],
+      "validRules": {
+        "item-input-2bf0d8e": [
+          {
+            "type": "required",
+            "trigger": ["change", "blur"]
+          },
+          {
+            "type": "regexp",
+            "regexp": "^\\d+$",
+            "trigger": ["change", "blur"],
+            "note": "请输入数字"
+          },
+          {
+            "type": "func",
+            "isPreset": false,
+            "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
+            "trigger": ["change", "blur"]
+          },
+          {
+            "type": "func",
+            "preset": "numberMin",
+            "trigger": ["change", "blur"]
+          }
+        ]
+      }
     }
   ],
   "validFuncs": [
@@ -231,64 +358,42 @@
     "slot-4929886": [
       {
         "type": "required",
-        "trigger": [
-          "change",
-          "blur"
-        ],
+        "trigger": ["change", "blur"],
         "note": "请输入插槽数据"
       },
       {
         "type": "regexp",
         "regexp": "^\\d+$",
         "note": "请输入 \\d 字符",
-        "trigger": [
-          "change",
-          "blur"
-        ]
+        "trigger": ["change", "blur"]
       },
       {
         "type": "func",
         "preset": "numberMin",
-        "trigger": [
-          "change",
-          "blur"
-        ]
+        "trigger": ["change", "blur"]
       }
     ],
     "input-2bf0d8e": [
       {
         "type": "required",
-        "trigger": [
-          "change",
-          "blur"
-        ]
+        "trigger": ["change", "blur"]
       },
       {
         "type": "regexp",
         "regexp": "^\\d+$",
-        "trigger": [
-          "change",
-          "blur"
-        ],
+        "trigger": ["change", "blur"],
         "note": "请输入数字"
       },
       {
         "type": "func",
         "isPreset": false,
         "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
-        "trigger": [
-          "change",
-          "blur"
-        ]
+        "trigger": ["change", "blur"]
       },
       {
         "type": "func",
         "preset": "numberMin",
-        "trigger": [
-          "change",
-          "blur",
-          "focus"
-        ]
+        "trigger": ["change", "blur", "focus"]
       }
     ]
   }

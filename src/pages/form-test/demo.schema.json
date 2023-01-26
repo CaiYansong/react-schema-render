@@ -313,7 +313,13 @@
           "isRemote": true
         }
       ],
-      "validFuncs": [],
+      "validFuncs": [
+        {
+          "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('预设函数：请输入大于10的数')\n}",
+          "key": "numberMin",
+          "name": "数值大小"
+        }
+      ],
       "validRules": {
         "item-input-2bf0d8e": [
           {
@@ -335,7 +341,7 @@
           {
             "type": "func",
             "preset": "numberMin",
-            "trigger": ["change", "blur", "focus"]
+            "trigger": ["change", "blur"]
           }
         ]
       }
