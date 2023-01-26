@@ -73,7 +73,7 @@ export function handelBackData(data = {}, fieldList) {
       }
     } else if (type === "subform") {
       res[name] = handelBackData(res[name], f.fieldList);
-    } else if (type === "item-list") {
+    } else if (type === "item-list" && res[name]) {
       res[name]?.forEach((it, i) => {
         res[name][i] = handelBackData(it, f.fieldList);
       });

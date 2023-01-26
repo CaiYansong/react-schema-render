@@ -65,7 +65,10 @@ export default {
     const idx = store.list.findIndex((it) => it.id == id);
 
     if (idx >= 0) {
-      store.list[idx] = req.body;
+      store.list[idx] = {
+        id,
+        ...req.body,
+      };
       res.json({
         code: 200,
         data: {},
