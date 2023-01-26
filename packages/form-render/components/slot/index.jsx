@@ -15,28 +15,28 @@ function Slot(props) {
 
   const { name } = field;
 
-  const Com = slots[field.name];
+  const Com = slots[field.slotName];
+
+  const _props = {
+    name,
+    data,
+    scenario,
+    formInstance,
+    onChange,
+  };
+
   if (Com) {
-    const _props = {
-      name,
-      data,
-      scenario,
-      formInstance,
-      onChange,
-    };
-    return <Com {..._props} />;
+    return (
+      <Form.Item {...formItemProps}>
+        <Com {..._props} />
+      </Form.Item>
+    );
   }
 
   return (
     <Form.Item {...formItemProps}>
       {React.Children.map(children, function (childItem) {
-        return React.cloneElement(childItem, {
-          name,
-          data,
-          scenario,
-          formInstance,
-          onChange,
-        });
+        return React.cloneElement(childItem, _props);
       })}
     </Form.Item>
   );

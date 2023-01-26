@@ -198,6 +198,7 @@ function ListRender(props, parentRef) {
         ref={formDialogRef}
         schema={schema}
         formConf={props.formConf}
+        formSlots={props.formSlots}
       />
     </div>
   );

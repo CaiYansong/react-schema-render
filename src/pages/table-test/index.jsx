@@ -1,3 +1,5 @@
+import { Input } from "antd";
+
 import ListRender from "@packages/list-render";
 import DataModel from "@packages/data-model";
 
@@ -14,7 +16,15 @@ const dm = new DataModel({
 function TableTest(props) {
   return (
     <div>
-      <ListRender schema={demoSchema} model={dm} />
+      <ListRender
+        schema={demoSchema}
+        model={dm}
+        formSlots={{
+          slotName({ data, onChange }) {
+            return <Input value={data} onChange={onChange} />;
+          },
+        }}
+      />
     </div>
   );
 }

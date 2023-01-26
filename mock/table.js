@@ -52,12 +52,7 @@ export default {
   },
   "POST /api/v1/table"(req, res) {
     const data = {};
-
-    Object.keys(req.body).forEach((key) => {
-      console.log(key, typeof req.body[key]);
-      // if (key!==)
-    });
-    store.list.push(req.body);
+    store.list.push({ id: Date.now(), ...req.body });
 
     res.json({
       code: 200,
@@ -70,7 +65,7 @@ export default {
     const idx = store.list.findIndex((it) => it.id == id);
 
     if (idx >= 0) {
-      store.list[idx] = req.params;
+      store.list[idx] = req.body;
       res.json({
         code: 200,
         data: {},

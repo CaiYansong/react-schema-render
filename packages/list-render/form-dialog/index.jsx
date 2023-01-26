@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 
 import FormRender from "@packages/form-render";
 
@@ -51,9 +51,16 @@ function FormDialog(props, parentRef) {
   }));
 
   function onOk() {
-    resolveCB.current && resolveCB.current(form);
-    props.onSubmit && props.onSubmit(form);
-    close();
+    formRef.current
+      .validate()
+      .then((res) => {
+        resolveCB.current && resolveCB.current(form);
+        props.onSubmit && props.onSubmit(form);
+        close();
+      })
+      .catch((err) => {
+        message.error("输入有误！");
+      });
   }
 
   function onFormChange(cur, form) {
@@ -73,6 +80,7 @@ function FormDialog(props, parentRef) {
         schema={props.schema}
         data={form}
         config={props.formConf}
+        slots={props.formSlots}
         onChange={onFormChange}
       />
     </Modal>

@@ -27,6 +27,7 @@ function FormRender(props, parentRef) {
 
   useImperativeHandle(parentRef, () => ({
     formInstance,
+    validate: formInstance.validateFields,
     setData,
   }));
 

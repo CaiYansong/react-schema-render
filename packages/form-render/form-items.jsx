@@ -85,15 +85,11 @@ function FormItems(props) {
           formInstance: formInstance,
           onChange: onChange,
           fieldSubmit: fieldSubmit,
+          slots,
         };
 
         return (
-          Component && (
-            <Component key={it.name} {...itemProps}>
-              {type === "slot" &&
-                slots?.find((slot) => slot.key === it.slotName)}
-            </Component>
-          )
+          Component && <Component key={it.name} {...itemProps}></Component>
         );
       })}
     </>
