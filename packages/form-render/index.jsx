@@ -37,7 +37,7 @@ function FormRender(props, parentRef) {
       Object.keys(data).forEach((key) => {
         fields.push({ name: key, value: data[key] });
       });
-      formInstance.setFields(fields);
+      formInstance.resetFields(fields);
     } else if (!data || Object.keys(data).length === 0) {
       formInstance.resetFields([]);
     }
