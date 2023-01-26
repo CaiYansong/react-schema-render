@@ -179,7 +179,7 @@ function ListRender(props, parentRef) {
         </div>
       </div>
       <TableRender
-        idKey={props.idKey}
+        idKey={idKey}
         schema={props.schema}
         list={list}
         formConf={props.formConf}

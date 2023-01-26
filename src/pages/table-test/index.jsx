@@ -20,8 +20,8 @@ function TableTest(props) {
         schema={demoSchema}
         model={dm}
         formSlots={{
-          slotName({ data, onChange }) {
-            return <Input value={data} onChange={onChange} />;
+          slotName({ value, onChange }) {
+            return <Input value={value} onChange={onChange} />;
           },
         }}
       />
