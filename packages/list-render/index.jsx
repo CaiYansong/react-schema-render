@@ -46,19 +46,21 @@ function ListRender(props, parentRef) {
       setList((list) => _.cloneDeep(list));
     });
 
-    if (!props.model.query) {
-      props.model.query = {};
-    }
-    props.model.query.pageNum = 1;
+    if (props.model) {
+      if (!props.model.query) {
+        props.model.query = {};
+      }
+      props.model.query.pageNum = 1;
 
-    getList();
+      getList();
+    }
   }, []);
 
   useEffect(() => {
     if (props.model && !props.model?.query) {
       props.model.query = {};
     }
-  }, [props.model.query]);
+  }, [props.model?.query]);
 
   function getList(query = props.model.query) {
     console.log("query", query);
@@ -77,7 +79,7 @@ function ListRender(props, parentRef) {
   }
 
   function onPageChange(page, size) {
-    if (!props.model.query) {
+    if (props.model && !props.model.query) {
       props.model.query = {};
     }
     props.model.query.pageNum = page;
@@ -86,11 +88,11 @@ function ListRender(props, parentRef) {
   }
 
   function onSearch(query) {
-    if (!props.model.query) {
+    if (props.model && !props.model.query) {
       props.model.query = {};
     }
     props.model.query.pageNum = 1;
-    if (props.model.query && !props.model.query.pageSize) {
+    if (props.model && props.model.query && !props.model.query.pageSize) {
       props.model.query.pageSize = 10;
     }
     getList(query);
@@ -270,7 +272,10 @@ function getFormData(form, schema) {
       if (inputFiles.length > 0) {
         const fd = new FormData();
         for (const key in data) {
-          fd.append(key, data[key]);
+          const val = data[key];
+          if (val !== undefined && val !== null) {
+            fd.append(key, data[key]);
+          }
         }
         resolve(fd);
         return fd;

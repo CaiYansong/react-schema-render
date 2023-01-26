@@ -94,7 +94,7 @@
       "name": "select-api",
       "remoteConf": {
         "type": "api",
-        "api": "/api/getOptions",
+        "api": "/api/v1/options",
         "labelKey": "label",
         "valueKey": "value"
       },
@@ -106,7 +106,7 @@
       "name": "select-func",
       "remoteConf": {
         "type": "func",
-        "func": "const res = await config.getOptions(scenario); console.log(scenario);\nreturn res;"
+        "func": "const res = await config?.getOptions && config?.getOptions(scenario); console.log(scenario);\nreturn res;"
       },
       "isRemote": true
     },
@@ -289,11 +289,6 @@
           "blur",
           "focus"
         ]
-      },
-      {
-        "type": "func",
-        "isPreset": false,
-        "func": "if (+value > 10) {\n  // 校验通过\n  returm Promise.resolve()\n} else {\n  // 未通过\n  returm Promise.reject('Promise: 请输入大于10的数')\n}\n"
       }
     ]
   }
