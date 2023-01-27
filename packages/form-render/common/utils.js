@@ -63,7 +63,7 @@ export function handelBackData(data = {}, fieldList) {
   fieldList?.forEach((f) => {
     const { name, type } = f;
     const val = data[name];
-    if (type === "date-picker" && val) {
+    if ((type === "date-picker" || type === "time-picker") && val) {
       if (Array.isArray(val)) {
         val.forEach((it, i) => {
           res[name][i] = dayjs(it);

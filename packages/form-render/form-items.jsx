@@ -1,11 +1,10 @@
-import { Form } from "antd";
-
 import rulesAdapter from "./adapter/rules-adapter";
 
 import Input from "./components/input";
 import InputNumber from "./components/input-number";
 import Select from "./components/select";
 import DatePicker from "./components/date-picker";
+import TimePicker from "./components/time-picker";
 import Uploader from "./components/uploader";
 import ItemList from "./components/item-list";
 import Slot from "./components/slot";
@@ -15,6 +14,7 @@ const TypeEnum = {
   "input-number": InputNumber,
   select: Select,
   "date-picker": DatePicker,
+  "time-picker": TimePicker,
   "input-file": Uploader,
   "item-list": ItemList,
   slot: Slot,

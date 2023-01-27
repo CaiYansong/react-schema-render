@@ -18,12 +18,18 @@ export function getVal(field, data = {}, opt = {}) {
   const { type, mode, multiple } = field || {};
   if (val && type === "date-picker") {
     if (Array.isArray(val)) {
-      console.log("mode", mode);
       return val
         .map((it) => getDateVal(it, mode?.replace("range", ""), opt))
         .join(" ~ ");
     }
     return getDateVal(val, mode, opt);
+  }
+
+  if (val && type === "time-picker") {
+    if (Array.isArray(val)) {
+      return val.map((it) => dayjs(it).format("HH:mm:ss")).join(" ~ ");
+    }
+    return dayjs(val).format("HH:mm:ss");
   }
 
   if (type === "select" && !Array.isArray(val)) {
