@@ -23,7 +23,12 @@ function Slot(props) {
     scenario,
     formInstance,
     onChange,
+    setValue,
   };
+
+  function setValue(value) {
+    formInstance.setFieldValue(name, value);
+  }
 
   if (Com) {
     return (
