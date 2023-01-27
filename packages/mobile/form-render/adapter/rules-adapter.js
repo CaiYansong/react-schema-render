@@ -18,7 +18,7 @@
 {
   "type": "func",
   "isPreset": false,
-  "func": "if (+value > 10) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于10的数')\n}",
+  "func": "if (+value > 1) {\n  // 校验通过\n  callback();\n} else {\n  // 未通过\n  callback('请输入大于1的数')\n}",
   "trigger": [
     "change",
     "blur"

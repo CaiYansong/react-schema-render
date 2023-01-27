@@ -31,13 +31,13 @@ function DatePicker(props) {
   };
 
   if (rangeModeList.includes(field.mode)) {
-    // if (Array.isArray(props.data)) {
-    //   const val = [];
-    //   props.data.forEach((it, i) => {
-    //     val[i] = dayjs(it);
-    //   });
-    //   _dpProps.value = val;
-    // }
+    if (Array.isArray(props.data)) {
+      const val = [];
+      props.data.forEach((it, i) => {
+        val[i] = dayjs(it);
+      });
+      _dpProps.value = val;
+    }
     return (
       <Form.Item {...formItemProps}>
         <RangePicker {..._dpProps} />

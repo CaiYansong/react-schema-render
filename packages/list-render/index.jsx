@@ -105,6 +105,7 @@ function ListRender(props, parentRef) {
   function onCreate() {
     formDialogRef.current.show().then(async (form) => {
       const data = await getFormData(form, schema);
+
       model
         ?.create(data)
         .then((res) => {
@@ -204,6 +205,23 @@ function ListRender(props, parentRef) {
   );
 }
 
+function isImg(f) {
+  const imgEnum = {};
+  if (f.type !== "input-file") {
+    return false;
+  }
+  if (!f.accept) {
+    return false;
+  }
+  if (f.accept.startsWith("image/") || f.accept.startsWith("images/")) {
+    return true;
+  }
+  const imgReg = /apng|bmp|gif|jpeg|pjpeg|png|svg+xml|tiff|webp|x\-icon/;
+  if (imgReg.test(f.accept)) {
+    return true;
+  }
+}
+
 function getFormData(form, schema) {
   return new Promise((resolve, reject) => {
     let data = _.cloneDeep(form);
@@ -223,7 +241,7 @@ function getFormData(form, schema) {
             promise.push(_d);
             data[f.name] = _d;
             promise.push(_d);
-          } else if (f.accept?.startsWith("image/")) {
+          } else if (isImg(f)) {
             const _p = imgsToBase64(
               val.map((it) => it?.originFileObj || it),
             ).then((res) => {
@@ -252,15 +270,14 @@ function getFormData(form, schema) {
             const _d = val?.fileUrl || val?.originFileObj?.fileUrl || val;
             data[f.name] = _d;
             promise.push(_d);
-          } else if (
-            f.accept?.startsWith("image/") ||
-            val?.type?.startsWith("image/")
-          ) {
-            const _p = imgToBase64(val?.originFileObj || val).then((res) => {
-              data[f.name] = res;
-              return res;
-            });
-            promise.push(_p);
+          } else if (isImg(f) || val?.type?.startsWith("image/")) {
+            if (val) {
+              const _p = imgToBase64(val?.originFileObj || val).then((res) => {
+                data[f.name] = res;
+                return res;
+              });
+              promise.push(_p);
+            }
           } else {
             inputFiles.push(f);
           }
