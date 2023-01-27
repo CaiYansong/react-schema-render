@@ -17,9 +17,13 @@ export function getVal(field, data = {}, opt = {}) {
   let val = _.get(data, field.name);
   const { type, mode, multiple } = field || {};
   if (val && type === "date-picker") {
-    const _formatEnum = opt.dateFormatEnum || dateFormatEnum;
-    let format = _formatEnum[mode] || _formatEnum.date;
-    return dayjs(val).format(format);
+    if (Array.isArray(val)) {
+      console.log("mode", mode);
+      return val
+        .map((it) => getDateVal(it, mode?.replace("range", ""), opt))
+        .join(" ~ ");
+    }
+    return getDateVal(val, mode, opt);
   }
 
   if (type === "select" && !Array.isArray(val)) {
@@ -39,4 +43,10 @@ export function getVal(field, data = {}, opt = {}) {
   }
 
   return val;
+}
+
+export function getDateVal(val, mode, opt = {}) {
+  const _formatEnum = opt.dateFormatEnum || dateFormatEnum;
+  let format = _formatEnum[mode] || _formatEnum.date;
+  return dayjs(val).format(format);
 }
