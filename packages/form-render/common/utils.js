@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 export function cleanData(data) {
   let value = _.cloneDeep(data);
   if (value instanceof dayjs) {
-    return dayjs(value).valueOf();
+    return dayjs(value);
   }
   if (value === null || value === undefined || typeof value !== "object") {
     return value;

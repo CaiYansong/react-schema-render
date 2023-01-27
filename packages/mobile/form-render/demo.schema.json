@@ -74,7 +74,7 @@
       "type": "input-file",
       "label": "文件选择",
       "name": "input-file-fe1944e",
-      "accept": "png"
+      "accept": "image/*"
     },
     {
       "type": "select",

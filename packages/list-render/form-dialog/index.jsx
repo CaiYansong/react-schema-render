@@ -53,12 +53,14 @@ function FormDialog(props, parentRef) {
   function onOk() {
     formRef.current
       .validate()
-      .then((res) => {
+      .then((values) => {
+        console.log("values", values);
         resolveCB.current && resolveCB.current(form);
         props.onSubmit && props.onSubmit(form);
         close();
       })
       .catch((err) => {
+        console.log("err", err);
         message.error("输入有误！");
       });
   }
