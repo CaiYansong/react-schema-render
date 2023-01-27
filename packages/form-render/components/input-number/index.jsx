@@ -8,6 +8,7 @@ function InputNumber(props) {
     max: field.max,
     step: field.step,
     precision: field.precision,
+    onChange: props.onChange,
   };
   // "stepOnly": true,
 
