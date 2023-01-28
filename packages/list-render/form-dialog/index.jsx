@@ -54,9 +54,10 @@ function FormDialog(props, parentRef) {
     formRef.current
       .validate()
       .then((values) => {
-        console.log("values", values);
-        resolveCB.current && resolveCB.current(form);
-        props.onSubmit && props.onSubmit(form);
+        const submitForm = formRef.current.getSubmitData(form);
+        console.log("submitForm", submitForm);
+        resolveCB.current && resolveCB.current(submitForm);
+        props.onSubmit && props.onSubmit(submitForm);
         close();
       })
       .catch((err) => {

@@ -111,6 +111,11 @@ export function getFormatData(data, fieldList) {
       } else {
         res[name] = getDateTimeVal(data[name], f);
       }
+    } else if (type === "switch") {
+      res[name] =
+        res[name] === true || res[name] === f.activeValue
+          ? f.activeValue || true
+          : f.inactiveValue || false;
     } else if (type === "subform") {
       res[name] = getFormatData(res[name], f.fieldList);
     } else if (type === "item-list" && Array.isArray(res[name])) {
