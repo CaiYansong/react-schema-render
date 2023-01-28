@@ -10,7 +10,8 @@
       "type": "input",
       "label": "名称",
       "name": "name",
-      "visible": false
+      "visible": false,
+      "effect": "watch('input-2bf0d8e', val => {set('activated', val > 5);});"
     },
     {
       "type": "input",

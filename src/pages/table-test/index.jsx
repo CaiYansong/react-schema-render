@@ -3,7 +3,7 @@ import { Input } from "antd";
 import ListRender from "@packages/list-render";
 import DataModel from "@packages/data-model";
 
-import demoSchema from "./demo.schema.json";
+import demoSchema from "@packages/form-render/demo.schema.json";
 
 const dm = new DataModel({
   getListApi: "/api/v1/table/list",

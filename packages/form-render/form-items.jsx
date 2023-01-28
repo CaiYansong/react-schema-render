@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import rulesAdapter from "./adapter/rules-adapter";
 
 import Input from "./components/input";
@@ -55,6 +57,64 @@ function FormItems(props) {
           return null;
         }
 
+        if (it.effect) {
+          if (!it._effectParams) {
+            it._effectParams = [
+              {
+                key: "scenario",
+                value: props.scenario,
+              },
+              {
+                key: "config",
+                value: props.config,
+              },
+              {
+                key: "data",
+                value: props.data,
+              },
+              {
+                key: "field",
+                value: props.field,
+              },
+              {
+                key: "watch",
+                value: (path, func, opt) => {
+                  it._path = path;
+                  it._opt = opt;
+                  it._watchFn = function () {
+                    new Function("value", "opt", func)(
+                      // path 暂定为监听目标的 name
+                      formInstance.getFieldValue(path),
+                      opt,
+                    );
+                  };
+                },
+              },
+              {
+                key: "set",
+                value: (key, val) => {
+                  formInstance.setFieldValue(key, val);
+                },
+              },
+            ];
+
+            let effectFunc = new Function(
+              ...it._effectParams.map((p) => p.key),
+              it.effect,
+            );
+
+            it._effectFunc = effectFunc.bind(this);
+
+            it._effectFunc(...it._effectParams.map((p) => p.value));
+          }
+        }
+
+        function _onChange(value) {
+          console.log(value);
+          it._watchFn && it._watchFn(it._path, value, it._opt);
+          onChange && onChange(value);
+        }
+
         const { type, name } = it;
         const rules = rulesAdapter(validRules[name], validFuncs);
 
@@ -83,7 +143,7 @@ function FormItems(props) {
           config: config,
           data: data[name],
           formInstance: formInstance,
-          onChange: onChange,
+          onChange: _onChange,
           fieldSubmit: fieldSubmit,
           slots,
         };
