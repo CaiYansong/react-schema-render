@@ -13,7 +13,7 @@ const dateFormatEnum = {
  * @param {Object} opt 配置项
  * @returns
  */
-export function getVal(field, data = {}, opt = {}) {
+export function getVal(field = {}, data = {}, opt = {}) {
   let val = _.get(data, field.name);
   const { type, mode, multiple } = field || {};
   if (val && type === "date-picker") {
@@ -30,6 +30,16 @@ export function getVal(field, data = {}, opt = {}) {
       return val.map((it) => dayjs(it).format("HH:mm:ss")).join(" ~ ");
     }
     return dayjs(val).format("HH:mm:ss");
+  }
+
+  if (type === "switch") {
+    if (val === true || val === field.activeValue) {
+      return field.activeText || "是";
+    }
+    if (val === undefined || val === false || val === field.inactiveValue) {
+      return field.inactiveText || "否";
+    }
+    return val;
   }
 
   if (type === "select" && !Array.isArray(val)) {
