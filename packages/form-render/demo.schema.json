@@ -10,8 +10,7 @@
       "type": "input",
       "label": "名称",
       "name": "name",
-      "visible": false,
-      "effect": "watch('input-2bf0d8e', val => {set('activated', val > 5);});"
+      "visible": false
     },
     {
       "type": "input",
@@ -33,7 +32,8 @@
       "clearable": true,
       "prepend": "pre",
       "append": "app",
-      "span": 12
+      "span": 12,
+      "effect": "watch('input-f9b7f9b', val => {console.log('watch', val); set('activated', val > 5);});"
     },
     {
       "type": "input",

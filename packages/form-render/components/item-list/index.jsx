@@ -30,6 +30,7 @@ function ItemList(props) {
     config,
     onChange: onItemChange,
     fieldSubmit: props.fieldSubmit,
+    watchEnum: props.watchEnum,
   };
 
   return (

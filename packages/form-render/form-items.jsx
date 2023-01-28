@@ -34,6 +34,7 @@ function FormItems(props) {
     formInstance,
     onChange,
     fieldSubmit,
+    watchEnum,
   } = props;
 
   const {
@@ -78,22 +79,28 @@ function FormItems(props) {
               },
               {
                 key: "watch",
-                value: (path, func, opt) => {
+                value: (path, func, opt = {}) => {
+                  if (!watchEnum[path]) {
+                    watchEnum[path] = [];
+                  }
+
                   it._path = path;
                   it._opt = opt;
-                  it._watchFn = function () {
-                    new Function("value", "opt", func)(
-                      // path 暂定为监听目标的 name
-                      formInstance.getFieldValue(path),
-                      opt,
-                    );
+                  it._watchFn = function (val) {
+                    func(val, { ...opt, formInstance, field: it });
                   };
+
+                  watchEnum[path].push(it._watchFn);
                 },
               },
               {
                 key: "set",
                 value: (key, val) => {
-                  formInstance.setFieldValue(key, val);
+                  if (key === "data") {
+                    formInstance.setFieldValue(...val);
+                  } else {
+                    it[key] = val;
+                  }
                 },
               },
             ];
@@ -111,7 +118,8 @@ function FormItems(props) {
 
         function _onChange(value) {
           console.log(value);
-          it._watchFn && it._watchFn(it._path, value, it._opt);
+          // it._watchFn &&
+          //   it._watchFn(formInstance.getFieldValue(it._path), value);
           onChange && onChange(value);
         }
 
@@ -146,6 +154,7 @@ function FormItems(props) {
           onChange: _onChange,
           fieldSubmit: fieldSubmit,
           slots,
+          watchEnum: props.watchEnum,
         };
 
         return (

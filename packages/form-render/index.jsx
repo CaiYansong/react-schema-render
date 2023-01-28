@@ -1,4 +1,4 @@
-import { useImperativeHandle, forwardRef, useEffect } from "react";
+import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
 import { Form } from "antd";
 import _ from "lodash";
 
@@ -6,6 +6,8 @@ import { cleanData, handelBackData } from "./common/utils";
 import FormItems from "./form-items";
 
 import "./index.less";
+
+const watchEnum = {};
 
 function FormRender(props, parentRef) {
   const {
@@ -57,6 +59,13 @@ function FormRender(props, parentRef) {
   }, [data]);
 
   function onValueChange(changedValues, allValues) {
+    let key = Object.keys(changedValues);
+    key = key.length === 1 && key[0];
+    if (key && Array.isArray(watchEnum[key])) {
+      watchEnum[key].forEach((watchFn) => {
+        watchFn(changedValues[key]);
+      });
+    }
     onChange && onChange(changedValues, allValues, formInstance);
   }
 
@@ -113,6 +122,7 @@ function FormRender(props, parentRef) {
           fieldsConf: props.fieldsConf || {},
           onChange: onItemChange,
           fieldSubmit,
+          watchEnum,
         }}
       />
 
