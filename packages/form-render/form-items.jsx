@@ -9,6 +9,7 @@ import DatePicker from "./components/date-picker";
 import TimePicker from "./components/time-picker";
 import Uploader from "./components/uploader";
 import ItemList from "./components/item-list";
+import Switch from "./components/switch";
 import Slot from "./components/slot";
 
 const TypeEnum = {
@@ -19,6 +20,7 @@ const TypeEnum = {
   "time-picker": TimePicker,
   "input-file": Uploader,
   "item-list": ItemList,
+  switch: Switch,
   slot: Slot,
 };
 
