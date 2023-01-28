@@ -33,7 +33,7 @@
       "prepend": "pre",
       "append": "app",
       "span": 12,
-      "effect": "watch('input-f9b7f9b', val => {console.log('watch', val); set('activated', val > 5);});"
+      "effect": "watch('input-f9b7f9b', (val, ...args) => {console.log('watch', val, ...args); set('activated', val > 5);});"
     },
     {
       "type": "input",

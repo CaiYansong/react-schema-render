@@ -1,15 +1,9 @@
 import { Form, DatePicker as DP } from "antd";
 import dayjs from "dayjs";
 
-const { RangePicker } = DP;
+import { rangeModeList } from "../../common/utils";
 
-const rangeModeList = [
-  "datetimerange",
-  "daterange",
-  "weekrange",
-  "monthrange",
-  "yearrange",
-];
+const { RangePicker } = DP;
 
 const pickerEnum = {
   month: "month",

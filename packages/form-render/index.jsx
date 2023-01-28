@@ -2,7 +2,7 @@ import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
 import { Form } from "antd";
 import _ from "lodash";
 
-import { cleanData, handelBackData } from "./common/utils";
+import { cleanData, handelBackData, getFormatData } from "./common/utils";
 import FormItems from "./form-items";
 
 import "./index.less";
@@ -31,6 +31,9 @@ function FormRender(props, parentRef) {
     formInstance,
     validate: formInstance.validateFields,
     setData,
+    getSubmitData(_val) {
+      return getFormatData(_val || data, schema.fieldList);
+    },
   }));
 
   function setData(data) {
