@@ -22,7 +22,7 @@ import "./index.less";
 function ListRender(props, parentRef) {
   const { idKey = "id" } = props;
   const [total, setTotal] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(props.list);
   const formDialogRef = useRef();
 
   useImperativeHandle(parentRef, () => ({
@@ -61,6 +61,12 @@ function ListRender(props, parentRef) {
       props.model.query = {};
     }
   }, [props.model?.query]);
+
+  useEffect(() => {
+    if (props.list) {
+      setList(props.list);
+    }
+  }, [props.list]);
 
   function getList(query = props.model.query) {
     console.log("query", query);

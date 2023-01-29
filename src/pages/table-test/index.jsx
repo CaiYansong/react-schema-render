@@ -18,6 +18,21 @@ function TableTest(props) {
     <div>
       <ListRender
         schema={demoSchema}
+        list={[
+          {
+            id: 1,
+            name: 1,
+            children: [{ id: 11, name: 11 }],
+          },
+        ]}
+        formSlots={{
+          slotName({ value, onChange }) {
+            return <Input value={value} onChange={onChange} />;
+          },
+        }}
+      />
+      <ListRender
+        schema={demoSchema}
         model={dm}
         formSlots={{
           slotName({ value, onChange }) {
