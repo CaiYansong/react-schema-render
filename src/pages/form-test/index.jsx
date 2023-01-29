@@ -71,6 +71,28 @@ export default function FormTestPage() {
         }, 1000);
       });
     },
+    getCascaderOptions() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            {
+              label: "Remote 1",
+              value: "remote1",
+            },
+            {
+              label: "Remote 2",
+              value: "remote2",
+              children: [
+                {
+                  label: "Remote 21",
+                  value: "remote21",
+                },
+              ],
+            },
+          ]);
+        }, 1000);
+      });
+    },
   };
   return (
     <div style={{ padding: "20px" }}>

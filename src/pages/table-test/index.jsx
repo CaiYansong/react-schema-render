@@ -14,6 +14,47 @@ const dm = new DataModel({
 });
 
 function TableTest(props) {
+  const config = {
+    getOptions() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            {
+              label: "Remote 1",
+              value: "remote1",
+            },
+            {
+              label: "Remote 2",
+              value: "remote2",
+            },
+          ]);
+        }, 1000);
+      });
+    },
+    getCascaderOptions() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            {
+              label: "Remote 1",
+              value: "remote1",
+            },
+            {
+              label: "Remote 2",
+              value: "remote2",
+              children: [
+                {
+                  label: "Remote 21",
+                  value: "remote21",
+                },
+              ],
+            },
+          ]);
+        }, 1000);
+      });
+    },
+  };
+
   return (
     <div>
       <ListRender
@@ -30,6 +71,7 @@ function TableTest(props) {
             return <Input value={value} onChange={onChange} />;
           },
         }}
+        formConf={config}
       />
       <ListRender
         schema={demoSchema}
@@ -39,6 +81,7 @@ function TableTest(props) {
             return <Input value={value} onChange={onChange} />;
           },
         }}
+        formConf={config}
       />
     </div>
   );

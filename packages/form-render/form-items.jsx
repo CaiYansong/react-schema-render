@@ -5,6 +5,7 @@ import rulesAdapter from "./adapter/rules-adapter";
 import Input from "./components/input";
 import InputNumber from "./components/input-number";
 import Select from "./components/select";
+import Cascader from "./components/cascader";
 import DatePicker from "./components/date-picker";
 import TimePicker from "./components/time-picker";
 import Uploader from "./components/uploader";
@@ -16,6 +17,7 @@ const TypeEnum = {
   input: Input,
   "input-number": InputNumber,
   select: Select,
+  cascader: Cascader,
   "date-picker": DatePicker,
   "time-picker": TimePicker,
   "input-file": Uploader,

@@ -136,7 +136,7 @@
       "name": "cascader-c828076",
       "remoteConf": {
         "type": "func",
-        "func": "const res = await config?.getOptions && config?.getOptions(scenario); console.log(scenario);\nreturn res;"
+        "func": "const res = await config?.getCascaderOptions && config?.getCascaderOptions(scenario); console.log(scenario);\nreturn res;"
       },
       "isRemote": true,
       "clearable": true,

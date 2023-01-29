@@ -32,7 +32,8 @@
       "clearable": true,
       "prepend": "pre",
       "append": "app",
-      "span": 12
+      "span": 12,
+      "effect": "watch('input-f9b7f9b', (val, ...args) => {console.log('watch', val, ...args); set('activated', val > 5);});"
     },
     {
       "type": "input",
@@ -135,7 +136,7 @@
       "name": "cascader-c828076",
       "remoteConf": {
         "type": "func",
-        "func": "const res = await config?.getOptions && config?.getOptions(scenario); console.log(scenario);\nreturn res;"
+        "func": "const res = await config?.getCascaderOptions && config?.getCascaderOptions(scenario); console.log(scenario);\nreturn res;"
       },
       "isRemote": true,
       "clearable": true,
@@ -184,7 +185,11 @@
     {
       "type": "switch",
       "label": "开关",
-      "name": "switch-f0d3254"
+      "name": "switch-f0d3254",
+      "activeText": "open-key",
+      "activeValue": "open-val",
+      "inactiveText": "close-key",
+      "inactiveValue": "close-val"
     },
     {
       "type": "date-picker",
@@ -225,7 +230,7 @@
       "type": "wrapper",
       "label": "容器",
       "name": "wrapper-d0ff36c",
-      "formKey": "ac619a5",
+      "formKey": "ff6eec5",
       "formConf": {},
       "fieldList": [
         {
@@ -241,7 +246,7 @@
       "type": "subform",
       "label": "子表单",
       "name": "subform-377c7bc",
-      "formKey": "d59c689",
+      "formKey": "16f02e5",
       "formConf": {},
       "fieldList": [
         {
@@ -262,7 +267,7 @@
       "type": "item-list",
       "label": "列表",
       "name": "item-list-cdf09d8",
-      "formKey": "564c011",
+      "formKey": "c22a496",
       "formConf": {},
       "fieldList": [
         {
