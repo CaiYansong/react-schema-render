@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import _ from "lodash";
 
 import DataModel from "@/services/data-model";
-import handleRemoteData from "@packages/form-render/common/remote-data";
+import handleRemoteData from "@packages/pc/form-render/common/remote-data";
 
 import moment from "moment";
 

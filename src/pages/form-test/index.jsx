@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Input, Button } from "antd";
 import dayjs from "dayjs";
 
-import FormRender from "@packages/form-render";
+import FormRender from "@packages/pc/form-render";
 
 import demoSchema from "./demo.schema.json";
 

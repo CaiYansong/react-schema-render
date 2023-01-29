@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Select } from "antd";
 
-import { getRemoteData } from "@packages/form-render/common/remote-data";
+import { getRemoteData } from "@packages/pc/form-render/common/remote-data";
 
 function SelectCom(props) {
   const {

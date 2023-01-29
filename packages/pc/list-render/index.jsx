@@ -8,9 +8,9 @@ import {
 import { Button, message } from "antd";
 import _ from "lodash";
 
-import handleRemoteData from "@packages/form-render/common/remote-data";
+import handleRemoteData from "@packages/pc/form-render/common/remote-data";
 
-import { imgsToBase64, imgToBase64 } from "@packages/form-render/common/img";
+import { imgsToBase64, imgToBase64 } from "@packages/pc/form-render/common/img";
 
 import QueryRender from "./query-render";
 import Pagination from "./pagination-render";

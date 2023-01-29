@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "antd";
 
-import FormRender from "@packages/form-render";
+import FormRender from "@packages/pc/form-render";
 
 import "./index.less";
 
