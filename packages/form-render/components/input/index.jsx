@@ -34,13 +34,13 @@ function InputCom(props) {
 
   const _props = {
     allowClear: clearable,
-    disabled: disabled,
     id: name,
     maxLength: wordLimit ? maxLength || 50 : undefined,
     showCount: wordLimit,
     type: mode,
     value: data,
-    readOnly: readonly,
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     placeholder,
     onChange: onChange,
     onPressEnter: (e) => {

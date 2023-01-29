@@ -22,6 +22,8 @@ function Slot(props) {
     data,
     scenario,
     formInstance,
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     onChange,
     setValue,
   };

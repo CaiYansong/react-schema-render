@@ -110,6 +110,32 @@ export default function FormTestPage() {
         <TestSlot key="slotName" />
         <div key="slotName2">form test slot2</div>
       </FormRender>
+      {/*  */}
+      <h1>disabled</h1>
+      <FormRender
+        disabled
+        scenario="create"
+        schema={demoSchema}
+        data={form}
+        onChange={onChange}
+        config={config}
+      >
+        <TestSlot key="slotName" />
+        <div key="slotName2">form test slot2</div>
+      </FormRender>
+      {/*  */}
+      <h1>readOnly</h1>
+      <FormRender
+        readOnly
+        scenario="create"
+        schema={demoSchema}
+        data={form}
+        onChange={onChange}
+        config={config}
+      >
+        <TestSlot key="slotName" />
+        <div key="slotName2">form test slot2</div>
+      </FormRender>
     </div>
   );
 }

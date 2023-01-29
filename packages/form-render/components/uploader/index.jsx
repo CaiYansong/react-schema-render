@@ -28,6 +28,8 @@ function Uploader(props) {
   }, [props.data]);
 
   const _props = {
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     headers: field.headers,
     action: field.action,
     name: field.uploadName,

@@ -5,8 +5,6 @@ function Cascader(props) {
 
   const {
     name,
-    disabled,
-    readonly,
     clearable,
     multiple,
     searchable,
@@ -18,8 +16,8 @@ function Cascader(props) {
     id: name,
     value: data,
     allowClear: clearable,
-    disabled,
-    readOnly: readonly,
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     showSearch: searchable,
     mode: multiple === true ? "multiple" : undefined,
     placeholder,

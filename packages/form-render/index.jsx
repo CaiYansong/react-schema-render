@@ -109,6 +109,7 @@ function FormRender(props, parentRef) {
       layout={layout}
       labelCol={labelCol}
       labelAlign={formConf.labelPosition}
+      disabled={props.disabled}
       onValuesChange={onValueChange}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}

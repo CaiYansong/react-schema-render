@@ -8,6 +8,8 @@ function InputNumber(props) {
     max: field.max,
     step: field.step,
     precision: field.precision,
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     onChange: props.onChange,
   };
   // "stepOnly": true,

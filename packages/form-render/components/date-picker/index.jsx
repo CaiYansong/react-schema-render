@@ -22,6 +22,8 @@ function DatePicker(props) {
     onChange: onChange,
     onOk: onOk,
     picker: pickerEnum[field.mode],
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
   };
 
   if (rangeModeList.includes(field.mode)) {

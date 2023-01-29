@@ -8,15 +8,15 @@ const canEdit = true;
 
 // Form.List
 function ItemList(props) {
-  const { field = {}, disabled, readOnly, data = {}, config } = props;
+  const { field = {}, data = {}, config } = props;
 
   function onItemChange(...args) {
     console.log("item-list onItemChange: ", ...args);
   }
 
   const _itemsProps = {
-    disabled,
-    readOnly,
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     scenario: props.scenario,
     schema: {
       fieldList: field.fieldList,

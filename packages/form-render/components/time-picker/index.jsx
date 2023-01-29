@@ -5,6 +5,8 @@ function TimePicker(props) {
   const { formItemProps = {}, field = {}, onChange } = props;
 
   const _dpProps = {
+    disabled: field.disabled || props.disabled,
+    readOnly: field.readonly || props.readOnly,
     onChange: onChange,
   };
 
