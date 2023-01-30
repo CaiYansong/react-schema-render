@@ -1,7 +1,7 @@
 import { Input } from "antd";
 
 import ListRender from "@packages/pc/list-render";
-import DataModel from "@packages/data-model";
+import DataModel from "@packages/utils/data-model";
 
 import demoSchema from "@packages/pc/form-render/demo.schema.json";
 

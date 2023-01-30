@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axios } from "@packages/data-model";
+import { axios } from "@packages/utils/data-model";
 
 import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";

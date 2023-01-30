@@ -1,4 +1,4 @@
-import DataModel from "@packages/data-model";
+import DataModel from "@packages/utils/data-model";
 
 /**
  * 获取 fieldList 中的远程选项数据
