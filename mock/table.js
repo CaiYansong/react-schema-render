@@ -2,14 +2,20 @@ const store = {
   list: [],
 };
 
+for (let i = 0; i < 100; i++) {
+  store.list.push({ id: i, name: "name " + i });
+}
+
 export default {
   "GET /api/v1/table/list"(req, res) {
     const total = store.list.length;
 
-    const { pageSize = 10, pageNum = 1 } = res.query || {};
+    const { pageSize = 10, pageNum = 1 } = req.query || {};
 
-    const startIdx = +pageNum + +pageSize * (+pageNum - 1) - 1;
-    let list = store.list.slice(startIdx, startIdx + +pageSize);
+    let list = store.list.slice(
+      +pageSize * (+pageNum - 1),
+      +pageNum * +pageSize,
+    );
 
     let current = +pageNum;
 

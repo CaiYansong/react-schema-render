@@ -13,6 +13,15 @@ const dm = new DataModel({
   deleteApi: "/api/v1/table/:id",
 });
 
+const localList = [];
+
+for (let i = 0; i < 60; i++) {
+  localList.push({
+    id: i,
+    name: "name " + i,
+  });
+}
+
 function TableTest(props) {
   const config = {
     getOptions() {
@@ -59,13 +68,7 @@ function TableTest(props) {
     <div>
       <ListRender
         schema={demoSchema}
-        list={[
-          {
-            id: 1,
-            name: 1,
-            children: [{ id: 11, name: 11 }],
-          },
-        ]}
+        list={localList}
         formSlots={{
           slotName({ value, onChange }) {
             return <Input value={value} onChange={onChange} />;
