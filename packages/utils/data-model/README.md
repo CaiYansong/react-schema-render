@@ -3,7 +3,7 @@
 
 ## 示例
 
-```javascript
+```JavaScript
 const listDM = new DataModel({
   getListApi: "/api/v1/list/",
   getApi: "/api/v1/list/item/:id",
