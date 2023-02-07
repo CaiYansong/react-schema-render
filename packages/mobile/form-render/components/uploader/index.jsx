@@ -6,6 +6,10 @@ function UploaderCom(props) {
   const { name, formItemProps, formInstance, fieldConf, onChange } = props;
 
   function onUploadChange(files) {
+    if (props.field?.autoUpload && props.fieldsConf[name]?.onUpload) {
+      props.fieldsConf[name]?.onUpload(files);
+      return;
+    }
     formInstance?.setFieldValue(name, files);
     onChange &&
       onChange({ [name]: files }, formInstance.getFieldsValue(true), props);

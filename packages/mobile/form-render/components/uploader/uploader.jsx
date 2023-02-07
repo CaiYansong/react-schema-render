@@ -12,6 +12,8 @@ import "./uploader.less";
 const TYPE_VIDEO = "video";
 const TYPE_IMG = "img";
 
+const _ = require("lodash");
+
 function Uploader(props) {
   const {
     name,
@@ -90,11 +92,15 @@ function Uploader(props) {
     Dialog.confirm({
       content: "确认删除？",
       onConfirm: () => {
-        setFileList((files) => {
-          files.splice(idx, 1);
-          handleChange(files, "del");
-          return files;
-        });
+        // setFileList((files) => {
+        //   files.splice(idx, 1);
+        //   handleChange(files, "del");
+        //   return files;
+        // });
+        const middleValue = _.cloneDeep(fileList);
+        middleValue.splice(idx, 1);
+        handleChange(middleValue, "del");
+        setFileList(middleValue);
       },
     });
   }
@@ -133,14 +139,15 @@ function Uploader(props) {
         capture={props.capture}
       ></input>
       {fileList.map((it, idx) => {
-        const { type, name } = it;
+        const { type, name, url } = it;
         let src = "";
         let fileType = "";
         let downLoadUrl = undefined;
 
         // 判断文件类型，获取对应展示的数据
-        if (typeof it === "string") {
-          src = it;
+        if (typeof it === "string" || url) {
+          src = url ? url : it;
+          it = url ? url : it;
           // 图片
           if (
             it.startsWith("data:image/") ||

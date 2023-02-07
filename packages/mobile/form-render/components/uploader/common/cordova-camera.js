@@ -1,11 +1,12 @@
-export function getImage() {
+export function getImage(_options = {}) {
   return new Promise((resolve, reject) => {
     // TODO: 调整 options 参数
     const options = {
       quality: 0,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: 1, // 0:Photo Library, 1=Camera, 2=Saved Album
+      destinationType: 1, // 0-Return base64 encoded string. 1-Return file uri (content://media/external/images/media/2 for Android)
+      sourceType: 1, // 0-Photo Library, 1-Camera, 2-Saved Album Choose image only from the device's Camera Roll album
       encodingType: 0, // 0=JPG 1=PNG
+      ..._options,
     };
 
     navigator.device.capture.captureImage(
@@ -22,6 +23,18 @@ export function getImage() {
                 reader.onloadend = function (e) {
                   imgBlob = new Blob([this.result], { type: "image/jpeg" });
                   console.log("imgBlob", imgBlob);
+                  if (!imgBlob?.name) {
+                    imgBlob.name = `${Date.now()}.${imgBlob.type?.replace(
+                      "image/",
+                      "",
+                    )}`;
+                  }
+                  if (!imgBlob?.lastModifiedDate) {
+                    imgBlob.lastModifiedDate = new Date();
+                  }
+                  if (!imgBlob?.lastModified) {
+                    imgBlob.lastModified = imgBlob.lastModifiedDate.getTime();
+                  }
                   resolve(imgBlob);
                   // window.__file = imgBlob; // PLACE THE FILE ASSIGNMENT HERE AFTER THE READER HAS INGESTED THE FILE BYTES
                 };
@@ -48,14 +61,15 @@ export function getImage() {
   });
 }
 
-export function getVideo() {
+export function getVideo(_options = {}) {
   return new Promise((resolve, reject) => {
     // TODO: 调整 options 参数
     const options = {
       quality: 0,
-      destinationType: Camera.DestinationType.FILE_URI,
+      destinationType: 1,
       sourceType: 1, // 0:Photo Library, 1=Camera, 2=Saved Album
       encodingType: 0, // 0=JPG 1=PNG
+      ..._options,
     };
 
     navigator.device.capture.captureVideo(
@@ -72,6 +86,18 @@ export function getVideo() {
                 reader.onloadend = function (e) {
                   imgBlob = new Blob([this.result], { type: "video/mp4" });
                   console.log("imgBlob", imgBlob);
+                  if (!imgBlob?.name) {
+                    imgBlob.name = `${Date.now()}.${imgBlob.type?.replace(
+                      "video/",
+                      "",
+                    )}`;
+                  }
+                  if (!imgBlob?.lastModifiedDate) {
+                    imgBlob.lastModifiedDate = new Date();
+                  }
+                  if (!imgBlob?.lastModified) {
+                    imgBlob.lastModified = imgBlob.lastModifiedDate.getTime();
+                  }
                   resolve(imgBlob);
                   // window.__file = imgBlob; // PLACE THE FILE ASSIGNMENT HERE AFTER THE READER HAS INGESTED THE FILE BYTES
                 };

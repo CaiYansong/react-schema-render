@@ -76,7 +76,7 @@ function ReactLeafletMap(props) {
   useEffect(() => {
     console.log(startPoint, endPoint);
     if (startPoint && endPoint) {
-      getRouteByStartEnd().then((res) => {
+      getRouteByStartEnd(startPoint, endPoint).then((res) => {
         setLine(res);
       });
     }
@@ -99,7 +99,7 @@ function ReactLeafletMap(props) {
   function getRouteByStartEnd(start, end) {
     setLoading(true);
     return new Promise((resolve) => {
-      setTimeout(() => {
+      setTimeout(async () => {
         resolve(getRouteSteps(carRoute).map((item) => item.reverse()));
         setLoading(false);
       }, 1000);

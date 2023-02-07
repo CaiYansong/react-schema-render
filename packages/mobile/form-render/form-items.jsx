@@ -21,7 +21,7 @@ export default function FormItems(props) {
     formInstance,
     disabled,
     readOnly,
-    fieldsConf = [],
+    fieldsConf = {},
     onChange,
   } = props || {};
 
@@ -99,6 +99,7 @@ export default function FormItems(props) {
           onChange: onItemChange,
           disabled,
           readOnly: readOnly ?? it.readonly,
+          placeholder: readOnly ? "" : it.placeholder,
           fieldsConf: fieldsConf,
           fieldConf: fieldsConf[name],
         };

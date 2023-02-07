@@ -6,6 +6,8 @@ import FormItems from "./form-items";
 
 import { handleFillBackData, handleSubmitData } from "./adapter/data-adapter";
 
+import "./index.less";
+
 function FormRender(props, parentRef) {
   const {
     name = Date.now(),
@@ -70,7 +72,9 @@ function FormRender(props, parentRef) {
 
   return (
     <Form
-      className="form-render"
+      className={`form-render ${readOnly ? "form-render-readonly" : ""} ${
+        disabled ? "form-render-disabled" : ""
+      }`}
       disabled={disabled}
       readOnly={readOnly}
       name={name}

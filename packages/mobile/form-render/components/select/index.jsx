@@ -55,13 +55,14 @@ function SelectCom(props) {
 
   return (
     <FormItem {..._formItemProps} onClick={onClick}>
-      {readOnly || disabled ? null : (
-        <Picker columns={_options} visible={visible} onClose={onClose}>
-          {(value) =>
-            value && value.length > 0 ? value[0]?.label : placeholder
-          }
-        </Picker>
-      )}
+      <Picker
+        style={{ pointerEvents: readOnly || disabled ? "none" : undefined }}
+        columns={_options}
+        visible={visible}
+        onClose={onClose}
+      >
+        {(value) => (value && value.length > 0 ? value[0]?.label : placeholder)}
+      </Picker>
     </FormItem>
   );
 }

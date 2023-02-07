@@ -43,12 +43,20 @@ function LocationPickerCom(props) {
         // TODO: 展示逻辑优化
         <div>
           <div>
+            起点：{_data?.start?.lng || data?.start?.lng},{" "}
+            {_data?.start?.lat || data?.start?.lat}
+          </div>
+          <div>
+            终点：{_data?.end?.lng || data?.end?.lng},{" "}
+            {_data?.end?.lat || data?.end?.lat}
+          </div>
+          {/* <div>
             起点：{_data.start && _data.start.lng},{" "}
             {_data.start && _data.start.lat}
           </div>
           <div>
             终点：{_data.end && _data.end.lng}, {_data.end && _data.end.lat}
-          </div>
+          </div> */}
         </div>
       ) : (
         <span>
