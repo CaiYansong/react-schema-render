@@ -8,6 +8,7 @@ import demoSchema from "./demo.schema.json";
 
 export default function FormTestPage() {
   const [form, setForm] = useState({
+    "radio-c3fb0f5": "option2",
     "input-f9b7f9b": "1",
     "input-59f411d": "2",
     "select-b836c9c": ["option1"],
