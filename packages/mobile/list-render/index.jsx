@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { SearchBar, Button, InfiniteScroll } from "antd-mobile";
 
 import CardItem from "./card-item";
@@ -6,7 +12,7 @@ import TableItem from "./table-item";
 
 import "./index.less";
 
-function ListRender(props) {
+function ListRender(props, parentRef) {
   const {
     model,
     schema,
@@ -44,11 +50,8 @@ function ListRender(props) {
       if (!model.query) {
         model.query = {};
       }
-      if (
-        model.query.pageNumber === undefined ||
-        model.query.pageNumber === null
-      ) {
-        model.query.pageNumber = 1;
+      if (model.query.pageNum === undefined || model.query.pageNum === null) {
+        model.query.pageNum = 1;
       }
       if (!model.query.pageSize) {
         model.query.pageSize = 10;
@@ -61,7 +64,7 @@ function ListRender(props) {
     // 销毁后清除状态，解决 一个页面多 tab 多列表 dataModel 不销毁导致的缓存问题
     return () => {
       if (model && model.query) {
-        model.query.pageNumber = 1;
+        model.query.pageNum = 1;
       }
     };
   }, []);
@@ -70,6 +73,7 @@ function ListRender(props) {
     // listData 动态获取逻辑
     if (listData) {
       setList(listData);
+      setHasMore(false);
     }
   }, [listData]);
 
@@ -89,12 +93,12 @@ function ListRender(props) {
       model.query.pageSize = 10;
     }
     if (isFirst.current === undefined) {
-      // 首次加载 pageNumber = 1
+      // 首次加载 pageNum = 1
       isFirst.current = false;
-      model.query.pageNumber = 1;
+      model.query.pageNum = 1;
     } else {
-      // loadMore pageNumber += 1
-      model.query.pageNumber = (model.query.pageNumber || 1) + 1;
+      // loadMore pageNum += 1
+      model.query.pageNum = (model.query.pageNum || 1) + 1;
     }
     getList();
   }
@@ -104,25 +108,33 @@ function ListRender(props) {
     if (!model) {
       return;
     }
-    model.query.pageNumber = 1;
+    // TODO: props.query 无法正常更新，更新时间延迟了一次
+    model.query.pageNum = 1;
     model.query.search = typeof _search === "string" ? _search : search;
-    setHasMore(true);
-    getList();
+    getList(true);
   }
 
-  function getList() {
+  function getList(isSearch) {
     // TODO: 接口错误逻辑处理
     setLoading(true);
     return model
       .getList(query)
       .then((res) => {
+        if (isSearch) {
+          setHasMore(true);
+          setList([]);
+        }
         setLoading(false);
-        if (!res || res.list.length <= 0) {
+        if (!res || res.list?.length <= 0) {
+          setHasMore(false);
+          return res;
+        }
+        if (model.query.pageNum > res?.pagination?.current) {
           setHasMore(false);
           return res;
         }
         let _list = res?.list || [];
-        if (model.query.pageNumber > 1) {
+        if (model.query.pageNum > 1) {
           _list = [...list, ..._list];
         }
         setList(_list);
@@ -130,9 +142,13 @@ function ListRender(props) {
       })
       .catch((err) => {
         setLoading(false);
-        console.log("Error List Render getList: ", err);
+        console.error("Error List Render getList: ", err);
       });
   }
+
+  useImperativeHandle(parentRef, () => ({
+    onSearch,
+  }));
 
   return (
     <div
@@ -226,6 +242,6 @@ function ListRender(props) {
   );
 }
 
-export default ListRender;
+export default forwardRef(ListRender);
 
 export { CardItem, TableItem };

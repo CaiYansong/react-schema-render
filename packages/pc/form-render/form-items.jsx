@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
 import rulesAdapter from "./adapter/rules-adapter";
 
@@ -11,6 +11,7 @@ import TimePicker from "./components/time-picker";
 import Uploader from "./components/uploader";
 import ItemList from "./components/item-list";
 import Switch from "./components/switch";
+import Wrapper from "./components/wrapper";
 import Slot from "./components/slot";
 
 const TypeEnum = {
@@ -23,6 +24,7 @@ const TypeEnum = {
   "input-file": Uploader,
   "item-list": ItemList,
   switch: Switch,
+  wrapper: Wrapper,
   slot: Slot,
 };
 
@@ -47,6 +49,8 @@ function FormItems(props) {
     validRules = {},
     validFuncs = [],
   } = schema;
+
+  const [state, setState] = useState({});
 
   const { marginY, marginX } = formConf || {};
 
@@ -104,6 +108,7 @@ function FormItems(props) {
                     formInstance.setFieldValue(...val);
                   } else {
                     it[key] = val;
+                    setState({ key, val });
                   }
                 },
               },
@@ -162,7 +167,13 @@ function FormItems(props) {
         };
 
         return (
-          Component && <Component key={it.name} {...itemProps}></Component>
+          Component && (
+            <Component
+              // 更新指定组件状态
+              key={it.name === state.key ? it.name + state.val : it.name}
+              {...itemProps}
+            ></Component>
+          )
         );
       })}
     </>
