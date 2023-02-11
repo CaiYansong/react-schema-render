@@ -1,0 +1,30 @@
+{
+  "formConf": {
+    "labelWidth": "100px",
+    "marginY": 25,
+    "marginX": 21,
+    "labelPosition": "left"
+  },
+  "fieldList": [
+    {
+      "type": "input",
+      "label": "名称",
+      "name": "name"
+    },
+    {
+      "type": "input",
+      "label": "年龄",
+      "name": "age"
+    },
+    {
+      "type": "input",
+      "label": "文本框",
+      "name": "input-194ece3",
+      "activated": false,
+      "inTable": false,
+      "visible": false
+    }
+  ],
+  "validFuncs": [],
+  "validRules": {}
+}

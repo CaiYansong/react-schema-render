@@ -6,6 +6,7 @@ import { getVal } from "../common/utils";
 import "./index.less";
 
 function TableRender(props) {
+  const { config = {} } = props;
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -133,6 +134,7 @@ function TableRender(props) {
         columns={columns}
         dataSource={props.list}
         pagination={false}
+        expandable={config.expandable}
       />
     </div>
   );
