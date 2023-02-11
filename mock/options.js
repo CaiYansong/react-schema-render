@@ -3,7 +3,7 @@ export default {
     const list = [];
     for (let i = 0; i < 9; i++) {
       list.push({
-        value: i,
+        value: "" + i,
         label: "Label " + i,
       });
     }
@@ -19,15 +19,15 @@ export default {
     for (let i = 0; i < 9; i++) {
       const children = [];
 
-      for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
         children.push({
-          value: "child-" + i,
-          label: "Child Label " + i,
+          value: i + "-" + j,
+          label: "Label " + i + "-" + j,
         });
       }
 
       list.push({
-        value: "parent-" + i,
+        value: "" + i,
         label: "Label " + i,
         children,
       });
