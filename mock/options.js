@@ -14,4 +14,29 @@ export default {
       },
     });
   },
+  "GET /api/v1/cascader"(req, res) {
+    const list = [];
+    for (let i = 0; i < 9; i++) {
+      const children = [];
+
+      for (let i = 0; i < 3; i++) {
+        children.push({
+          value: "child-" + i,
+          label: "Child Label " + i,
+        });
+      }
+
+      list.push({
+        value: "parent-" + i,
+        label: "Label " + i,
+        children,
+      });
+    }
+    res.json({
+      code: 200,
+      data: {
+        list,
+      },
+    });
+  },
 };

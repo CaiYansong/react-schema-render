@@ -15,8 +15,6 @@ function SelectCom(props) {
 
   const {
     name,
-    disabled,
-    readonly,
     clearable,
     multiple,
     searchable,
@@ -41,13 +39,13 @@ function SelectCom(props) {
 
   // 处理数据源为 func 的逻辑
   useEffect(() => {
-    if (!props.isRemote) {
+    if (!field.isRemote) {
       return;
     }
     getRemoteData(field, config, scenario).then((list) => {
       setOptions(list);
     });
-  }, [props.isRemote]);
+  }, [field.isRemote]);
 
   return (
     <Form.Item {...formItemProps}>

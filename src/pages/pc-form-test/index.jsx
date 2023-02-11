@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 import FormRender from "@packages/pc/form-render";
 
-import demoSchema from "./demo.schema.json";
+import demoSchema from "@packages/pc/form-render/demo.schema.json";
 
 export default function FormTestPage() {
   const [form, setForm] = useState({
