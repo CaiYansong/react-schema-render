@@ -47,7 +47,7 @@ function ItemList(props) {
               data: data[field.name] && data[field.name][index],
             };
             return (
-              <div>
+              <div key={key + name + index}>
                 <FormItems isItemList {...itemsProps} />
                 <Button onClick={() => remove(index)}>删除</Button>
               </div>

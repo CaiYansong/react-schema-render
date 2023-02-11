@@ -17,7 +17,9 @@ function Radio(props) {
     <FormItem {...formItemProps}>
       <Ra.Group {..._props}>
         {field.options?.map((it) => (
-          <Ra value={it.value}>{it.label}</Ra>
+          <Ra key={it.value} value={it.value}>
+            {it.label}
+          </Ra>
         ))}
       </Ra.Group>
     </FormItem>
