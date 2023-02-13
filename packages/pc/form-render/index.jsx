@@ -51,7 +51,7 @@ function FormRender(props, parentRef) {
   // 数据回填
   useEffect(() => {
     let _data = handelBackData(data, schema.fieldList);
-    console.log('_data', _data);
+    // console.log('_data', _data);
 
     // TODO: 回填逻辑优化
     if (
