@@ -19,7 +19,7 @@ import FormDialog from "./form-dialog";
 
 import "./index.less";
 
-function ListRender(props, parentRef) {
+const ListRender = forwardRef(function (props, parentRef) {
   const { idKey = "id" } = props;
   const [total, setTotal] = useState(0);
   const [list, setList] = useState([]);
@@ -205,7 +205,7 @@ function ListRender(props, parentRef) {
       />
     </div>
   );
-}
+});
 
 ListRender.defaultProps = {
   model: {
@@ -213,4 +213,4 @@ ListRender.defaultProps = {
   },
 };
 
-export default forwardRef(ListRender);
+export default ListRender;
