@@ -22,7 +22,7 @@
     },
     {
       "type": "input",
-      "label": "文本框",
+      "label": "文本框 watch",
       "name": "input-2bf0d8e",
       "wordLimit": true,
       "maxLength": 20,
@@ -33,6 +33,7 @@
       "prepend": "pre",
       "append": "app",
       "span": 12,
+      "activated": false,
       "effect": "watch('input-f9b7f9b', (val, ...args) => {console.log('watch', val, ...args); set('activated', val > 5);});"
     },
     {
