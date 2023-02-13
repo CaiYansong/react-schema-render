@@ -66,10 +66,6 @@ function FormItems(props) {
   return (
     <>
       {fieldList?.map((it) => {
-        if (it.activated === false) {
-          return null;
-        }
-
         if (it.effect) {
           if (!it._effectParams) {
             it._effectParams = [
@@ -129,11 +125,8 @@ function FormItems(props) {
           }
         }
 
-        function _onChange(value) {
-          console.log(value);
-          // it._watchFn &&
-          //   it._watchFn(formInstance.getFieldValue(it._path), value);
-          onChange && onChange(value);
+        if (it.activated === false) {
+          return null;
         }
 
         const { type, name } = it;
@@ -164,7 +157,7 @@ function FormItems(props) {
           config: config,
           data: data[name],
           formInstance: formInstance,
-          onChange: _onChange,
+          onChange,
           fieldSubmit: fieldSubmit,
           slots,
           watchEnum: props.watchEnum,
