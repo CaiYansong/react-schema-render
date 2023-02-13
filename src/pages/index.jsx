@@ -11,7 +11,7 @@ export default function IndexPage() {
       <ul>
         {routes.map((it) => {
           return (
-            <li>
+            <li key={it.path}>
               <Link to={it.path}>{it.path}</Link>
             </li>
           );
