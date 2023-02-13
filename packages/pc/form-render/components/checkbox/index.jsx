@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { Form, Radio as Ra } from "antd";
+import { Form, Checkbox as Cb } from "antd";
 
 import { getRemoteData } from "../../common/remote-data";
 
 const FormItem = Form.Item;
 
-function Radio(props) {
+const CheckboxGroup = Cb.Group;
+
+function Checkbox(props) {
   const {
     scenario,
     formItemProps = {},
@@ -34,15 +36,15 @@ function Radio(props) {
 
   return (
     <FormItem {...formItemProps}>
-      <Ra.Group {..._props}>
+      <CheckboxGroup {..._props}>
         {field.options?.map((it) => (
-          <Ra key={it.value} value={it.value}>
+          <Cb key={it.value} value={it.value}>
             {it.label}
-          </Ra>
+          </Cb>
         ))}
-      </Ra.Group>
+      </CheckboxGroup>
     </FormItem>
   );
 }
 
-export default Radio;
+export default Checkbox;

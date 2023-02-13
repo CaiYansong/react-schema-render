@@ -11,6 +11,7 @@ import TimePicker from "./components/time-picker";
 import Uploader from "./components/uploader";
 import ItemList from "./components/item-list";
 import Switch from "./components/switch";
+import Checkbox from "./components/checkbox";
 import Radio from "./components/radio";
 import Wrapper from "./components/wrapper";
 import Slot from "./components/slot";
@@ -25,6 +26,7 @@ const TypeEnum = {
   "input-file": Uploader,
   "item-list": ItemList,
   switch: Switch,
+  checkbox: Checkbox,
   radio: Radio,
   wrapper: Wrapper,
   slot: Slot,

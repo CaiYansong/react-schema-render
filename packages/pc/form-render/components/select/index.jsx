@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Select } from "antd";
 
-import { getRemoteData } from "@packages/pc/form-render/common/remote-data";
+import { getRemoteData } from "../../common/remote-data";
 
 function SelectCom(props) {
   const {
@@ -37,7 +37,7 @@ function SelectCom(props) {
     onChange: onChange,
   };
 
-  // 处理数据源为 func 的逻辑
+  // 处理远程数据的逻辑
   useEffect(() => {
     if (!field.isRemote) {
       return;

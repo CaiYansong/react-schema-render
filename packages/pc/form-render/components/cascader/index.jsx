@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Cascader as Ca } from "antd";
 
-import { getRemoteData } from "@packages/pc/form-render/common/remote-data";
+import { getRemoteData } from "../../common/remote-data";
 
 function Cascader(props) {
   const { scenario, field = {}, data = {}, config, onChange } = props;
@@ -17,7 +17,7 @@ function Cascader(props) {
 
   const [_options, setOptions] = useState(options || []);
 
-  // 处理数据源为 func 的逻辑
+  // 处理远程数据的逻辑
   useEffect(() => {
     if (!field.isRemote) {
       return;
