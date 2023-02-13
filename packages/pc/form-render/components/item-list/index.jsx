@@ -2,9 +2,7 @@ import { Form, Button } from "antd";
 
 import FormItems from "../../form-items";
 
-const FormItem = Form.Item;
-
-const canEdit = true;
+import "./index.less";
 
 // Form.List
 function ItemList(props) {
@@ -36,7 +34,7 @@ function ItemList(props) {
   return (
     <Form.List name={field.name}>
       {(fields, { add, remove }) => (
-        <>
+        <div className="item-list">
           <Button onClick={() => add()} type="primary">
             新增
           </Button>
@@ -47,13 +45,13 @@ function ItemList(props) {
               data: data[field.name] && data[field.name][index],
             };
             return (
-              <div key={key + name + index}>
+              <div className="list-item" key={key + name + index}>
                 <FormItems isItemList {...itemsProps} />
                 <Button onClick={() => remove(index)}>删除</Button>
               </div>
             );
           })}
-        </>
+        </div>
       )}
     </Form.List>
   );
