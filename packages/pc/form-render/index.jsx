@@ -87,11 +87,14 @@ function FormRender(props, parentRef) {
   const labelCol = {};
 
   // 带单位的为 style.width 的值
-  if (typeof labelWidth === "string" && labelWidth != +labelWidth) {
+  if (
+    (typeof labelWidth === "string" && labelWidth != +labelWidth) ||
+    labelWidth === undefined
+  ) {
     if (!labelCol.style) {
       labelCol.style = {};
     }
-    labelCol.style.width = labelWidth;
+    labelCol.style.width = labelWidth || "80px";
   } else if (typeof labelWidth === "number" || labelWidth == +labelWidth) {
     labelCol.span = labelWidth;
   }
