@@ -202,6 +202,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         schema={schema}
         formConf={props.formConf}
         formSlots={props.formSlots}
+        formInitialValues={props.formInitialValues}
       />
     </div>
   );

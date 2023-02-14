@@ -82,6 +82,7 @@ function FormDialog(props, parentRef) {
         ref={formRef}
         schema={props.schema}
         data={form}
+        initialValues={props.formInitialValues}
         config={props.formConf}
         slots={props.formSlots}
         onChange={onFormChange}

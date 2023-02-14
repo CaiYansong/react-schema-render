@@ -108,7 +108,7 @@ function FormRender(props, parentRef) {
       className="form-render"
       name={name}
       form={formInstance}
-      // initialValues={handelBackData(initialValues || data, schema.fieldList)}
+      initialValues={handelBackData(initialValues || data, schema.fieldList)}
       layout={layout}
       labelCol={labelCol}
       labelAlign={formConf.labelPosition}
