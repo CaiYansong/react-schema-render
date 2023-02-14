@@ -10,7 +10,7 @@ export default function FormTestPage() {
   const [form, setForm] = useState({
     "radio-c3fb0f5": "option2",
     "checkbox-be5b6de": ["option1", "option2"],
-    "input-f9b7f9b": "1",
+    "input-f9b7f9b": "12",
     "input-59f411d": "2",
     "select-b836c9c": ["option1"],
     "select-func": "remote2",

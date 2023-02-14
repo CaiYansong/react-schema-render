@@ -99,6 +99,8 @@ function FormItems(props) {
                   };
 
                   watchEnum[path].push(it._watchFn);
+                  // 执行初始数据
+                  func(data[path], { ...opt, formInstance, field: it });
                 },
               },
               {
