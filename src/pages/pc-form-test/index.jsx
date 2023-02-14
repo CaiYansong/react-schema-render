@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input, Button } from "antd";
 import dayjs from "dayjs";
 
@@ -7,34 +7,18 @@ import FormRender from "@packages/pc/form-render";
 import demoSchema from "@packages/pc/form-render/demo.schema.json";
 
 export default function FormTestPage() {
-  const [form, setForm] = useState({
-    "radio-c3fb0f5": "option2",
-    "checkbox-be5b6de": ["option1", "option2"],
-    "input-f9b7f9b": "12",
-    "input-59f411d": "2",
-    "select-b836c9c": ["option1"],
-    "select-func": "remote2",
-    "date-picker-cce160e": dayjs("2022-1-1 09:1:2").format(
-      "YYYY-MM-DD HH:mm:ss",
-    ),
-    "date-picker-cce160e-range": [
-      dayjs("2022-1-1 09:1:2"),
-      dayjs("2022-1-2 09:1:2"),
-    ],
-    "date-picker-time-cce160e": dayjs("2022-1-1 01:2:3").format(
-      "YYYY-MM-DD HH:mm:ss",
-    ),
-    "date-picker-time-cce160e-range": [
-      dayjs("2022-1-1 04:5:6"),
-      dayjs("2022-1-2 07:8:9"),
-    ],
-    "subform-377c7bc": {
-      "date-picker-cce160e": dayjs("2022-1-1 09:1:2").format(
-        "YYYY-MM-DD HH:mm:ss",
-      ),
-    },
-    "item-list-cdf09d8": [
-      {
+  const [form, setForm] = useState({});
+
+  useEffect(() => {
+    setTimeout(() => {
+      setForm({
+        "radio-c3fb0f5": "option2",
+        "checkbox-be5b6de": ["option1", "option2"],
+        // 
+        "input-f9b7f9b": "12",
+        "input-59f411d": "2",
+        "select-b836c9c": ["option1"],
+        "select-func": "remote2",
         "date-picker-cce160e": dayjs("2022-1-1 09:1:2").format(
           "YYYY-MM-DD HH:mm:ss",
         ),
@@ -49,9 +33,33 @@ export default function FormTestPage() {
           dayjs("2022-1-1 04:5:6"),
           dayjs("2022-1-2 07:8:9"),
         ],
-      },
-    ],
-  });
+        
+        "subform-377c7bc": {
+          "date-picker-cc1e160e": dayjs("2022-1-1 09:1:2").format(
+            "YYYY-MM-DD HH:mm:ss",
+          ),
+        },
+        "item-list-cdf09d8": [
+          {
+            "date-picker-cce160e": dayjs("2022-1-1 09:1:2").format(
+              "YYYY-MM-DD HH:mm:ss",
+            ),
+            "date-picker-cce160e-range": [
+              dayjs("2022-1-1 09:1:2"),
+              dayjs("2022-1-2 09:1:2"),
+            ],
+            "date-picker-time-cce160e": dayjs("2022-1-1 01:2:3").format(
+              "YYYY-MM-DD HH:mm:ss",
+            ),
+            "date-picker-time-cce160e-range": [
+              dayjs("2022-1-1 04:5:6"),
+              dayjs("2022-1-2 07:8:9"),
+            ],
+          },
+        ],
+      });
+    }, 1000);
+  }, []);
   function onChange(changedValues, allValues, form) {
     console.log("form test onChange: ", changedValues, allValues, form);
     setForm(allValues);
