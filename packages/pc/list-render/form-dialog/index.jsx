@@ -67,6 +67,25 @@ function FormDialog(props, parentRef) {
       });
   }
 
+  function getForm() {
+    return formRef.current.getSubmitData(form);
+  }
+
+  function validate() {
+    return new Promise((resolve) => {
+      formRef.current
+        .validate()
+        .then((values) => {
+          resolve(true, values);
+        })
+        .catch((err) => {
+          resolve(false, err);
+          console.log("err", err);
+          message.error("输入有误！");
+        });
+    });
+  }
+
   function onFormChange(cur, form) {
     setForm(form);
   }
@@ -77,10 +96,11 @@ function FormDialog(props, parentRef) {
     footer = props.dialogConf?.footer;
   } else {
     footer = [];
+    const options = { cancel, onOk, close, getForm, validate, formRef };
 
     if (slots.dialogFooterPre) {
       const Pre = slots.dialogFooterPre;
-      footer.push(<Pre key="pre" fnEnum={{ cancel, onOk, close }} />);
+      footer.push(<Pre key="pre" options={options} />);
     }
 
     footer.push(
@@ -91,7 +111,7 @@ function FormDialog(props, parentRef) {
 
     if (slots.dialogFooterCenter) {
       const Pre = slots.dialogFooterCenter;
-      footer.push(<Pre key="center" fnEnum={{ cancel, onOk, close }} />);
+      footer.push(<Pre key="center" options={options} />);
     }
 
     footer.push(
@@ -102,7 +122,7 @@ function FormDialog(props, parentRef) {
 
     if (slots.dialogFooterSuffix) {
       const Pre = slots.dialogFooterSuffix;
-      footer.push(<Pre key="suffix" fnEnum={{ cancel, onOk, close }} />);
+      footer.push(<Pre key="suffix" options={options} />);
     }
   }
 
