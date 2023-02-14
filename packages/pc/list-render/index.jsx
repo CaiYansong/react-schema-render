@@ -205,6 +205,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         formConf={props.formConf}
         formSlots={props.formSlots}
         formInitialValues={props.formInitialValues}
+        slots={props.slots}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Modal, message } from "antd";
+import { Modal, Button, message } from "antd";
 
 import FormRender from "@packages/pc/form-render";
 
@@ -71,6 +71,41 @@ function FormDialog(props, parentRef) {
     setForm(form);
   }
 
+  const { slots } = props;
+  let footer = undefined;
+  if (props.dialogConf?.footer) {
+    footer = props.dialogConf?.footer;
+  } else {
+    footer = [];
+
+    if (slots.dialogFooterPre) {
+      const Pre = slots.dialogFooterPre;
+      footer.push(<Pre key="pre" fnEnum={{ cancel, onOk, close }} />);
+    }
+
+    footer.push(
+      <Button key="cancel" onClick={cancel}>
+        取 消
+      </Button>,
+    );
+
+    if (slots.dialogFooterCenter) {
+      const Pre = slots.dialogFooterCenter;
+      footer.push(<Pre key="center" fnEnum={{ cancel, onOk, close }} />);
+    }
+
+    footer.push(
+      <Button key="confirm" type="primary" onClick={onOk}>
+        确 定
+      </Button>,
+    );
+
+    if (slots.dialogFooterSuffix) {
+      const Pre = slots.dialogFooterSuffix;
+      footer.push(<Pre key="suffix" fnEnum={{ cancel, onOk, close }} />);
+    }
+  }
+
   return (
     <Modal
       wrapClassName="form-dialog"
@@ -78,7 +113,7 @@ function FormDialog(props, parentRef) {
       open={open}
       onCancel={cancel}
       onOk={onOk}
-      footer={props.dialogConf?.footer}
+      footer={footer}
     >
       <FormRender
         ref={formRef}
