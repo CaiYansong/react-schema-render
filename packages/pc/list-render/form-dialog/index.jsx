@@ -48,6 +48,7 @@ function FormDialog(props, parentRef) {
     show,
     close,
     cancel,
+    onOk,
   }));
 
   function onOk() {

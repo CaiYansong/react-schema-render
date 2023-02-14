@@ -29,6 +29,7 @@ const ListRender = forwardRef(function (props, parentRef) {
     getList,
     onSearch,
     forceUpdate,
+    formDialogRef,
   }));
 
   const { schema = {}, config = {}, model = {} } = props;
