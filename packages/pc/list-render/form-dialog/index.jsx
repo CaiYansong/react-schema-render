@@ -71,7 +71,7 @@ function FormDialog(props, parentRef) {
     setForm(form);
   }
 
-  const { slots } = props;
+  const { slots = {} } = props;
   let footer = undefined;
   if (props.dialogConf?.footer) {
     footer = props.dialogConf?.footer;
