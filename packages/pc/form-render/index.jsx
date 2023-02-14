@@ -23,7 +23,9 @@ function FormRender(props, parentRef) {
     onFinishFailed = () => {},
   } = props;
 
-  const { formConf = {} } = schema;
+  const _schema = _.cloneDeep(schema);
+
+  const { formConf = {} } = _schema;
 
   const [formInstance] = Form.useForm();
 
@@ -32,7 +34,7 @@ function FormRender(props, parentRef) {
     validate: formInstance.validateFields,
     setData,
     getSubmitData(_val) {
-      return getFormatData(_val || data, schema.fieldList);
+      return getFormatData(_val || data, _schema.fieldList);
     },
   }));
 
@@ -50,7 +52,7 @@ function FormRender(props, parentRef) {
 
   // 数据回填
   useEffect(() => {
-    let _data = handelBackData(data, schema.fieldList);
+    let _data = handelBackData(data, _schema.fieldList);
     // console.log('_data', _data);
 
     // TODO: 回填逻辑优化
@@ -108,7 +110,7 @@ function FormRender(props, parentRef) {
       className="form-render"
       name={name}
       form={formInstance}
-      initialValues={handelBackData(initialValues || data, schema.fieldList)}
+      initialValues={handelBackData(initialValues || data, _schema.fieldList)}
       layout={layout}
       labelCol={labelCol}
       labelAlign={formConf.labelPosition}
@@ -123,7 +125,7 @@ function FormRender(props, parentRef) {
           disabled: props.disabled,
           readOnly: props.readOnly,
           scenario: props.scenario,
-          schema,
+          schema: _schema,
           slots: props.slots,
           formInstance,
           config: props.config,
