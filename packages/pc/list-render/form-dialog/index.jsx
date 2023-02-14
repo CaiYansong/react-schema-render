@@ -77,6 +77,7 @@ function FormDialog(props, parentRef) {
       open={open}
       onCancel={cancel}
       onOk={onOk}
+      footer={props.dialogConf?.footer}
     >
       <FormRender
         ref={formRef}

@@ -200,6 +200,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       <FormDialog
         ref={formDialogRef}
         schema={schema}
+        dialogConf={props.dialogConf}
         formConf={props.formConf}
         formSlots={props.formSlots}
         formInitialValues={props.formInitialValues}
