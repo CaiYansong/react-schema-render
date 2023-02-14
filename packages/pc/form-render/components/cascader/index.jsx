@@ -17,6 +17,12 @@ function Cascader(props) {
 
   const [_options, setOptions] = useState(options || []);
 
+  useEffect(() => {
+    if (options) {
+      setOptions(options);
+    }
+  }, [options]);
+
   // 处理远程数据的逻辑
   useEffect(() => {
     if (!field.isRemote) {

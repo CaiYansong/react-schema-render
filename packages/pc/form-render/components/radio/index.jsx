@@ -14,6 +14,12 @@ function Radio(props) {
     config,
   } = props;
 
+  useEffect(() => {
+    if (field.options) {
+      setOptions(field.options);
+    }
+  }, [field.options]);
+
   // 处理远程数据的逻辑
   useEffect(() => {
     if (!field.isRemote) {

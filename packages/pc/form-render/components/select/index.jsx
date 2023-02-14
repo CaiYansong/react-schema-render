@@ -24,6 +24,12 @@ function SelectCom(props) {
 
   const [_options, setOptions] = useState(options || []);
 
+  useEffect(() => {
+    if (options) {
+      setOptions(options);
+    }
+  }, [options]);
+
   const _props = {
     id: name,
     value: data,
