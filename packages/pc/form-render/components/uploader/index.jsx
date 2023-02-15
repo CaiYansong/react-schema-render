@@ -19,7 +19,9 @@ function Uploader(props) {
 
   useEffect(() => {
     let _d = props.data;
-    if (_d && !Array.isArray(_d)) {
+    if (_d && Array.isArray(_d.fileList)) {
+      _d = _d.fileList;
+    } else if (_d && !Array.isArray(_d)) {
       _d = [_d];
     }
     if (JSON.stringify(_d) !== JSON.stringify(fileList)) {
