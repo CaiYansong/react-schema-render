@@ -90,10 +90,10 @@ function FormDialog(props, parentRef) {
     setForm(form);
   }
 
-  const { slots = {} } = props;
+  const { slots = {}, dialogConf = {} } = props;
   let footer = undefined;
-  if (props.dialogConf?.footer) {
-    footer = props.dialogConf?.footer;
+  if (dialogConf?.footer) {
+    footer = dialogConf?.footer;
   } else {
     footer = [];
     const options = { cancel, onOk, close, getForm, validate, formRef };
@@ -105,7 +105,7 @@ function FormDialog(props, parentRef) {
 
     footer.push(
       <Button key="cancel" onClick={cancel}>
-        取 消
+        {dialogConf.cancelText || "取 消"}
       </Button>,
     );
 
@@ -116,7 +116,7 @@ function FormDialog(props, parentRef) {
 
     footer.push(
       <Button key="confirm" type="primary" onClick={onOk}>
-        确 定
+        {dialogConf.okText || "确 定"}
       </Button>,
     );
 
