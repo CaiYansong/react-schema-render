@@ -39,14 +39,14 @@ function FormRender(props, parentRef) {
   }));
 
   function setData(data) {
-    if (data) {
+    if (!data || Object.keys(data).length === 0) {
+      formInstance.resetFields();
+    } else if (data) {
       const fields = [];
       Object.keys(data).forEach((key) => {
         fields.push({ name: key, value: data[key] });
       });
       formInstance.setFields(fields);
-    } else if (!data || Object.keys(data).length === 0) {
-      formInstance.resetFields();
     }
   }
 
