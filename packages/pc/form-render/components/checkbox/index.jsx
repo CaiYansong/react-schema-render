@@ -15,6 +15,7 @@ function Checkbox(props) {
     data,
     config,
   } = props;
+  const [_options, setOptions] = useState(field.options || []);
 
   useEffect(() => {
     if (field.options) {
@@ -43,7 +44,7 @@ function Checkbox(props) {
   return (
     <FormItem {...formItemProps}>
       <CheckboxGroup {..._props}>
-        {field.options?.map((it) => (
+        {_options?.map((it) => (
           <Cb key={it.value} value={it.value}>
             {it.label}
           </Cb>
