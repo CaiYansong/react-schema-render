@@ -18,7 +18,7 @@ function Wrapper(props) {
             validRules,
             validFuncs,
           },
-          slots: props.slots,
+          Slots: props.Slots,
           formInstance: props.formInstance,
           config: props.config,
           fieldsConf: props.fieldsConf || {},

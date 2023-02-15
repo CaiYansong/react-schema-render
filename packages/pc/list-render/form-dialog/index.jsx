@@ -90,7 +90,7 @@ function FormDialog(props, parentRef) {
     setForm(form);
   }
 
-  const { slots = {}, dialogConf = {} } = props;
+  const { Slots = {}, dialogConf = {} } = props;
   let footer = undefined;
   if (dialogConf?.footer) {
     footer = dialogConf?.footer;
@@ -98,9 +98,8 @@ function FormDialog(props, parentRef) {
     footer = [];
     const options = { cancel, onOk, close, getForm, validate, formRef };
 
-    if (slots.dialogFooterPre) {
-      const Pre = slots.dialogFooterPre;
-      footer.push(<Pre key="pre" options={options} />);
+    if (Slots.dialogFooterPre) {
+      footer.push(<Slots.dialogFooterPre key="pre" options={options} />);
     }
 
     footer.push(
@@ -109,9 +108,8 @@ function FormDialog(props, parentRef) {
       </Button>,
     );
 
-    if (slots.dialogFooterCenter) {
-      const Pre = slots.dialogFooterCenter;
-      footer.push(<Pre key="center" options={options} />);
+    if (Slots.dialogFooterCenter) {
+      footer.push(<Slots.dialogFooterCenter key="center" options={options} />);
     }
 
     footer.push(
@@ -120,9 +118,8 @@ function FormDialog(props, parentRef) {
       </Button>,
     );
 
-    if (slots.dialogFooterSuffix) {
-      const Pre = slots.dialogFooterSuffix;
-      footer.push(<Pre key="suffix" options={options} />);
+    if (Slots.dialogFooterSuffix) {
+      footer.push(<Slots.dialogFooterSuffix key="suffix" options={options} />);
     }
   }
 
@@ -141,7 +138,7 @@ function FormDialog(props, parentRef) {
         data={form}
         initialValues={props.formInitialValues}
         config={props.formConf}
-        slots={props.formSlots}
+        Slots={props.formSlots}
         onChange={onFormChange}
       />
     </Modal>

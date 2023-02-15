@@ -22,7 +22,7 @@ function TableRender(props) {
     width: 'string | number',
     */
     // TODO: 确认是否区分 函数、ReactDom 插槽
-    const { slots = {} } = props;
+    const { Slots = {} } = props;
     props.schema.fieldList.forEach((field) => {
       if (field.inTable !== false) {
         const { name, label, type } = field;
@@ -33,18 +33,16 @@ function TableRender(props) {
           _cloConf.ellipsis = _conf.ellipsis;
         }
 
-        if (slots && slots[name]) {
+        if (Slots && Slots[name]) {
           columns.push({
             ..._cloConf,
             title: label,
             key: name,
             dataIndex: name,
             render: (text, record, index) => {
-              const Slot = slots[name];
-              if (typeof Slot === "function") {
-                return Slot(text, record, index);
-              }
-              return Slot;
+              const Slot = Slots[name];
+              const slotProps = { text, record, index };
+              return <Slot {...slotProps} />;
             },
           });
           return;
@@ -86,10 +84,13 @@ function TableRender(props) {
             return props.actionSlot;
           }
 
+          const slotProps = { text, record, index };
+
           return (
             <>
-              {slots?.actionPrefixSlot &&
-                slots?.actionPrefixSlot(text, record, index)}
+              {Slots?.actionPrefixSlot && (
+                <Slots.actionPrefixSlot {...slotProps} />
+              )}
               {hasEdit !== false ? (
                 <Button
                   type="link"
@@ -100,8 +101,9 @@ function TableRender(props) {
                   编辑
                 </Button>
               ) : null}
-              {slots?.actionCenterSlot &&
-                slots?.actionCenterSlot(text, record, index)}
+              {Slots?.actionCenterSlot && (
+                <Slots.actionCenterSlot {...slotProps} />
+              )}
               {hasDel !== false ? (
                 <Popconfirm
                   placement="topRight"
@@ -115,8 +117,9 @@ function TableRender(props) {
                   </Button>
                 </Popconfirm>
               ) : null}
-              {slots?.actionSuffixSlot &&
-                slots?.actionSuffixSlot(text, record, index)}
+              {Slots?.actionSuffixSlot && (
+                <Slots.actionSuffixSlot {...slotProps} />
+              )}
             </>
           );
         },

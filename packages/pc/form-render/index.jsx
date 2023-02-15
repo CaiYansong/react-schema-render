@@ -119,7 +119,7 @@ function FormRender(props, parentRef) {
           readOnly: props.readOnly,
           scenario: props.scenario,
           schema: _schema,
-          slots: props.slots,
+          Slots: props.Slots,
           formInstance,
           config: props.config,
           fieldsConf: props.fieldsConf || {},

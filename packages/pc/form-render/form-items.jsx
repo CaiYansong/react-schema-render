@@ -37,7 +37,7 @@ function FormItems(props) {
     data = {},
     scenario,
     schema = {},
-    slots,
+    Slots,
     config = {},
     isItemList,
     itemListProps,
@@ -161,7 +161,7 @@ function FormItems(props) {
           formInstance: formInstance,
           onChange,
           fieldSubmit: fieldSubmit,
-          slots,
+          Slots,
           watchEnum: props.watchEnum,
         };
 

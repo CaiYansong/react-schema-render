@@ -193,7 +193,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         formConf={props.formConf}
         config={props.tableConf}
         hasAction={props.hasAction}
-        slots={props.slots}
+        Slots={props.Slots}
         onEdit={onEdit}
         onDel={onDel}
       />
@@ -205,7 +205,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         formConf={props.formConf}
         formSlots={props.formSlots}
         formInitialValues={props.formInitialValues}
-        slots={props.slots}
+        Slots={props.Slots}
       />
     </div>
   );

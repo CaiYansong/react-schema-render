@@ -22,7 +22,7 @@ function ItemList(props) {
       validRules: field.validRules,
       validFuncs: field.validFuncs,
     },
-    slots: props.slots,
+    Slots: props.Slots,
     formInstance: props.formInstance,
     fieldsConf: props.fieldsConf,
     config,

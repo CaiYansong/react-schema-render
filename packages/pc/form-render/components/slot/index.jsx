@@ -9,13 +9,13 @@ function Slot(props) {
     data,
     scenario,
     formInstance,
-    slots = {},
+    Slots = {},
     onChange,
   } = props || {};
 
   const { name } = field;
 
-  const Com = slots[field.slotName];
+  const Com = Slots[field.slotName];
 
   const _props = {
     name,
