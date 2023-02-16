@@ -21,8 +21,13 @@ function Uploader(props) {
     let _d = props.data;
     if (_d && Array.isArray(_d.fileList)) {
       _d = _d.fileList;
-    } else if (_d && !Array.isArray(_d)) {
-      _d = [_d];
+    } else if (_d && typeof _d === "string") {
+      _d = [
+        {
+          fileUrl: _d,
+          name: _d,
+        },
+      ];
     }
     if (JSON.stringify(_d) !== JSON.stringify(fileList)) {
       setFileList(_d || []);
