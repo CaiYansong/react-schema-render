@@ -1,4 +1,10 @@
-import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
+import {
+  useImperativeHandle,
+  forwardRef,
+  useEffect,
+  useRef,
+  useMemo,
+} from "react";
 import { Form } from "antd";
 import _ from "lodash";
 
@@ -23,7 +29,7 @@ function FormRender(props, parentRef) {
     onFinishFailed = () => {},
   } = props;
 
-  const _schema = _.cloneDeep(schema);
+  const _schema = useMemo(() => _.cloneDeep(schema), [schema]);
 
   const { formConf = {} } = _schema;
 
