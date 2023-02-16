@@ -7,7 +7,12 @@ function Switch(props) {
     disabled: field.disabled || props.disabled,
     readOnly: field.readonly || props.readOnly,
     onChange: props.onChange,
+    checkedChildren: field.activeText,
+    unCheckedChildren: field.inactiveText,
+    // activeValue: "open-val",
+    // inactiveValue: "close-val",
   };
+
   return (
     <Form.Item {...props.formItemProps}>
       <Sw {..._swProps}></Sw>
