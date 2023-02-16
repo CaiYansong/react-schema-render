@@ -40,7 +40,7 @@ function Cascader(props) {
     disabled: field.disabled || props.disabled,
     readOnly: field.readonly || props.readOnly,
     showSearch: searchable,
-    mode: multiple === true ? "multiple" : undefined,
+    multiple,
     placeholder,
     options: _options,
     onClear: onChange,
