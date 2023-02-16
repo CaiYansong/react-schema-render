@@ -114,7 +114,9 @@ const ListRender = forwardRef(function (props, parentRef) {
       const data = await getFormData(form, schema);
 
       model
-        ?.create(data)
+        ?.create(
+          typeof model?.createMap === "function" ? model.createMap(data) : data,
+        )
         .then((res) => {
           onSearch();
           message.success(res._message || "新增成功");
@@ -140,7 +142,10 @@ const ListRender = forwardRef(function (props, parentRef) {
     formDialogRef.current.show(data, "编辑").then(async (form) => {
       const data = await getFormData(form, schema);
       model
-        ?.update(data, { id })
+        ?.update(
+          typeof model?.updateMap === "function" ? model.updateMap(data) : data,
+          { id },
+        )
         .then((res) => {
           getList();
           message.success(res?._message || "编辑成功");
