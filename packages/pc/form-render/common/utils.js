@@ -120,6 +120,13 @@ export function getFormatData(data, fieldList) {
       // 文件上传数据
       // TODO: 类型格式 url?
       res[name] = res[name]?.fileList || res[name];
+      if (
+        (f.multiple === false || f.multiple === undefined) &&
+        Array.isArray(res[name]) &&
+        res[name].length > 0
+      ) {
+        res[name] = res[name][0];
+      }
     } else if (type === "subform") {
       res[name] = getFormatData(res[name], f.fieldList);
     } else if (type === "item-list" && Array.isArray(res[name])) {
