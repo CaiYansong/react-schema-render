@@ -45,6 +45,11 @@ function Cascader(props) {
     options: _options,
     onClear: onChange,
     onChange: onChange,
+    fieldNames: {
+      label: field.labelKey || "label",
+      value: field.valueKey || "value",
+      children: field.childrenKey || "children",
+    },
   };
 
   return (

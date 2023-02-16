@@ -41,6 +41,11 @@ function SelectCom(props) {
     placeholder,
     onClear: onChange,
     onChange: onChange,
+    fieldNames: {
+      label: field.labelKey || "label",
+      value: field.valueKey || "value",
+      children: field.childrenKey || "children",
+    },
   };
 
   // 处理远程数据的逻辑
