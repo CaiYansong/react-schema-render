@@ -35,11 +35,11 @@ export function getVal(field = {}, data = {}, opt = {}) {
   }
 
   if (type === "switch") {
-    if (val === true || val === field.activeValue) {
-      return field.activeText || "是";
-    }
     if (val === undefined || val === false || val === field.inactiveValue) {
       return field.inactiveText || "否";
+    }
+    if (val === true || val === field.activeValue) {
+      return field.activeText || "是";
     }
     return val;
   }
