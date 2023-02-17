@@ -169,6 +169,8 @@ const ListRender = forwardRef(function (props, parentRef) {
       });
   }
 
+  const { Slots } = props;
+
   return (
     <div className="list-render">
       <div className="list-header">
@@ -184,11 +186,13 @@ const ListRender = forwardRef(function (props, parentRef) {
           <div className="query-render"></div>
         )}
         <div className="header-render">
+          {Slots.headerActionPrefix && <Slots.headerActionSuffix />}
           {props.hasCreate !== false ? (
             <Button onClick={onCreate} type="primary">
               新增
             </Button>
           ) : null}
+          {Slots.headerActionSuffix && <Slots.headerActionSuffix />}
         </div>
       </div>
       <TableRender
