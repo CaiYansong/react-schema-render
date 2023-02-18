@@ -37,14 +37,22 @@ function Radio(props) {
     disabled: field.disabled || props.disabled,
     readOnly: field.readonly || props.readOnly,
     onChange: props.onChange,
+    fieldNames: {
+      label: field?.remoteConf?.labelKey || "label",
+      value: field?.remoteConf?.valueKey || "value",
+      children: field?.remoteConf?.childrenKey || "children",
+    },
   };
 
   return (
     <FormItem {...formItemProps}>
       <Ra.Group {..._props}>
         {_options?.map((it) => (
-          <Ra key={it.value} value={it.value}>
-            {it.label}
+          <Ra
+            key={it[_props.fieldNames.value]}
+            value={it[_props.fieldNames.value]}
+          >
+            {it[_props.fieldNames.label]}
           </Ra>
         ))}
       </Ra.Group>

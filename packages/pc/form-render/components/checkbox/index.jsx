@@ -39,14 +39,22 @@ function Checkbox(props) {
     disabled: field.disabled || props.disabled,
     readOnly: field.readonly || props.readOnly,
     onChange: props.onChange,
+    fieldNames: {
+      label: field?.remoteConf?.labelKey || "label",
+      value: field?.remoteConf?.valueKey || "value",
+      children: field?.remoteConf?.childrenKey || "children",
+    },
   };
 
   return (
     <FormItem {...formItemProps}>
       <CheckboxGroup {..._props}>
         {_options?.map((it) => (
-          <Cb key={it.value} value={it.value}>
-            {it.label}
+          <Cb
+            key={it[_props.fieldNames.value]}
+            value={it[_props.fieldNames.value]}
+          >
+            {it[_props.fieldNames.label]}
           </Cb>
         ))}
       </CheckboxGroup>

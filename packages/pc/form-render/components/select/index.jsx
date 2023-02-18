@@ -42,9 +42,9 @@ function SelectCom(props) {
     onClear: onChange,
     onChange: onChange,
     fieldNames: {
-      label: field.labelKey || "label",
-      value: field.valueKey || "value",
-      children: field.childrenKey || "children",
+      label: field?.remoteConf?.labelKey || "label",
+      value: field?.remoteConf?.valueKey || "value",
+      children: field?.remoteConf?.childrenKey || "children",
     },
   };
 
