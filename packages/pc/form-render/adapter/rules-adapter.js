@@ -109,7 +109,6 @@ export function ruleAdapter(rule, validFuncs) {
       },
     });
   }
-  console.log("rule ", res);
   return res;
 }
 
