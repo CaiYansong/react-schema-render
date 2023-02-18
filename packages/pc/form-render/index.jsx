@@ -21,7 +21,7 @@ function FormRender(props, parentRef) {
     inline,
     initialValues,
     schema = {},
-    data = {},
+    data,
     fieldSubmit = () => {},
     submitRender,
     onChange = () => {},
@@ -40,7 +40,7 @@ function FormRender(props, parentRef) {
     validate: formInstance.validateFields,
     setData,
     getSubmitData(_val) {
-      return getFormatData(_val || data, _schema.fieldList);
+      return getFormatData(_val || data || {}, _schema.fieldList);
     },
   }));
 
@@ -120,7 +120,7 @@ function FormRender(props, parentRef) {
     >
       <FormItems
         {...{
-          data,
+          data: data || {},
           disabled: props.disabled,
           readOnly: props.readOnly,
           scenario: props.scenario,

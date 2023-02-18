@@ -94,7 +94,7 @@ export function handelBackData(data = {}, fieldList) {
  * @param {*} fieldList
  * @returns
  */
-export function getFormatData(data, fieldList) {
+export function getFormatData(data = {}, fieldList) {
   if (!data) {
     return data;
   }
