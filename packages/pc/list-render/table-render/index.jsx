@@ -64,7 +64,7 @@ function TableRender(props) {
         }
 
         columns.push({
-          ..._cloConf,
+          ..._colConf,
           title: label,
           key: name,
           dataIndex: name,
