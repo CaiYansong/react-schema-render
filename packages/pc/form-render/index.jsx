@@ -46,7 +46,7 @@ function FormRender(props, parentRef) {
     getFormatData(_val) {
       return getFormatData(_val || data || {}, _schema.fieldList);
     },
-    getSubmitFormData() {
+    getSubmitFormData(_val) {
       return getSubmitFormData(getFormatData(_val || data || {}, _schema));
     },
   }));
