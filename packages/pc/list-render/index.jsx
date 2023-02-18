@@ -169,7 +169,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       });
   }
 
-  const { Slots } = props;
+  const { Slots = {} } = props;
 
   return (
     <div className="list-render">
