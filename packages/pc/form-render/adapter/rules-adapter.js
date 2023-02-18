@@ -74,13 +74,17 @@ export function rulesAdapter(rules = [], validFuncs = []) {
 export function ruleAdapter(rule, validFuncs) {
   const { type, trigger, note, regexp } = rule;
   let res = {
-    message: note,
-    pattern: regexp,
+    message: note || "请输入",
   };
 
-  if (typeof trigger === "string") {
-    res.validateTrigger = trigger;
+  if (regexp) {
+    res.pattern = regexp;
   }
+
+  // TODO: 确定校验触发时机写法
+  // if (trigger) {
+  //   res.validateTrigger = getTrigger(trigger);
+  // }
 
   if (type === "required") {
     res.required = true;
@@ -105,6 +109,7 @@ export function ruleAdapter(rule, validFuncs) {
       },
     });
   }
+  console.log("rule ", res);
   return res;
 }
 
@@ -119,6 +124,7 @@ export function getTrigger(trigger) {
   } else if (Array.isArray(trigger)) {
     res = trigger.map((it) => addPrefix(it));
   }
+  return res;
 }
 
 /**
@@ -129,7 +135,12 @@ export function getTrigger(trigger) {
  * @returns
  */
 export function addPrefix(str, prefix = "on") {
-  return `${prefix.trim()}${str.trim().replace(/^(.)/, "$1".toUpperCase())}`;
+  if (str.startsWith("on")) {
+    return str;
+  }
+  return `${prefix.trim()}${str.trim().replace(/^(.)/, (m) => {
+    return m.toUpperCase();
+  })}`;
 }
 
 export default rulesAdapter;
