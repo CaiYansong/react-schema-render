@@ -10,7 +10,7 @@ import _ from "lodash";
 
 import handleRemoteData from "@packages/pc/form-render/common/remote-data";
 
-import { getFormData } from "./common/utils";
+import { getSubmitFormData } from "@packages/pc/form-render/common/utils";
 
 import QueryRender from "./query-render";
 import Pagination from "./pagination-render";
@@ -111,7 +111,7 @@ const ListRender = forwardRef(function (props, parentRef) {
 
   function onCreate() {
     formDialogRef.current.show().then(async (form) => {
-      const data = await getFormData(form, schema);
+      const data = await getSubmitFormData(form, schema);
 
       model
         ?.create(
@@ -140,7 +140,7 @@ const ListRender = forwardRef(function (props, parentRef) {
 
   function handleEdit(data, id) {
     formDialogRef.current.show(data, "编辑").then(async (form) => {
-      const data = await getFormData(form, schema);
+      const data = await getSubmitFormData(form, schema);
       model
         ?.update(
           typeof model?.updateMap === "function" ? model.updateMap(data) : data,

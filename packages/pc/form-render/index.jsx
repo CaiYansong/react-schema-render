@@ -8,7 +8,11 @@ import {
 import { Form } from "antd";
 import _ from "lodash";
 
-import { handelBackData, getFormatData } from "./common/utils";
+import {
+  handelBackData,
+  getFormatData,
+  getSubmitFormData,
+} from "./common/utils";
 import FormItems from "./form-items";
 
 import "./index.less";
@@ -39,8 +43,11 @@ function FormRender(props, parentRef) {
     formInstance,
     validate: formInstance.validateFields,
     setData,
-    getSubmitData(_val) {
+    getFormatData(_val) {
       return getFormatData(_val || data || {}, _schema.fieldList);
+    },
+    getSubmitFormData() {
+      return getSubmitFormData(getFormatData(_val || data || {}, _schema));
     },
   }));
 

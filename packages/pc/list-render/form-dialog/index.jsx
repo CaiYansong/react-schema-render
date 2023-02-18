@@ -54,8 +54,8 @@ function FormDialog(props, parentRef) {
   function onOk() {
     formRef.current
       .validate()
-      .then((values) => {
-        const submitForm = formRef.current.getSubmitData(form);
+      .then(async (values) => {
+        const submitForm = await formRef.current.getSubmitFormData(form);
         console.log("submitForm", submitForm);
         resolveCB.current && resolveCB.current(submitForm);
         props.onSubmit && props.onSubmit(submitForm);
