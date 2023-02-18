@@ -26,16 +26,15 @@ function TableRender(props) {
     props.schema.fieldList.forEach((field) => {
       if (field.inTable !== false) {
         const { name, label, type } = field;
-        const _cloConf = {};
+        let _colConf = {};
 
-        if (props.config && props.config[name]) {
-          const _conf = props.config[name];
-          _cloConf.ellipsis = _conf.ellipsis;
+        if (props.config?.colConf && props.config?.colConf[name]) {
+          _colConf = props.config?.colConf[name];
         }
 
         if (Slots && Slots[name]) {
           columns.push({
-            ..._cloConf,
+            ..._colConf,
             title: label,
             key: name,
             dataIndex: name,
@@ -137,6 +136,7 @@ function TableRender(props) {
         columns={columns}
         dataSource={props.list}
         pagination={false}
+        scroll={config.scroll}
         expandable={config.expandable}
       />
     </div>
