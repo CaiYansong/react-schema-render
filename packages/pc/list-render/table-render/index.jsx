@@ -138,6 +138,7 @@ function TableRender(props) {
         pagination={false}
         scroll={config.scroll}
         expandable={config.expandable}
+        loading={props.loading}
       />
     </div>
   );

@@ -21,6 +21,7 @@ const ListRender = forwardRef(function (props, parentRef) {
   const { idKey = "id" } = props;
   const [total, setTotal] = useState(0);
   const [list, setList] = useState([]);
+  const [listLoading, setListLoading] = useState(false);
   const formDialogRef = useRef();
 
   useImperativeHandle(parentRef, () => ({
@@ -62,24 +63,29 @@ const ListRender = forwardRef(function (props, parentRef) {
 
   function getList(query = model?.query || {}) {
     if (!model?.getList && Array.isArray(props.list)) {
+      setListLoading(true);
       const { list } = props;
       const { pageNum = 1, pageSize = 10 } = model?.query || {};
       setList(list.slice(pageSize * (pageNum - 1), pageNum * pageSize));
       setTotal(list.length);
+      setListLoading(false);
       return;
     }
     console.log("query", query);
     if (!model?.getList) {
       return;
     }
+    setListLoading(true);
     model
       ?.getList(query)
       .then((res) => {
         setList(res.list);
         setTotal(res.pagination?.total);
+        setListLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setListLoading(false);
       });
   }
 
@@ -203,6 +209,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         Slots={props.Slots}
         onEdit={onEdit}
         onDel={onDel}
+        loading={listLoading}
       />
       <Pagination onChange={onPageChange} total={total} query={model?.query} />
       <FormDialog
