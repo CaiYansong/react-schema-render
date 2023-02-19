@@ -12,7 +12,7 @@ import {
   handelBackData,
   getFormatData,
   getSubmitFormData,
-} from "./common/utils";
+} from "./common/data-handler";
 import FormItems from "./form-items";
 
 import "./index.less";
