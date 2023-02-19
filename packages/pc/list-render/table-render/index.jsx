@@ -68,7 +68,17 @@ function TableRender(props) {
           title: label,
           key: name,
           dataIndex: name,
-          render,
+          render(text, record, index, ...args) {
+            return (
+              <div
+                className={`${_colConf?.ellipsis ? "table-cell-ellipsis" : ""}`}
+                style={{ width: _colConf?.width, maxWidth: "100%" }}
+                title={render(text, record, index, ...args)}
+              >
+                {render(text, record, index, ...args)}
+              </div>
+            );
+          },
         });
       }
     });
