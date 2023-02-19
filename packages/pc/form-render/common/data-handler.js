@@ -1,4 +1,5 @@
 import { getDateTimeVal } from "./utils";
+import { imgsToBase64, imgToBase64, isImg } from "./img";
 
 /**
  * 处理回填数据

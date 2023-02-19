@@ -38,3 +38,20 @@ export function imgsToBase64(files, isRemovePrefix) {
   });
   return Promise.all(promise);
 }
+
+export function isImg(f) {
+  const imgEnum = {};
+  if (f.type !== "input-file") {
+    return false;
+  }
+  if (!f.accept) {
+    return false;
+  }
+  if (f.accept.startsWith("image/") || f.accept.startsWith("images/")) {
+    return true;
+  }
+  const imgReg = /apng|bmp|gif|jpeg|pjpeg|png|svg+xml|tiff|webp|x\-icon/;
+  if (imgReg.test(f.accept)) {
+    return true;
+  }
+}
