@@ -42,6 +42,7 @@ function Cascader(props) {
     showSearch: searchable,
     multiple,
     placeholder,
+    changeOnSelect: field.changeOnSelect,
     options: _options,
     onClear: onChange,
     onChange: onChange,
