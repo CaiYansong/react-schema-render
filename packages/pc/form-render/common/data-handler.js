@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { getDateTimeVal } from "./utils";
 import { imgsToBase64, imgToBase64, isImg } from "./img";
 
