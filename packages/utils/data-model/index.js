@@ -81,7 +81,14 @@ class DataModel {
   }
 
   async getList(q, ctx) {
-    let query = _.merge({}, this.query, q);
+    let query = _.merge(
+      {
+        isAsc: "desc",
+        orderByColumn: "createTime",
+      },
+      this.query,
+      q,
+    );
     query = _.pickBy(query, (val) => !_.isNil(val) && val !== "");
 
     let resultList = null;
