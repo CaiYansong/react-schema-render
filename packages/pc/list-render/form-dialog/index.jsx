@@ -25,6 +25,7 @@ function FormDialog(props, parentRef) {
   // }, [form]);
 
   function show(form = props.formInitialValues, title) {
+    formRef.current.resetForm();
     setOpen(true);
     setForm(form || {});
     setTitle(title || "新增");
@@ -131,6 +132,7 @@ function FormDialog(props, parentRef) {
       onCancel={cancel}
       onOk={onOk}
       footer={footer}
+      forceRender
     >
       <FormRender
         ref={formRef}
