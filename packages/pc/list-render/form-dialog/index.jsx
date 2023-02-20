@@ -24,7 +24,7 @@ function FormDialog(props, parentRef) {
   //   console.log(form);
   // }, [form]);
 
-  function show(form, title) {
+  function show(form = props.formInitialValues, title) {
     setOpen(true);
     setForm(form || {});
     setTitle(title || "新增");
