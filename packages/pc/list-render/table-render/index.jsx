@@ -73,7 +73,11 @@ function TableRender(props) {
               <div
                 className={`${_colConf?.ellipsis ? "table-cell-ellipsis" : ""}`}
                 style={{ width: _colConf?.width, maxWidth: "100%" }}
-                title={render(text, record, index, ...args)}
+                title={
+                  _colConf?.ellipsis === true || _colConf?.ellipsis?.showTitle
+                    ? render(text, record, index, ...args)
+                    : undefined
+                }
               >
                 {render(text, record, index, ...args)}
               </div>
