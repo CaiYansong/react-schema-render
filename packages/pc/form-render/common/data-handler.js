@@ -138,13 +138,15 @@ export function getSubmitFormData(form, schema) {
           }
         } else {
           if (f.action && f.uploadType === "base64") {
-            const _d =
-              val?.fileUrl ||
-              val?.originFileObj?.fileUrl ||
-              val.response ||
-              val;
-            data[f.name] = _d;
-            promise.push(_d);
+            if (val) {
+              const _d =
+                val?.fileUrl ||
+                val?.originFileObj?.fileUrl ||
+                val?.response ||
+                val;
+              data[f.name] = _d;
+              promise.push(_d);
+            }
           } else if (isImg(f) || val?.type?.startsWith("image/")) {
             if (val) {
               const _p = imgToBase64(val?.originFileObj || val).then((res) => {
