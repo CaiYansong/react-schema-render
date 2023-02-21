@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { SearchBar, Button, InfiniteScroll } from "antd-mobile";
+import { PullToRefresh, SearchBar, Button, InfiniteScroll } from "antd-mobile";
 
 import CardItem from "./card-item";
 import TableItem from "./table-item";
@@ -20,6 +20,8 @@ function ListRender(props, parentRef) {
     children,
     itemTitleKey = "name",
     stickyTop = "8vw",
+    // 下拉刷新
+    hasPullRefresh,
     hasSearch = true,
     query,
     mode = "list",
@@ -175,69 +177,74 @@ function ListRender(props, parentRef) {
           </div>
         </div>
       ) : null}
-      {hasHead ? <TableItem fieldList={fieldList} isHead></TableItem> : null}
-      {list?.map((item, index) => {
-        const itemProps = {
-          key: `${item.id}-${index}`,
-          data: item,
-          item: item,
-          index: index,
-          itemTitleKey: itemTitleKey,
-          itemRender: itemRender,
-          actionsRender: actionsRender,
-          isAllClick,
-          onDetail: onDetail,
-          hasDetailIcon: hasDetailIcon,
-          hasAction: hasAction,
-          fieldList: fieldList,
-        };
-        if (mode === "card") {
-          return <CardItem {...itemProps}>{children}</CardItem>;
-        }
-        if (mode === "table") {
-          return (
-            <TableItem {...itemProps} hasHead={hasHead}>
-              {children}
-            </TableItem>
+      <PullToRefresh disabled={!hasPullRefresh} onRefresh={onSearch}>
+        {hasHead ? <TableItem fieldList={fieldList} isHead></TableItem> : null}
+        {list?.map((item, index) => {
+          const itemProps = {
+            key: `${item.id}-${index}`,
+            data: item,
+            item: item,
+            index: index,
+            itemTitleKey: itemTitleKey,
+            itemRender: itemRender,
+            actionsRender: actionsRender,
+            isAllClick,
+            onDetail: onDetail,
+            hasDetailIcon: hasDetailIcon,
+            hasAction: hasAction,
+            fieldList: fieldList,
+          };
+          if (mode === "card") {
+            return <CardItem {...itemProps}>{children}</CardItem>;
+          }
+          if (mode === "table") {
+            return (
+              <TableItem {...itemProps} hasHead={hasHead}>
+                {children}
+              </TableItem>
+            );
+          }
+          if (itemRender) {
+            return itemRender(item, index);
+          }
+          if (mode === "list") {
+            return (
+              <div
+                className="list-render-list-item"
+                key={`${item.id}-${index}`}
+              >
+                {children ? (
+                  React.Children.map(children, (childItem) => {
+                    return React.cloneElement(childItem, {
+                      key: `${item.id}-${index}`,
+                      item,
+                      data: item,
+                      fieldList,
+                    });
+                  })
+                ) : (
+                  <div key={`${item.id}-${index}`}>{item.id}</div>
+                )}
+              </div>
+            );
+          }
+          return children ? (
+            React.Children.map(children, (childItem) => {
+              return React.cloneElement(childItem, {
+                key: `${item.id}-${index}`,
+                item,
+                data: item,
+                fieldList,
+              });
+            })
+          ) : (
+            <div key={`${item.id}-${index}`}>{item.id}</div>
           );
-        }
-        if (itemRender) {
-          return itemRender(item, index);
-        }
-        if (mode === "list") {
-          return (
-            <div className="list-render-list-item" key={`${item.id}-${index}`}>
-              {children ? (
-                React.Children.map(children, (childItem) => {
-                  return React.cloneElement(childItem, {
-                    key: `${item.id}-${index}`,
-                    item,
-                    data: item,
-                    fieldList,
-                  });
-                })
-              ) : (
-                <div key={`${item.id}-${index}`}>{item.id}</div>
-              )}
-            </div>
-          );
-        }
-        return children ? (
-          React.Children.map(children, (childItem) => {
-            return React.cloneElement(childItem, {
-              key: `${item.id}-${index}`,
-              item,
-              data: item,
-              fieldList,
-            });
-          })
-        ) : (
-          <div key={`${item.id}-${index}`}>{item.id}</div>
-        );
-      })}
-      {hasMore ? (
-        <InfiniteScroll loadMore={onLoadMore} hasMore={_hasMore} />
-      ) : null}
+        })}
+        {hasMore ? (
+          <InfiniteScroll loadMore={onLoadMore} hasMore={_hasMore} />
+        ) : null}
+      </PullToRefresh>
     </div>
   );
 }
