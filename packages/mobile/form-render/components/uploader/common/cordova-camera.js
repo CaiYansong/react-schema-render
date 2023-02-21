@@ -42,13 +42,13 @@ export function getImage(_options = {}) {
               },
               function (err) {
                 reject(err);
-                console.log("error with photo file");
+                console.error("error with photo file");
               },
             );
           },
           function (err) {
             reject(err);
-            console.log("error with photo file");
+            console.error("error with photo file");
           },
         );
       },
@@ -105,13 +105,13 @@ export function getVideo(_options = {}) {
               },
               function (err) {
                 reject(err);
-                console.log("error with photo file");
+                console.error("error with photo file");
               },
             );
           },
           function (err) {
             reject(err);
-            console.log("error with photo file");
+            console.error("error with photo file");
           },
         );
       },

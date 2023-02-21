@@ -3,7 +3,7 @@ import { Marker, TileLayer, Map } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, SpinLoading } from "antd-mobile";
 
-import { wgs84togcj02 } from "../common/gpsConvert";
+import { wgs84ToGcj02 } from "../common/gpsConvert";
 
 import getCurrentPosition from "../common/getCurrentPosition";
 import { mapConfig } from "../common/map-config";
@@ -40,7 +40,7 @@ function ReactLeafletMap(props) {
     getCurrentPosition()
       .then((position) => {
         const { coords } = position;
-        const [lat, lng] = wgs84togcj02(
+        const [lat, lng] = wgs84ToGcj02(
           coords.longitude,
           coords.latitude,
           true,

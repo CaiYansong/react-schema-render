@@ -11,7 +11,7 @@ const a = 6378245.0;
 const ee = 0.00669342162296594323;
 
 // 百度坐标系转火星坐标系
-function bd09togcj02(bd_lon, bd_lat) {
+export function bd09ToGcj02(bd_lon, bd_lat) {
   const x = bd_lon - 0.0065;
   const y = bd_lat - 0.006;
   const z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_PI);
@@ -22,21 +22,21 @@ function bd09togcj02(bd_lon, bd_lat) {
   const gcj = [gcj_lon, gcj_lat]; // 火星坐标系值
 
   // 火星坐标系转wgs84
-  const wgs = [gcj02towgs84(gcj[0], gcj[1])];
+  const wgs = [gcj02ToWgs84(gcj[0], gcj[1])];
   return wgs;
 }
 
 // 火星坐标系转wgs84
-export function gcj02towgs84(gcj_lon, gcj_lat) {
+export function gcj02ToWgs84(gcj_lon, gcj_lat) {
   gcj_lon = Number(gcj_lon);
   gcj_lat = Number(gcj_lat);
-  if (out_of_china(gcj_lon, gcj_lat)) {
+  if (outOfChina(gcj_lon, gcj_lat)) {
     // 不在国内，不进行纠偏
     const back = [gcj_lat, gcj_lon];
     return back;
   } else {
-    let dlon = transformlon(gcj_lon - 105.0, gcj_lat - 35.0);
-    let dlat = transformlat(gcj_lon - 105.0, gcj_lat - 35.0);
+    let dlon = transformLon(gcj_lon - 105.0, gcj_lat - 35.0);
+    let dlat = transformLat(gcj_lon - 105.0, gcj_lat - 35.0);
     const radlat = (gcj_lat / 180.0) * PI;
     let magic = Math.sin(radlat);
     magic = 1 - ee * magic * magic;
@@ -53,7 +53,7 @@ export function gcj02towgs84(gcj_lon, gcj_lat) {
 }
 
 // 火星坐标系转百度坐标系
-function gcj02tobd09(gcj_lon, gcj_lat) {
+export function gcj02ToBd09(gcj_lon, gcj_lat) {
   const z =
     Math.sqrt(gcj_lon * gcj_lon + gcj_lat * gcj_lat) +
     0.00002 * Math.sin(gcj_lat * x_PI);
@@ -66,10 +66,10 @@ function gcj02tobd09(gcj_lon, gcj_lat) {
 }
 
 // wgs84转火星坐标系
-export function wgs84togcj02(wgs_lon, wgs_lat, isWgs84 = false) {
+export function wgs84ToGcj02(wgs_lon, wgs_lat, isWgs84 = false) {
   wgs_lon = Number(wgs_lon);
   wgs_lat = Number(wgs_lat);
-  if (out_of_china(wgs_lon, wgs_lat)) {
+  if (outOfChina(wgs_lon, wgs_lat)) {
     // 不在国内
     const back = [wgs_lon, wgs_lat];
     return back;
@@ -77,8 +77,8 @@ export function wgs84togcj02(wgs_lon, wgs_lat, isWgs84 = false) {
     if (isWgs84) {
       return [wgs_lat, wgs_lon];
     } else {
-      let dwgs_lon = transformlon(wgs_lon - 105.0, wgs_lat - 35.0);
-      let dwgs_lat = transformlat(wgs_lon - 105.0, wgs_lat - 35.0);
+      let dwgs_lon = transformLon(wgs_lon - 105.0, wgs_lat - 35.0);
+      let dwgs_lat = transformLat(wgs_lon - 105.0, wgs_lat - 35.0);
       const radwgs_lat = (wgs_lat / 180.0) * PI;
       let magic = Math.sin(radwgs_lat);
       magic = 1 - ee * magic * magic;
@@ -95,7 +95,7 @@ export function wgs84togcj02(wgs_lon, wgs_lat, isWgs84 = false) {
   }
 }
 
-function transformlon(lon, lat) {
+function transformLon(lon, lat) {
   let ret =
     300.0 +
     lon +
@@ -118,7 +118,7 @@ function transformlon(lon, lat) {
   return ret;
 }
 
-function transformlat(lon, lat) {
+function transformLat(lon, lat) {
   let ret =
     -100.0 +
     2.0 * lon +
@@ -141,7 +141,7 @@ function transformlat(lon, lat) {
 }
 
 // 判断是否在国内，不在国内则不做偏移
-function out_of_china(lon, lat) {
+export function outOfChina(lon, lat) {
   return (
     lon < 72.004 || lon > 137.8347 || lat < 0.8293 || lat > 55.8271 || false
   );
@@ -160,13 +160,13 @@ function out_of_china(lon, lat) {
 // document.write(result2);
 // 2.加密、解密算法封装：
 
-function Base64() {
+export function Base64() {
   // private property
-  _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
   // public method for encoding
-  this.encode = function(input) {
-    let output = '';
+  this.encode = function (input) {
+    let output = "";
     let chr1;
     let chr2;
     let chr3;
@@ -200,8 +200,8 @@ function Base64() {
   };
 
   // public method for decoding
-  this.decode = function(input) {
-    let output = '';
+  this.decode = function (input) {
+    let output = "";
     let chr1;
     let chr2;
     let chr3;
@@ -210,7 +210,7 @@ function Base64() {
     let enc3;
     let enc4;
     let i = 0;
-    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
     while (i < input.length) {
       enc1 = _keyStr.indexOf(input.charAt(i++));
       enc2 = _keyStr.indexOf(input.charAt(i++));
@@ -232,9 +232,9 @@ function Base64() {
   };
 
   // private method for UTF-8 encoding
-  _utf8_encode = function(string) {
-    string = string.replace(/\r\n/g, '\n');
-    let utftext = '';
+  _utf8_encode = function (string) {
+    string = string.replace(/\r\n/g, "\n");
+    let utftext = "";
     for (let n = 0; n < string.length; n++) {
       const c = string.charCodeAt(n);
       if (c < 128) {
@@ -252,8 +252,8 @@ function Base64() {
   };
 
   // private method for UTF-8 decoding
-  _utf8_decode = function(utftext) {
-    let string = '';
+  _utf8_decode = function (utftext) {
+    let string = "";
     let i = 0;
     let c = (c1 = c2 = 0);
     while (i < utftext.length) {
