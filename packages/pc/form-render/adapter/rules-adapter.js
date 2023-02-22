@@ -82,6 +82,7 @@ export function ruleAdapter(rule, validFuncs) {
   }
 
   // TODO: 确定校验触发时机写法
+  // TODO: required 时 select option typeof value === 'number' 时 导致选中值后还是会必填报错
   // if (trigger) {
   //   res.validateTrigger = getTrigger(trigger);
   // }
