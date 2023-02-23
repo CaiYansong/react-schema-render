@@ -133,6 +133,7 @@ function FormDialog(props, parentRef) {
       onOk={onOk}
       footer={footer}
       forceRender
+      width={dialogConf?.width}
     >
       <FormRender
         ref={formRef}
