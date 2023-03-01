@@ -184,6 +184,7 @@ const ListRender = forwardRef(function (props, parentRef) {
             formConf={props.formConf}
             search={props.search}
             filters={props.filters}
+            config={props.queryConf}
             onSearch={onSearch}
           />
         ) : (

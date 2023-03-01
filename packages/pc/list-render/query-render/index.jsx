@@ -52,8 +52,11 @@ function QueryRender(props) {
   }, [props.search, props.filters, props.schema]);
 
   function onSearch() {
-    console.log("onSearch");
-    props.onSearch && props.onSearch(form.current || {});
+    let query = form.current || {};
+    if (props.config?.queryMap) {
+      query = props.config?.queryMap(query);
+    }
+    props.onSearch && props.onSearch(query);
   }
 
   function onFormChange(cur, allValues) {
