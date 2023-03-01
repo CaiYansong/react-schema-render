@@ -93,11 +93,11 @@ function TableRender(props) {
         title: "操作",
         key: "_$actions",
         render(text, record, index) {
-          if (props.actionSlot) {
-            return props.actionSlot;
-          }
-
           const slotProps = { text, record, index };
+
+          if (Slots?.tableActionsSlot) {
+            return <Slots.tableActionsSlot {...slotProps} />;
+          }
 
           return (
             <>
