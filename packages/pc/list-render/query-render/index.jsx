@@ -66,13 +66,13 @@ function QueryRender(props) {
       key = key[0];
     }
     const timeRangeVal = cur.$timerange;
-    if (key === "$timerange" && timeRangeVal) {
+    if (key === "$timerange") {
       date = {};
       if (Array.isArray(timeRangeVal) && timeRangeVal.length === 2) {
-        date.startTime = timeRangeVal[0]?.format("YYYY-MM-DD HH:mm:ss");
+        date.beginTime = timeRangeVal[0]?.format("YYYY-MM-DD HH:mm:ss");
         date.endTime = timeRangeVal[1]?.format("YYYY-MM-DD HH:mm:ss");
       } else {
-        date.startTime = undefined;
+        date.beginTime = undefined;
         date.endTime = undefined;
       }
     }

@@ -106,6 +106,9 @@ const ListRender = forwardRef(function (props, parentRef) {
       model.query.pageSize = 10;
     }
     model.query = Object.assign(model.query, query);
+    // remove $timerange
+    const _q = _.cloneDeep(query);
+    delete _q.$timerange;
     getList(query);
   }
 
