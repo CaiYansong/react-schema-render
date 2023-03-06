@@ -106,6 +106,7 @@ const ListRender = forwardRef(function (props, parentRef) {
     if (model && model.query && !model.query.pageSize) {
       model.query.pageSize = 10;
     }
+    model.query = Object.assign(model.query, query);
     getList(query);
   }
 
