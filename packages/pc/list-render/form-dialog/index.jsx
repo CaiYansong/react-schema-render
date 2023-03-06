@@ -12,6 +12,7 @@ import FormRender from "@packages/pc/form-render";
 import "./index.less";
 
 function FormDialog(props, parentRef) {
+  const { Slots = {}, dialogConf = {} } = props;
   const [title, setTitle] = useState("新增");
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({});
@@ -56,6 +57,14 @@ function FormDialog(props, parentRef) {
     formRef.current
       .validate()
       .then(async (values) => {
+        if (dialogConf.beforeSubmit) {
+          const submitForm = await formRef.current.getSubmitFormData(form);
+          const isContinue = await dialogConf.beforeSubmit(submitForm);
+          if (isContinue === false) {
+            return;
+          }
+        }
+
         const submitForm = await formRef.current.getSubmitFormData(form);
         console.log("submitForm", submitForm);
         resolveCB.current && resolveCB.current(submitForm);
@@ -91,7 +100,6 @@ function FormDialog(props, parentRef) {
     setForm(form);
   }
 
-  const { Slots = {}, dialogConf = {} } = props;
   let footer = undefined;
   if (dialogConf?.footer) {
     footer = dialogConf?.footer;
