@@ -71,7 +71,6 @@ const ListRender = forwardRef(function (props, parentRef) {
       setListLoading(false);
       return;
     }
-    console.log("query", query);
     if (!model?.getList) {
       return;
     }
