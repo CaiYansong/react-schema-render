@@ -84,6 +84,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       })
       .catch((err) => {
         console.log(err);
+        message.error(err._message || "未知错误");
         setListLoading(false);
       });
   }
