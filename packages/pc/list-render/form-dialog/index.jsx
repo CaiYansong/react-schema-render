@@ -59,7 +59,9 @@ function FormDialog(props, parentRef) {
       .then(async (values) => {
         if (dialogConf.beforeSubmit) {
           const submitForm = await formRef.current.getSubmitFormData(form);
-          const isContinue = await dialogConf.beforeSubmit(submitForm);
+          const isContinue = await dialogConf.beforeSubmit(submitForm, {
+            cancel,
+          });
           if (isContinue === false) {
             return;
           }
