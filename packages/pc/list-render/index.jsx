@@ -194,7 +194,7 @@ const ListRender = forwardRef(function (props, parentRef) {
         ) : (
           <div className="query-render"></div>
         )}
-        <div className="header-render">
+        <div className="header-actions-render">
           {Slots.headerActionPrefix && <Slots.headerActionSuffix />}
           {props.hasCreate !== false ? (
             <Button onClick={onCreate} type="primary">
