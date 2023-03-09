@@ -75,8 +75,15 @@ const ListRender = forwardRef(function (props, parentRef) {
       return;
     }
     setListLoading(true);
+
+    // remove $timerange
+    const _q = _.cloneDeep(query);
+    if (_q.$timerange !== undefined) {
+      delete _q.$timerange;
+    }
+
     model
-      ?.getList(query)
+      ?.getList(_q)
       .then((res) => {
         setList(res.list);
         setTotal(res.pagination?.total);
@@ -107,9 +114,6 @@ const ListRender = forwardRef(function (props, parentRef) {
       model.query.pageSize = 10;
     }
     model.query = Object.assign(model.query, query);
-    // remove $timerange
-    const _q = _.cloneDeep(query);
-    delete _q.$timerange;
     getList(query);
   }
 
