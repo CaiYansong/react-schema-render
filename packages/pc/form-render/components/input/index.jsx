@@ -50,7 +50,7 @@ function InputCom(props) {
   };
 
   if (mode === "textarea") {
-    const { autosize, minRows, maxRows, onResize } = props;
+    const { autosize, minRows, maxRows, onResize } = field;
     const textareaProps = {
       ..._props,
       autoSize: autosize && {

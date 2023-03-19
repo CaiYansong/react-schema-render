@@ -1,3 +1,7 @@
+/*
+model 不要定义在组件外部，避免出现 query 异常的情况。
+- 异常情况：model 定义在组件函数外部（页面文件最外层），设置搜索条件，切换到其他页面后切换回来，上次设置的搜索条件还存在。
+*/
 import {
   forwardRef,
   useEffect,
@@ -71,13 +75,19 @@ const ListRender = forwardRef(function (props, parentRef) {
       setListLoading(false);
       return;
     }
-    console.log("query", query);
     if (!model?.getList) {
       return;
     }
     setListLoading(true);
+
+    // remove $timerange
+    const _q = _.cloneDeep(query);
+    if (_q.$timerange !== undefined) {
+      delete _q.$timerange;
+    }
+
     model
-      ?.getList(query)
+      ?.getList(_q)
       .then((res) => {
         setList(res.list);
         setTotal(res.pagination?.total);
@@ -85,6 +95,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       })
       .catch((err) => {
         console.log(err);
+        message.error(err._message || "未知错误");
         setListLoading(false);
       });
   }
@@ -106,6 +117,7 @@ const ListRender = forwardRef(function (props, parentRef) {
     if (model && model.query && !model.query.pageSize) {
       model.query.pageSize = 10;
     }
+    model.query = Object.assign(model.query, query);
     getList(query);
   }
 
@@ -184,12 +196,13 @@ const ListRender = forwardRef(function (props, parentRef) {
             formConf={props.formConf}
             search={props.search}
             filters={props.filters}
+            config={props.queryConf}
             onSearch={onSearch}
           />
         ) : (
           <div className="query-render"></div>
         )}
-        <div className="header-render">
+        <div className="header-actions-render">
           {Slots.headerActionPrefix && <Slots.headerActionSuffix />}
           {props.hasCreate !== false ? (
             <Button onClick={onCreate} type="primary">
