@@ -127,7 +127,11 @@ function ListRender(props, parentRef) {
           setList([]);
         }
         setLoading(false);
-        if (!res || res.list?.length <= 0) {
+        if (
+          !res ||
+          res?.pagination?.current != (model.query?.pageNum || 1) ||
+          res.list?.length <= 0
+        ) {
           setHasMore(false);
           return res;
         }
@@ -135,11 +139,14 @@ function ListRender(props, parentRef) {
           setHasMore(false);
           return res;
         }
-        let _list = res?.list || [];
-        if (model.query.pageNum > 1) {
-          _list = [...list, ..._list];
-        }
-        setList(_list);
+
+        setList((_l) => {
+          let _list = res?.list || [];
+          if (model.query.pageNum > 1) {
+            _list = [..._l, ..._list];
+          }
+          return _list;
+        });
         return res;
       })
       .catch((err) => {
