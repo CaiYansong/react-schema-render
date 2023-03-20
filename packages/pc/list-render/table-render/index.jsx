@@ -89,7 +89,11 @@ function TableRender(props) {
 
     if (props.hasAction !== false) {
       const { hasEdit, hasDel } = props.config || {};
+
+      const _colConf = props.config?.colConf._$actions || {};
+
       columns.push({
+        ..._colConf,
         title: "操作",
         key: "_$actions",
         render(text, record, index) {
@@ -100,7 +104,7 @@ function TableRender(props) {
           }
 
           return (
-            <>
+            <div style={{ width: _colConf?.width, maxWidth: "100%" }}>
               {Slots?.actionPrefixSlot && (
                 <Slots.actionPrefixSlot {...slotProps} />
               )}
@@ -133,7 +137,7 @@ function TableRender(props) {
               {Slots?.actionSuffixSlot && (
                 <Slots.actionSuffixSlot {...slotProps} />
               )}
-            </>
+            </div>
           );
         },
       });
