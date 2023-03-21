@@ -151,12 +151,14 @@ function TableRender(props) {
       <Table
         className="table-render"
         rowKey={props.idKey || "id"}
+        rowSelection={config?.rowSelection}
         columns={columns}
         dataSource={props.list}
         pagination={false}
         scroll={config.scroll}
         expandable={config.expandable}
         loading={props.loading}
+        onRow={config?.onRow}
       />
     </div>
   );
