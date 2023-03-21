@@ -72,6 +72,8 @@ const ListRender = forwardRef(function (props, parentRef) {
       const { pageNum = 1, pageSize = 10 } = model?.query || {};
       setList(list.slice(pageSize * (pageNum - 1), pageNum * pageSize));
       setTotal(list.length);
+      props.onGetListEnd &&
+        props.onGetListEnd({ list, pagination: { pageNum, pageSize } });
       setListLoading(false);
       return;
     }
@@ -91,6 +93,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       .then((res) => {
         setList(res.list);
         setTotal(res.pagination?.total);
+        props.onGetListEnd && props.onGetListEnd(res);
         setListLoading(false);
       })
       .catch((err) => {
