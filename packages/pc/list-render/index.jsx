@@ -56,7 +56,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       }
       model.query.pageNum = 1;
     }
-    getList();
+    !props.closeAutoRequest && getList();
   }, []);
 
   useEffect(() => {
