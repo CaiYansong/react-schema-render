@@ -191,7 +191,7 @@ const ListRender = forwardRef(function (props, parentRef) {
   const { Slots = {} } = props;
 
   return (
-    <div className="list-render">
+    <div className={`list-render ${props.className}`}>
       <div className="list-header">
         {props.hasQuery !== false ? (
           <QueryRender
