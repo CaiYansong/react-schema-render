@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import React from "react";
 import { Button, message } from "antd";
 import _ from "lodash";
 
@@ -206,7 +207,7 @@ const ListRender = forwardRef(function (props, parentRef) {
           <div className="query-render"></div>
         )}
         <div className="header-actions-render">
-          {Slots.headerActionPrefix && <Slots.headerActionSuffix />}
+          {Slots.headerActionPrefix && <Slots.headerActionPrefix />}
           {props.hasCreate !== false ? (
             <Button onClick={onCreate} type="primary">
               新增
