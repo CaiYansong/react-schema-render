@@ -40,7 +40,7 @@ function TableRender(props) {
             dataIndex: name,
             render: (text, record, index) => {
               const Slot = Slots[name];
-              const slotProps = { text, record, index };
+              const slotProps = { text, record, index, field };
               return <Slot {...slotProps} />;
             },
           });
