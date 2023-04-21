@@ -28,12 +28,14 @@ const ListRender = forwardRef(function (props, parentRef) {
   const [list, setList] = useState([]);
   const [listLoading, setListLoading] = useState(false);
   const formDialogRef = useRef();
+  const queryRef = useRef();
 
   useImperativeHandle(parentRef, () => ({
     getList,
     onSearch,
     forceUpdate,
     formDialogRef,
+    queryRef,
   }));
 
   const { schema = {}, config = {}, model = {} } = props;
@@ -196,6 +198,7 @@ const ListRender = forwardRef(function (props, parentRef) {
       <div className="list-header">
         {props.hasQuery !== false ? (
           <QueryRender
+            ref={queryRef}
             schema={props.schema}
             formConf={props.formConf}
             search={props.search}

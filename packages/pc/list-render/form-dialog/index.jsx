@@ -138,7 +138,7 @@ function FormDialog(props, parentRef) {
     <Modal
       wrapClassName="form-dialog"
       title={title}
-      open={open}
+      visible={open}
       onCancel={cancel}
       onOk={onOk}
       footer={footer}

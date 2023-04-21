@@ -1,14 +1,23 @@
-import { useState, useRef, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import React from "react";
 import { Button } from "antd";
 
 import FormRender from "@packages/pc/form-render";
 
 import "./index.less";
 
-function QueryRender(props) {
+function QueryRender(props, parentRef) {
   // TODO: query 特有 schema 格式处理
   const [schema, setSchema] = useState(props.schema);
   const form = useRef();
+
+  useImperativeHandle(parentRef, () => ({ formRef: form }));
 
   useEffect(() => {
     const list = [];
@@ -106,4 +115,4 @@ function QueryRender(props) {
   );
 }
 
-export default QueryRender;
+export default forwardRef(QueryRender);
