@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { PullToRefresh, SearchBar, Button, InfiniteScroll } from "antd-mobile";
 
 import CardItem from "./card-item";
@@ -19,7 +13,7 @@ function ListRender(props, parentRef) {
     listData,
     children,
     itemTitleKey = "name",
-    stickyTop = "8vw",
+    stickyTop = "10vw",
     // 下拉刷新
     hasPullRefresh,
     hasSearch = true,
@@ -127,17 +121,18 @@ function ListRender(props, parentRef) {
           setList([]);
         }
         setLoading(false);
-        if (
-          !res ||
-          res?.pagination?.current != (model.query?.pageNum || 1) ||
-          res.list?.length <= 0
-        ) {
+        if (!res || res?.pagination?.current != (model.query?.pageNum || 1) || res.list?.length <= 0) {
           setHasMore(false);
           return res;
         }
         if (model.query.pageNum > res?.pagination?.current) {
           setHasMore(false);
           return res;
+        }
+        // 计算数据，确认是否需要继续加载更多
+        const pageTotal = (model.query.pageNum || 1) * (model.query.pageSize || 10);
+        if (pageTotal >= res.pagination?.total) {
+          setHasMore(false);
         }
 
         setList((_l) => {
@@ -151,6 +146,7 @@ function ListRender(props, parentRef) {
       })
       .catch((err) => {
         setLoading(false);
+        setHasMore(false);
         console.error("Error List Render getList: ", err);
       });
   }
@@ -184,7 +180,7 @@ function ListRender(props, parentRef) {
           </div>
         </div>
       ) : null}
-      <PullToRefresh disabled={!hasPullRefresh} onRefresh={onSearch}>
+      <PullToRefresh disabled={hasPullRefresh === true} onRefresh={onSearch}>
         {hasHead ? <TableItem fieldList={fieldList} isHead></TableItem> : null}
         {list?.map((item, index) => {
           const itemProps = {
@@ -216,10 +212,7 @@ function ListRender(props, parentRef) {
           }
           if (mode === "list") {
             return (
-              <div
-                className="list-render-list-item"
-                key={`${item.id}-${index}`}
-              >
+              <div className="list-render-list-item" key={`${item.id}-${index}`}>
                 {children ? (
                   React.Children.map(children, (childItem) => {
                     return React.cloneElement(childItem, {
@@ -248,9 +241,7 @@ function ListRender(props, parentRef) {
             <div key={`${item.id}-${index}`}>{item.id}</div>
           );
         })}
-        {hasMore ? (
-          <InfiniteScroll loadMore={onLoadMore} hasMore={_hasMore} />
-        ) : null}
+        {hasMore ? <InfiniteScroll loadMore={onLoadMore} hasMore={_hasMore} /> : null}
       </PullToRefresh>
     </div>
   );
